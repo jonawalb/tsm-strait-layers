@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Defense Budget Allocator | Taiwan Security Monitor</title>
+<meta name="description" content="Spend a defense budget across capability categories and test the mix against a simple, notional model of an attack.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="budget-allocator.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="stage">
+    <section class="card pad">
+      <div class="card-h">
+        <p class="eyebrow" id="strip-eyebrow">Notional crossing <span class="notional">notional</span></p>
+        <div class="card-actions"><span class="num fine" id="clock"></span><button type="button" class="btn solid" id="play">Play the crossing</button></div>
+      </div>
+      <div class="stripwrap"><svg id="strip" class="strip" role="img" aria-label="Stylized Taiwan Strait crossing. A PLA amphibious wave sails from the embarkation coast on the left toward Taiwan on the right, through bands showing how far each of Taiwan's weapon layers reaches and how strong it is. Ships marked with an X are engaged."></svg></div>
+      <ul class="st-legend" id="strip-legend" aria-hidden="true"></ul>
+      <p class="fine" id="strip-note">Bands show how far each layer reaches from Taiwan's coast; darker means stronger after PLA suppression. Triangles on the right are Taiwan's mobile launchers and rectangles its large platforms; faded ones did not survive the opening strikes.</p>
+    </section>
+
+    <section class="card pad">
+      <div class="card-h"><p class="eyebrow" id="alloc-title">Your allocation</p><span class="fine">Drag a boundary in the bar, or use the sliders</span></div>
+      <div class="dragbar" id="dragbar" aria-hidden="true"></div>
+      <div class="reference" id="reference"></div>
+      <div class="sliders" id="sliders"></div>
+      <p class="fine" id="alloc-note">Moving one slider rescales the unlocked categories so the total stays fixed. Lock a category to hold its amount. Unit counts use notional unit costs and only give a sense of scale.</p>
+    </section>
+
+    <section class="card pad">
+      <p class="eyebrow" id="cmp-title">Compare</p>
+      <div class="tablewrap" id="compare"></div>
+      <p class="fine" id="cmp-note">Best value in each column is highlighted. All plans use the same budget and PLA scenario.</p>
+    </section>
+  </div>
+
+  <aside class="panel" aria-label="Budget, results and scenario">
+    <div class="sec">
+      <p class="eyebrow">Country</p>
+      <div id="countries" role="group" aria-label="Country"></div>
+      <p class="fine" id="country-sub"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">1 · Pick the money</p>
+      <div class="choices one" id="budgets"></div>
+      <p class="fine" id="budget-note"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">2 · Start from a mix</p>
+      <div class="choices" id="presets"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Result <span class="notional">notional</span></p>
+      <div class="status" id="status" aria-live="polite"></div>
+      <div class="tiles" id="tiles"></div>
+      <p class="why" id="why"></p>
+      <p class="eyebrow sm">Layer strength and share of the force each engages</p>
+      <ul class="layers" id="layers"></ul>
+    </div>
+    <div class="sec">
+      <p class="eyebrow" id="scen-title">3 · Set the PLA scenario</p>
+      <div class="slider"><div class="sl-h"><label for="supp" id="supp-l">PLA suppression strikes</label><output id="supp-out"></output></div>
+        <input type="range" id="supp" min="0" max="90" step="5"><small id="supp-h">Share of Taiwan's unprotected forces the opening missile and air strikes would destroy.</small></div>
+      <div class="slider"><div class="sl-h"><label for="warn" id="warn-l">Warning before the assault</label><output id="warn-out"></output></div>
+        <input type="range" id="warn" min="1" max="14" step="1"><small id="warn-h">Days Taiwan has to lay mines before the fleet sails.</small></div>
+      <details class="params" id="params">
+        <summary>Edit the notional parameters</summary>
+        <div id="params-body"></div>
+      </details>
+    </div>
+    <div class="sec row-btns">
+      <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link</button>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+   <div id="cx-left" hidden></div>
+   <div id="tw-left">
+    <h2>How to read it</h2>
+    <p>Pick a budget, then divide it across eight kinds of capability. The model sends a notional PLA amphibious wave across the Strait and reports four things: the share of the crossing force that comes under effective attack, how many hours of the crossing are spent inside at least one working layer of Taiwan's fires, the share of Taiwan's shooters that survive the PLA's opening strikes, and a resilience score for how well the force keeps working after it is hit.</p>
+    <p>The comparison table runs the same budget and the same PLA scenario through three or four mixes. The <b>porcupine</b> mix buys many small, mobile, cheap systems. The <b>legacy platforms</b> mix buys fighters, submarines and large ships. For the NT$145.7bn line, the <b>cabinet mix</b> maps the cabinet's actual September 3, 2026 request onto the model's categories.</p>
+    <h2 class="mt">How the model works</h2>
+    <p>Every number in the model is <span class="notional">notional</span>. It is a teaching model built to show the structure of the argument over Taiwan's defense spending. It does not predict what any real program would do.</p>
+    <ol class="method">
+      <li><b>Diminishing returns.</b> Each category starts from a notional baseline <i>b</i> that Taiwan already has. Spending <i>x</i> raises capability to <code>E = 1 − (1 − b)·e<sup>−x/k</sup></code>, so the first billions buy the most. The scale <i>k</i> is small for cheap systems (mines 18, C4ISR 35, drones 45) and large for expensive ones (air defense 140, platforms 450), in NT$bn.</li>
+      <li><b>Suppression.</b> The PLA opens with missile and air strikes of strength <i>s</i>. Mobile launchers survive at <code>1 − s·(1 − 0.55·E<sub>C4ISR</sub>)·(1 − 0.35·E<sub>air</sub>)</code>. Large platforms are few and sit at known bases, so they survive at <code>1 − 1.1·s·(1 − 0.35·E<sub>air</sub>)</code>.</li>
+      <li><b>Tracking and sustainment.</b> Shooters need a track: <code>0.55 + 0.45·E<sub>C4ISR</sub>·(1 − 0.4·s)</code>. They need ammunition to keep firing: <code>0.6 + 0.4·E<sub>ammo</sub></code>. Drones carry some of their own sensing and depend on tracking half as much.</li>
+      <li><b>Mines</b> need no track, but only the share <code>1 − e<sup>−days/3.5</sup></code> is laid before the assault.</li>
+      <li><b>Layer strength</b> is capability × survival × tracking × sustainment. Each layer can engage at most a notional share of the force (coastal missiles 60%, drones 50%, mines and platforms 45%, strike 30%). The share engaged is <code>1 − Π(1 − p)</code> across layers.</li>
+      <li><b>Hours under fire</b> counts the stretch of a 160 km crossing at 12 knots where the strengths of all layers that reach it add up to at least 0.3. Layers below 0.1 are drawn faded as too weak to count. Notional reaches from Taiwan's coast: mines 15 km, drones 60 km, coastal missiles 150 km, strike and platforms the whole crossing.</li>
+      <li><b>Resilience</b> is <code>100 × (0.3·E<sub>C4ISR</sub> + 0.25·E<sub>ammo</sub> + 0.2·E<sub>air</sub> + 0.25·mobile survival)</code>.</li>
+    </ol>
+    <p>What the model leaves out matters: U.S. and allied forces, the PLA's own mine clearance and air defense, weather, deception, training, maintenance, delivery schedules, deterrence in peacetime and the gray-zone missions that large ships and fighters perform every day. A platform that does poorly here can still be the right buy for those jobs.</p>
+   </div>
+  </div>
+  <div class="col">
+   <div id="cx-right" hidden></div>
+   <div id="tw-right">
+    <h2>The real budgets</h2>
+    <div class="tablewrap"><table id="real">
+      <thead><tr><th>Line in the NT$145.7bn request</th><th>NT$bn</th><th>Model category</th></tr></thead>
+      <tbody id="realtable"></tbody>
+    </table></div>
+    <p class="fine mt8">Mapping: the NT$13.0bn line covers seven programs led by the mid-tier anti-tactical ballistic missile system (Strong Bow); the model treats all of it as air defense. The uncrewed line buys more than 40,000 coastal attack drones, 600 coastal reconnaissance drones and 100 small one-way uncrewed boats. The classified programs and the personnel lines cannot be scored and go to "Not modeled".</p>
+    <h2 class="mt">Related budget lines</h2>
+    <p class="fine">Figures the model does not use, for context on the FY2026 and FY2027 fight.</p>
+    <ul class="src">
+      <li><b>FY2026 special budget, NT$8.81bn.</b> The first appropriation under the NT$780bn act, passed by the Legislative Yuan on May 29, 2026 with a cut of NT$2 million. <a href="https://www.cna.com.tw/news/aipl/202605290081.aspx" target="_blank" rel="noopener">CNA, May 29, 2026</a></li>
+      <li><b>Uncrewed systems split across two years.</b> Of the NT$55.9bn uncrewed line in the supplementary request, NT$13.8bn is for 2026 and NT$42.1bn for 2027, with initial capability targeted for 2027. <a href="https://udn.com/news/story/124984/9733451" target="_blank" rel="noopener">United Daily News, Sept. 4, 2026</a></li>
+      <li><b>Strong Bow in the FY2027 general budget.</b> MND's FY2027 budget book lists the Strong Bow missile system as a regular line of about NT$36.0bn through 2032, with deliveries from 2028. <a href="https://def.ltn.com.tw/article/breakingnews/5561756" target="_blank" rel="noopener">Liberty Times, Sept. 3, 2026</a></li>
+      <li><b>FY2027 general budget.</b> The cabinet approved it on Aug. 20, 2026, with total defense spending of NT$1.1225 trillion, above 3% of GDP. <a href="https://www.cna.com.tw/news/aipl/202608200111.aspx" target="_blank" rel="noopener">CNA, Aug. 20, 2026</a></li>
+      <li><b>FY2026 general budget as proposed.</b> MND NT$561.4bn, within a NT$949.5bn defense total that also counts the coast guard and veterans' pensions (3.32% of GDP). <a href="https://www.dgbas.gov.tw/News_Content.aspx?n=3602&amp;s=235226" target="_blank" rel="noopener">DGBAS, Aug. 21, 2025</a></li>
+      <li><b>Drone industry act.</b> The legislature's act directing NT$240bn over six years (NT$40bn a year) through annual budgets, passed Aug. 27, was promulgated on Sept. 11, 2026. <a href="https://udn.com/news/story/10930/9748144" target="_blank" rel="noopener">CNA via UDN, Sept. 11, 2026</a></li>
+      <li><b>FY2027 defense ministry budget.</b> The general budget lists NT$690.1bn for the defense ministry's agencies: NT$204.2bn for military pay and allowances, NT$183.0bn for logistics, ammunition and transport, nearly NT$134.2bn for general weapons and equipment, and nearly NT$112.1bn in classified spending. Defense as a spending function is NT$683.6bn, up NT$134.7bn. <a href="https://www.cna.com.tw/news/aipl/202610015002.aspx" target="_blank" rel="noopener">CNA, Oct. 1, 2026</a></li>
+      <li><b>Next step.</b> The Legislative Yuan referred the supplementary request and the FY2027 general budget to committee on Oct. 2, 2026, after first reading. <a href="https://www.cna.com.tw/news/aipl/202610020225.aspx" target="_blank" rel="noopener">CNA, Oct. 2, 2026</a>. Premier Cho Jung-tai asked for a third reading of the supplementary by the end of November; opposition legislators said they would review it strictly. <a href="https://udn.com/news/story/6656/9789469" target="_blank" rel="noopener">UDN, Oct. 2, 2026</a>. The defense ministry said on Sept. 30 that procurement would speed up once the legislature passes the budget. <a href="https://newtalk.tw/news/view/2026-09-30/1062668" target="_blank" rel="noopener">Newtalk, Sept. 30, 2026</a></li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Taiwan Security Monitor analysis: J. Walberg, "Taiwan's NT$607.6 Billion Supplementary Budget and the Fight Over Who Controls the Purse," September 7, 2026. Context for all three budgets and the legislative fight over them.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202609030184.aspx" target="_blank" rel="noopener">政院通過追加預算含國防1457億</a>, September 3, 2026. Line-by-line breakdown of the NT$145.7bn defense request from the budget directorate (DGBAS).</li>
+      <li>Focus Taiwan (CNA), <a href="https://focustaiwan.tw/politics/202609030018" target="_blank" rel="noopener">Cabinet proposes US$19.12 billion supplementary budget</a>, September 3, 2026. NT$607.6bn total; NT$145.7bn defense; drone and uncrewed-boat quantities.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202605080239.aspx" target="_blank" rel="noopener">國防特別條例三讀通過預算上限7800億</a>, May 8, 2026. The NT$780bn special act and the items it names.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202605110212.aspx" target="_blank" rel="noopener">總統令公布7800億國防特別條例</a>, May 11, 2026. The presidential order promulgating the act.</li>
+      <li>Taiwan FactCheck Center, <a href="https://tfc-taiwan.org.tw/fact-check-reports/taiwan-1point25-trillion-defense-budget-us-arms-sales/" target="_blank" rel="noopener">NT$1.25 trillion special defense budget</a>, December 3, 2025. The eight-year 2026–2033 plan and its categories.</li>
+      <li>Model structure adapted from the PLA crossing mode of TSM's <a href="../strait-layers/">Strait Layers</a>. Unit costs, baselines, reaches, weights and all coefficients are notional.</li>
+    </ul>
+   </div>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  import { SITE } from '../../shared/js/site.js';
+  mountChrome({ title: 'Defense Budget Allocator', category: 'Force & wargame models', sub: SITE === 'tsm'
+    ? 'Spend Taiwan\'s special or supplementary defense budget and test the mix against a simple, notional crossing model.'
+    : 'Spend a real defense budget from Taiwan or one of twelve other Indo-Pacific and European countries, and test the mix against a simple, notional model.' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

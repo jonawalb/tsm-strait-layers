@@ -1,0 +1,140 @@
+/* Taiwan Security Monitor site theme for TSM Interactive (and taiwanmonitor.com/interactive).
+   Makes the interactive site read as a section of tsm.schar.gmu.edu: white page, Mason green #005239 bars,
+   orange #e97132 rules, gold #ffc733 current-page marks, Figtree headings, Open Sans text.
+   Values come from the parent site's theme CSS (see scratchpad STYLE-NOTES). The parent has no dark mode;
+   the dark palette below keeps the same hues.
+   Loaded on the TSM build only: scripts/build_site.py links it right after shared/css/tsm.css in every page
+   (tool CSS still overrides its tokens) and adds the masthead. The Interactive Deterrence build never sees it.
+   The "Trailer" graphics skin still wins: its token rules are more specific, and the chrome rules here
+   skip pages showing it. */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  color-scheme: light;
+  --bg: #ffffff; --panel: #ffffff; --ink: #000000; --muted: #646464; --faint: #6d6d6d; --rule: #dcd7ca; --chip: #eff0e7;
+  --brand: #005239; --brand-ink: #005239; --accent: #e97132; --focus: #bf5214;
+  --gold: #ffc733; --deep: #003505; --title-ink: #42413f; --bar-ink: #ffffff;
+  --display: "Figtree", "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  --body: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --shadow: 0 0 2px rgba(0, 0, 0, .3);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0b1411; --panel: #111d18; --ink: #e6ece9; --muted: #a3b1ab; --faint: #8a9893; --rule: #26352f; --chip: #16231e;
+    --brand: #005239; --brand-ink: #6fd3ae; --accent: #f08a52; --focus: #f08a52;
+    --title-ink: #e6ece9; --shadow: 0 0 0 1px rgba(255, 255, 255, .04);
+  }
+}
+
+/* Type */
+:root:not([data-skin="trailer"]) body { font-family: var(--body); }
+:root:not([data-skin="trailer"]) h1, :root:not([data-skin="trailer"]) .tsm-title { font-family: var(--display); font-weight: 700; color: var(--title-ink); letter-spacing: .005em; }
+:root:not([data-skin="trailer"]) h2, :root:not([data-skin="trailer"]) h3 { font-family: var(--display); }
+:root:not([data-skin="trailer"]) .eyebrow, :root:not([data-skin="trailer"]) .tsm-org { font-family: var(--body); font-weight: 600; letter-spacing: .06em; color: var(--brand-ink); }
+
+/* Square, lightly shadowed boxes like the parent site's post cards */
+:root:not([data-skin="trailer"]) :is(.card, .panel, .mapbox, .tablewrap, .tooltip, .status) { border-radius: 2px; }
+:root:not([data-skin="trailer"]) :is(.card, .panel) { box-shadow: var(--shadow); }
+:root:not([data-skin="trailer"]) :is(.btn, .choices button, .tsm-crumbs a) { border-radius: 3px; }
+:root:not([data-skin="trailer"]) .btn.solid:hover { background: var(--deep); border-color: var(--deep); }
+
+/* ---------- Masthead (static HTML added by the build) ---------- */
+.tsm-mast { font-family: var(--body); color: var(--ink); }
+.tsm-mast a { text-decoration: none; }
+.tsm-mast-in { max-width: 1400px; margin: 0 auto; padding-block: 14px 6px; display: grid; grid-template-columns: auto 1fr; grid-template-areas: "logo site" "back site"; gap: 4px 24px; align-items: center; }
+.tsm-mast-logo { grid-area: logo; display: inline-flex; align-items: center; gap: 4px; color: #000; }
+.tsm-mast-logo img { width: 72px; height: 72px; }
+.tsm-mast-logo span { font: 700 21px/1.08 "Figtree", "Open Sans", Arial, sans-serif; letter-spacing: -.01em; }
+.tsm-mast-site { grid-area: site; justify-self: end; text-align: right; }
+.tsm-mast-site a { display: block; font: 700 27px/1.15 var(--display); color: var(--brand-ink); letter-spacing: -.01em; }
+.tsm-mast-site span { display: block; margin-top: 2px; font: 400 15px/1.3 var(--body); color: var(--muted); }
+.tsm-mast-back { grid-area: back; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--brand-ink); padding-block: 4px; justify-self: start; }
+.tsm-mast-back svg { width: 17px; height: 17px; flex: none; }
+.tsm-mast-back:hover span { text-decoration: underline; }
+@media (prefers-color-scheme: dark) { .tsm-mast-logo { color: var(--ink); } .tsm-mast-logo img { background: #fff; border-radius: 50%; } }
+
+/* Green navigation band, full bleed (the parent's main navigation bar) */
+.tsm-mast-nav { background: var(--brand); box-shadow: 0 0 0 100vmax var(--brand); clip-path: inset(0 -100vmax); color: var(--bar-ink); position: relative; z-index: 40; }
+.tsm-mast-nav-in { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 4px 18px; min-height: 52px; }
+.tsm-mast-home { display: inline-grid; place-items: center; width: 34px; height: 34px; color: var(--bar-ink); flex: none; }
+.tsm-mast-home svg { width: 19px; height: 19px; }
+.tsm-mast-cur, .tsm-mast .tsm-bar-home { position: relative; font: 500 15.3px/1.2 var(--body); text-transform: uppercase; letter-spacing: -.01em; color: var(--bar-ink) !important; padding-block: 6px; }
+.tsm-mast-cur::after, .tsm-mast .tsm-bar-home::after { content: ""; position: absolute; left: 0; right: 0; bottom: -9px; height: 4px; transform: skew(-30deg); background: var(--gold); }
+.tsm-mast-nav-in:has(.tsm-bar) .tsm-mast-cur { display: none; }
+
+/* The shared site bar (chrome.js), docked inside the green band */
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar { flex: 1; min-width: 0; max-width: none; margin: 0; border: 0; font-family: var(--body); color: var(--bar-ink); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-in { min-height: 52px; padding-block: 8px; gap: 8px 16px; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-home img { display: none; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-home span { display: inline; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-btn { color: var(--bar-ink); border-color: rgba(255, 255, 255, .45); font: 500 14px var(--body); text-transform: uppercase; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-btn:hover, :root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-btn[aria-expanded="true"] { border-color: var(--gold); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-search input { background: #fff; color: #000; border-color: #fff; border-radius: 2px; font-family: var(--body); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-search input::placeholder { color: #646464; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-step a { color: var(--bar-ink); border-color: rgba(255, 255, 255, .45); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-step a:hover { border-color: var(--gold); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-step-n { color: #d5e6de; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-bar :focus-visible, .tsm-mast-nav :focus-visible { outline: 2px solid var(--gold) !important; outline-offset: 2px; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-menu { color: var(--ink); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); border-radius: 2px; }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-menu-g p { font-family: var(--body); color: var(--brand-ink); }
+:root:not([data-skin="trailer"]) .tsm-mast .tsm-menu-g a[aria-current] { box-shadow: inset 4px 0 0 var(--gold); }
+.tsm-mast .skin-switch { color: #d5e6de; }
+.tsm-mast .skin-switch .skin-seg { border-color: rgba(255, 255, 255, .45); }
+.tsm-mast .skin-switch button { color: var(--bar-ink); }
+.tsm-mast .skin-switch button[aria-pressed="true"] { background: var(--gold); color: #000; }
+@media (max-width: 760px) {
+  .tsm-mast-in { grid-template-columns: 1fr; grid-template-areas: "logo" "back"; justify-items: center; padding-block: 12px 4px; }
+  .tsm-mast-site { display: none; }
+  .tsm-mast-logo img { width: 60px; height: 60px; }
+  .tsm-mast-logo span { font-size: 18px; }
+  .tsm-mast-back { justify-self: center; font-size: 14px; }
+  .tsm-mast-nav-in { gap: 4px 10px; align-items: flex-start; }
+  .tsm-mast-home { margin-top: 9px; }
+  :root:not([data-skin="trailer"]) .tsm-mast .tsm-bar-home span { display: inline; }
+  .tsm-mast-cur::after, .tsm-mast .tsm-bar-home::after { bottom: -5px; }
+}
+@media print { .tsm-mast { display: none; } }
+
+/* Trailer skin on a game page: the band keeps its place but takes the night colours. */
+:root[data-skin="trailer"] .tsm-mast-nav { background: var(--panel); box-shadow: 0 0 0 100vmax var(--panel); }
+:root[data-skin="trailer"] .tsm-mast-in { color: var(--ink); }
+:root[data-skin="trailer"] .tsm-mast-logo { color: var(--ink); }
+:root[data-skin="trailer"] .tsm-mast-logo img { background: #fff; border-radius: 50%; }
+:root[data-skin="trailer"] .tsm-mast .tsm-bar { border: 0; margin: 0; max-width: none; flex: 1; }
+:root[data-skin="trailer"] .tsm-mast .tsm-bar-home img { display: none; }
+:root[data-skin="trailer"] .tsm-mast-cur::after, :root[data-skin="trailer"] .tsm-mast .tsm-bar-home::after { background: var(--accent); }
+
+/* ---------- Tool header and footer (chrome.js) ---------- */
+:root:not([data-skin="trailer"]) .tsm-head { border-bottom: 4px double var(--accent); padding-block: 22px 14px; }
+:root:not([data-skin="trailer"]) .tsm-head .tsm-brand img, :root:not([data-skin="trailer"]) header.site .brand img { display: none; }
+:root:not([data-skin="trailer"]) .tsm-sub { color: var(--muted); font-size: 15px; }
+:root:not([data-skin="trailer"]) .tsm-foot { margin-top: 44px; padding-block: 30px; border-top: 0; background: var(--brand); box-shadow: 0 0 0 100vmax var(--brand); clip-path: inset(0 -100vmax); color: #fff; font-size: 13.5px; }
+:root:not([data-skin="trailer"]) .tsm-foot a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+:root:not([data-skin="trailer"]) .tsm-foot a:hover { color: var(--gold); }
+:root:not([data-skin="trailer"]) .tsm-foot img { width: 44px; height: 44px; background: #fff; border-radius: 50%; }
+:root:not([data-skin="trailer"]) .tsm-foot :focus-visible { outline-color: var(--gold) !important; }
+
+/* ---------- Landing page (hub.css) ---------- */
+:root:not([data-skin="trailer"]) .site-tsm > .tsm-head .tsm-brand img, :root:not([data-skin="trailer"]) .site-tsm > .tsm-head .tsm-org { display: none; }
+:root:not([data-skin="trailer"]) .site-tsm > .tsm-head .hub-word { font-family: var(--display); color: var(--title-ink); font-size: 34px; }
+:root:not([data-skin="trailer"]) .hero h1 { color: var(--brand-ink); font-weight: 700; }
+:root:not([data-skin="trailer"]) .hero-map { border-radius: 2px; }
+:root:not([data-skin="trailer"]) .search input { border-radius: 2px; font-family: var(--body); }
+:root:not([data-skin="trailer"]) .cats button { border-radius: 3px; background: var(--panel); }
+:root:not([data-skin="trailer"]) .cats button b { font-family: var(--body); font-weight: 600; font-size: 14.5px; }
+:root:not([data-skin="trailer"]) .cat-h { border-bottom: 4px double var(--accent); padding-bottom: 8px; }
+:root:not([data-skin="trailer"]) .cat-h h2 { color: var(--brand-ink); font-weight: 700; }
+:root:not([data-skin="trailer"]) .tool { border-radius: 2px; border-color: transparent; box-shadow: var(--shadow); }
+:root:not([data-skin="trailer"]) a.tool:hover { border-color: var(--brand-ink); box-shadow: 0 6px 18px rgba(0, 0, 0, .14); }
+:root:not([data-skin="trailer"]) .tools.featured .tool { border: 1px solid transparent; border-top: 4px solid var(--accent); }
+:root:not([data-skin="trailer"]) .card-body h3 { font-family: var(--body); font-weight: 600; color: var(--brand-ink); }
+:root:not([data-skin="trailer"]) .card-cat { font-family: var(--body); }
+:root:not([data-skin="trailer"]) .week { border-radius: 2px; border-left-color: var(--brand); box-shadow: var(--shadow); }
+:root:not([data-skin="trailer"]) .wk-tile { border-radius: 2px; background: var(--chip); border-color: transparent; }
+:root:not([data-skin="trailer"]) .wk-h h2 { color: var(--brand-ink); }
+:root:not([data-skin="trailer"]) .wk-k { font-family: var(--body); }
+:root:not([data-skin="trailer"]) .help { border-radius: 2px; }
+:root:not([data-skin="trailer"]) .help-btn { border-radius: 3px; }
+:root:not([data-skin="trailer"]) .lock-badge { background: var(--focus); }

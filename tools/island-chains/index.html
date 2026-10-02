@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Island Chains &amp; Access | Taiwan Security Monitor</title>
+<meta name="description" content="The first and second island chains, U.S. and allied military access sites, and which PLA missile classes can reach them.">
+<meta property="og:title" content="Island Chains &amp; Access | Taiwan Security Monitor">
+<meta property="og:description" content="Click a U.S. or allied site to see which PLA missiles reach it, or pick a PLA ring to see which sites fall inside.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="island-chains.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="ic-mapbox">
+      <svg id="ic-map" role="img" aria-label="Map of the western Pacific with the first and second island chains, U.S. and allied sites, and PLA missile range rings"></svg>
+      <div class="ic-bar" role="toolbar" aria-label="Map tools">
+        <button type="button" id="ic-zin" aria-label="Zoom in">+</button>
+        <button type="button" id="ic-zout" aria-label="Zoom out">−</button>
+        <button type="button" data-box="region">Region</button>
+        <button type="button" data-box="taiwan">Taiwan</button>
+        <button type="button" data-box="luzon">Luzon</button>
+        <button type="button" data-box="guam">Guam</button>
+        <button type="button" id="ic-measure" aria-pressed="false">Measure</button>
+        <button type="button" id="ic-tour" class="solid">Walkthrough</button>
+        <button type="button" id="ic-copy">Copy link</button>
+      </div>
+      <p class="ic-hint"><span class="h-norm">Click a site or a ▲ launch area · drag to pan · ⌘/Ctrl-scroll to zoom</span><span class="h-meas">Click two points to measure</span></p>
+      <div class="tooltip" id="ic-tip" hidden></div>
+    </div>
+    <p class="ic-legend">
+      <span><i class="ic-key ic-key-us"></i>U.S.</span><span><i class="ic-key ic-key-jp"></i>Japan</span><span><i class="ic-key ic-key-ph"></i>Philippines (EDCA)</span><span><i class="ic-key ic-key-au"></i>Australia</span>
+      <span><i class="ic-tri"></i>notional PLA launch area</span><span><i class="ic-dash"></i>island chain (conceptual)</span>
+    </p>
+  </div>
+  <aside class="panel" id="panel" aria-label="Controls and readout"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p><b>Pick a site</b> and the map draws a ring for each missile around that site. A ring around a site marks every place a launcher could stand and still reach it, so the question becomes how much of China falls inside. The panel gives the distance from the site to the nearest PRC territory and checks each notional launch area.</p>
+    <p><b>Pick a PLA ring</b> to reverse the question: choose a missile and a launch area and see which sites fall inside its range. Toggle the alliance layers to compare what each partner hosts. <b>Measure</b> gives the great-circle distance between any two points.</p>
+    <p>A range ring is the outer limit of where a missile can fly. It says nothing about whether it would find, track or hit a target, or about defenses, hardening and dispersal. The <a href="../strait-layers/">Strait Layers</a> tool models that kill chain.</p>
+    <h2 class="mt">Why the first island chain matters for Taiwan</h2>
+    <p>Taiwan sits in the middle of the first island chain, between Japan's Ryukyu Islands and the Philippines. The seas inside the chain are relatively shallow, and ships heading for the open Pacific must pass through its gaps. Japan and the Philippines have added military access close to Taiwan since 2016. All four of Japan's southwestern-islands posts and the three northern Luzon EDCA sites lie within 900 km of PRC territory, the outer edge of the DF-15 band. Guam and the other second-chain sites are about 2,500–2,900 km away, reachable among these missiles only by the DF-26. Measured from the mainland and Hainan, Darwin and Tindal lie beyond the DF-26's 4,000 km (about 4,100 and 4,400 km). Measured from China's outposts in the Spratly Islands, they fall inside it: Mischief Reef is about 3,000 km from Darwin and 3,300 km from Tindal.</p>
+    <h2 class="mt">Every site</h2>
+    <div id="ic-table"></div>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li>Missile ranges: CSIS Missile Defense Project, Missile Threat: <a href="https://missilethreat.csis.org/missile/df-15-css-6/" target="_blank" rel="noopener">DF-15</a> (600–900 km), <a href="https://missilethreat.csis.org/missile/df-21/" target="_blank" rel="noopener">DF-21</a> (2,150 km; DF-21D anti-ship variant 1,450–1,550 km per U.S. reports, drawn at 1,500 km), <a href="https://missilethreat.csis.org/missile/dong-feng-26-df-26/" target="_blank" rel="noopener">DF-26</a> (4,000 km). Country overview: <a href="https://missilethreat.csis.org/country/china/" target="_blank" rel="noopener">Missile Threat: China</a>. The U.S. Department of Defense gives somewhat different figures: DF-15 725–850 km, DF-21D more than 1,500 km, DF-26 3,000–4,000 km (<a href="https://web.archive.org/web/20260924081034/https://media.defense.gov/2024/dec/18/2003615520/-1/-1/0/military-and-security-developments-involving-the-peoples-republic-of-china-2024.pdf" target="_blank" rel="noopener">Military and Security Developments Involving the PRC 2024</a>, p. 64), and describes the DF-26 as able to strike <a href="https://web.archive.org/web/20260924082732/https://media.defense.gov/2020/Sep/01/2002488689/-1/-1/1/2020-DOD-CHINA-MILITARY-POWER-REPORT-FINAL.PDF" target="_blank" rel="noopener">as far as Guam in the Second Island Chain</a> (2020 report).</li>
+      <li>Launch areas are <span class="notional">notional</span>: one reference point per province or coast, chosen to illustrate reach. They are not identified PLA Rocket Force bases. The "nearest PRC territory" figure measures to the Natural Earth 1:50m outline of the PRC, which includes Hainan but not the Paracel or Spratly outposts China occupies. Measured from those outposts, Palawan and the southern Philippine sites are much closer: <a href="https://en.wikipedia.org/wiki/Mischief_Reef" target="_blank" rel="noopener">Mischief Reef</a> (9.92°N, 115.53°E) is about 350 km from Antonio Bautista Air Base and 270 km from Balabac.</li>
+      <li>Island chains: conceptual lines drawn through the island groups named in <a href="https://en.wikipedia.org/wiki/Island_chain_strategy" target="_blank" rel="noopener">Wikipedia's Island chain strategy</a> article. First chain: the Kurils, Japan, the Ryukyus, Taiwan, the northern Philippines and Borneo. Second chain: the Bonin and Volcano Islands, the Marianas including Guam, Yap and Palau, toward western New Guinea. Different writers draw them differently.</li>
+      <li>Sites are listed at base level only, from public sources. Coordinates are the installation coordinates in each site's Wikipedia article (Japanese Wikipedia for the GSDF camps), rounded to 0.01°. Camp Ishigaki, Balabac Island and the Palau radar sites are placed at island level. Japan's southwestern posts: <a href="https://www.cnn.com/2023/03/17/asia/japan-new-defense-base-disputed-islands-intl-hnk/index.html" target="_blank" rel="noopener">CNN, March 2023</a>. EDCA sites: <a href="https://www.philstar.com/headlines/2016/03/19/1564662/us-philippines-agree-5-base-locations-under-edca" target="_blank" rel="noopener">2016 five</a> and the <a href="https://web.archive.org/web/20260924015437/https://www.war.gov/News/Releases/Release/article/3349257/philippines-us-announce-locations-of-four-new-edca-sites/" target="_blank" rel="noopener">2023 four (DoD release)</a>. Tinian divert airfield: <a href="https://www.stripes.com/news/agreement-establishes-divert-airport-for-air-force-in-tinian-1.416210" target="_blank" rel="noopener">Stars and Stripes</a>, <a href="https://cbma.gov.mp/dod-activities/divert/" target="_blank" rel="noopener">CNMI Bureau of Military Affairs</a>. Palau radar: <a href="https://www.popsci.com/technology/us-building-over-the-horizon-radar-palau/" target="_blank" rel="noopener">Popular Science</a>. Darwin and Tindal: <a href="https://en.wikipedia.org/wiki/Marine_Rotational_Force_%E2%80%93_Darwin" target="_blank" rel="noopener">MRF-D</a>, <a href="https://www.abc.net.au/news/2023-08-04/us-mission-planning-centre-to-be-built-in-darwin/102683688" target="_blank" rel="noopener">ABC News</a>. Per-site links are in the table.</li>
+      <li>The list is a selection, not a complete inventory of U.S. or allied facilities. Reports of additional EDCA sites after 2023 are not included unless officially named.</li>
+      <li>Map: Natural Earth land and country outlines (public domain), via TSM shared map data.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Island Chains & Access', sub: 'The first and second island chains, U.S. and allied access sites, and which PLA missiles can reach them.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

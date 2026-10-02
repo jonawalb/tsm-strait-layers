@@ -1,0 +1,103 @@
+/* PLA Flight-Path Atlas. Tokens from shared/css/tsm.css only. */
+.btn.sm { padding: 4px 9px; font-size: 12px; }
+.seg { display: inline-flex; gap: 2px; flex-wrap: wrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Window bar */
+.winbar { padding: 12px 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px 16px; flex-wrap: wrap; }
+.wtitle { margin: 2px 0 0; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.1; }
+.bar-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+/* Map */
+.mapbox { position: relative; }
+.sector { fill: var(--accent); fill-opacity: var(--t, 0); stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill-opacity .25s; }
+path.sector:hover { stroke: var(--ink); stroke-width: 1.6; }
+path.sector.lit { stroke: var(--ink); stroke-width: 2.4; stroke-dasharray: none; }
+path.sector.sel { stroke: var(--blue); stroke-width: 3.5; stroke-dasharray: none; }
+path.sector:focus-visible { outline: none; stroke: var(--accent); stroke-width: 3; }
+.adiz-ring { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 8 5; vector-effect: non-scaling-stroke; pointer-events: none; }
+.sec-labels { pointer-events: none; }
+.sec-name { font: 600 15px var(--display); fill: var(--ink); paint-order: stroke; stroke: var(--sea); stroke-width: 4px; stroke-linejoin: round; }
+.sec-val { font: 500 17px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--sea); stroke-width: 4px; stroke-linejoin: round; }
+.legend-box { position: absolute; right: 8px; bottom: 8px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 6px 8px; font-size: 11.5px; }
+.ramp { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+.ramp i { width: 70px; height: 10px; border-radius: 2px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, var(--sea)), var(--accent)); }
+@media (max-width: 600px) { .legend-box { position: static; flex-direction: row; flex-wrap: wrap; border: 0; border-top: 1px solid var(--rule); border-radius: 0; } }
+
+/* Timeline */
+.tlcard { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+.tl-h { display: flex; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap; align-items: baseline; }
+.legend { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.k { display: inline-block; width: 12px; height: 10px; border-radius: 2px; }
+.k-bar { background: var(--faint); } .k-hi { background: var(--blue); } .k-jc { width: 3px; height: 12px; background: var(--accent); border-radius: 0; }
+.tlbox { position: relative; }
+#tl { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; cursor: crosshair; }
+#tl .bars { fill: var(--faint); } #tl .bars.dim { opacity: .45; } #tl .bars.hi { fill: var(--blue); }
+#tl .jcrp-ticks { stroke: var(--accent); stroke-width: 1.4; }
+#tl .era { fill: var(--chip); } #tl .era2 { fill: var(--rule); opacity: .45; }
+#tl .era-t { font: 10px var(--mono); fill: var(--muted); }
+#tl .axis text { font: 10.5px var(--mono); fill: var(--faint); }
+#tl .axis line { stroke: var(--rule); }
+#tl .brush { fill: var(--blue-soft); stroke: var(--blue); stroke-width: 1.5; cursor: grab; vector-effect: non-scaling-stroke; }
+#tl .brush:focus-visible { outline: none; stroke: var(--accent); stroke-width: 3; }
+#tl .handle { fill: var(--blue); opacity: .55; cursor: ew-resize; }
+#tl .cursor { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 3 2; vector-effect: non-scaling-stroke; pointer-events: none; }
+
+/* Panel */
+.sec-h { display: flex; justify-content: space-between; align-items: center; }
+.seclist { display: flex; flex-direction: column; gap: 3px; }
+.seclist button { display: grid; grid-template-columns: 104px 1fr 44px; gap: 8px; align-items: center; text-align: left; padding: 4px 6px; border: 1px solid transparent; border-radius: 3px; background: transparent; cursor: pointer; font-size: 12.5px; }
+.seclist button:hover { border-color: var(--rule); }
+.seclist button[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); }
+.seclist .bar { height: 10px; background: var(--chip); border-radius: 2px; overflow: hidden; }
+.seclist .bar i { display: block; height: 100%; background: var(--accent); }
+.seclist .num { text-align: right; }
+.pill.jc { color: var(--accent); }
+.day h3 { margin: 0; font-size: 20px; }
+.day-h { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.day .nav { display: inline-flex; gap: 3px; }
+.day .links { margin: 0; font-size: 12.5px; }
+.rtext pre { margin: 0; white-space: pre-wrap; font: 12px/1.45 var(--body); background: var(--chip); border-radius: 3px; padding: 8px 10px; max-height: 260px; overflow: auto; }
+.days { list-style: none; margin: 0; padding: 0; max-height: 300px; overflow: auto; display: flex; flex-direction: column; gap: 2px; }
+.days button { width: 100%; display: grid; grid-template-columns: 96px 30px 1fr auto; gap: 6px; align-items: center; text-align: left; padding: 4px 6px; border: 1px solid transparent; border-radius: 3px; background: transparent; cursor: pointer; font-size: 12px; }
+.days button:hover { border-color: var(--rule); }
+.days button[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); }
+.days .dt { font-family: var(--mono); font-size: 11.5px; }
+.days .secs { color: var(--muted); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Tables */
+.tables { max-width: 1400px; margin: 16px auto 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.tcard { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.tcard h2 { margin: 0; font-size: 21px; }
+.tablewrap td.heat { background: color-mix(in srgb, var(--accent) calc(var(--t) * 100%), transparent); }
+.linkish { background: none; border: 0; padding: 0; color: var(--blue); cursor: pointer; font: inherit; text-decoration: underline; }
+.mgrid { width: auto !important; }
+.mgrid th, .mgrid td { padding: 0 !important; border-bottom: 0 !important; }
+.mgrid thead th { font: 10px var(--mono) !important; letter-spacing: 0 !important; color: var(--faint) !important; text-align: left; height: 16px; }
+.mgrid tbody th { font: 12px var(--body) !important; text-transform: none !important; letter-spacing: 0 !important; color: var(--ink) !important; padding-right: 10px !important; white-space: nowrap; }
+.mgrid td.cell { width: 13px; height: 20px; background: color-mix(in srgb, var(--accent) calc(var(--t) * 100%), var(--chip)); border: 1px solid var(--panel) !important; }
+.mgrid td.cell button { display: block; width: 100%; height: 18px; border: 0; background: transparent; cursor: pointer; padding: 0; }
+.mgrid td.cell.inwin { outline: 1.5px solid var(--blue); outline-offset: -1.5px; }
+.mgrid .yr { border-left: 2px solid var(--muted) !important; }
+.mgrid tr.jc td { text-align: center; font: 10px var(--mono); color: var(--accent); height: 18px; }
+.mgrid tr.jc i { font-style: normal; }
+
+/* Tour card */
+.stage { position: relative; }
+.tour { position: absolute; left: 12px; top: 84px; width: min(380px, calc(100% - 24px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 8px 28px rgba(0, 0, 0, .18); display: flex; flex-direction: column; gap: 6px; z-index: 6; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13px; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+@media (max-width: 600px) { .tour { position: static; width: auto; box-shadow: none; order: -1; } }
+
+@media (max-width: 1000px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { body { padding-inline: 12px; } .below { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .sector { transition: none; } }
+.tablewrap th .lc { text-transform: none; letter-spacing: 0; font-family: var(--body); font-weight: 400; }
+@media (max-width: 600px) { .sec-name { font-size: 24px; } .sec-val { font-size: 26px; } #tl .axis text { font-size: 18px; } #tl .era-t { font-size: 16px; } }
+/* Keep the month grid's hidden labels from widening the page on phones. */
+.tcard > .tablewrap { position: relative; }  /* holds the absolutely positioned .sr labels inside the scroll box */

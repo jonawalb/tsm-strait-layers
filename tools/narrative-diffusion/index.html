@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Narrative Diffusion | Taiwan Security Monitor</title>
+<meta name="description" content="Trace a PRC talking point on Taiwan from the Foreign Ministry, Defense Ministry and Taiwan Affairs Office podiums through Xinhua, People's Daily, CGTN, Global Times and other state media.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="narrative-diffusion.css">
+</head>
+<body class="loading">
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="toolbar-row">
+      <p class="eyebrow">Pick a talking point</p>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <div class="choices presets" id="presets" role="group" aria-label="Preset talking points"></div>
+    <form class="search" id="search" role="search">
+      <label for="q" class="fine">or search any phrase, English or 中文</label>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. troublemaker, 麻烦制造者, Anti-Secession Law">
+      <span class="fine" id="status" aria-live="polite"></span>
+    </form>
+    <div class="tiles" id="tiles" aria-live="polite"></div>
+    <div class="card tl-card">
+      <div class="card-head"><p class="eyebrow">Timeline</p><div class="choices seg" id="ranges" role="group" aria-label="Time window"></div></div>
+      <div class="tl-wrap"><svg id="timeline" role="img" aria-label="Timeline of records by source. Click a dot to list its records; the relay diagram below offers keyboard access."></svg><div class="tooltip" id="tl-tip" hidden></div></div>
+      <div class="legend">
+        <span class="key"><i class="k-off"></i>Official agency</span><span class="key"><i class="k-med"></i>State media</span>
+        <span class="key"><i class="k-first"></i>First appearance</span>
+        <span class="key"><i class="k-full"></i>Collected, with article text</span><span class="key"><i class="k-head"></i>Collected, headlines only</span>
+        <span class="key"><i class="k-none"></i>Not collected</span>
+      </div>
+      <p class="loading-note fine">Loading 9,107 records…</p>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Relay: first appearance in each source</p>
+      <p class="fine">Sources in the order the talking point first reached them in TSM's data. Arrows show the gap to the next source. <span class="hand-key">Orange arrows</span> mark a hand-off between official agencies and state media. * no TSM collection from that source in the month of first use or the month before.</p>
+      <div class="relay-wrap"><svg id="relay" role="group" aria-label="Relay diagram of first appearances"></svg></div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Coverage in this window</p>
+      <p class="fine">Months in the current window for which TSM holds any records from each source (light) and article text (dark). For the three agencies, a month counts when TSM holds at least one Taiwan-related item. The last column counts matching records. Thin coverage means an absence of dots proves little.</p>
+      <div id="coverage"></div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Talking point and records">
+    <div class="sec" id="about"></div>
+    <div class="sec" id="records" aria-live="polite"></div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Choose a preset talking point or type a phrase. The timeline puts every record that uses it on a row for its source: the three spokesperson agencies at the top, then state media. Grey behind each row shows the months TSM actually collected from that source, so you can tell silence from a gap in the data.</p>
+    <p>The relay orders sources by when the talking point first appeared in each, and labels each step with the lag. It answers a narrow question: in what order did this phrase show up in TSM's collection? It does not prove that one outlet copied another. Outlets receive the same guidance, publish on different schedules, and TSM collected them unevenly.</p>
+    <p>Click a dot or a relay node to list the underlying records in the panel. Every record links to the original article or transcript.</p>
+    <h2 class="mt">Preset rules</h2>
+    <div class="tablewrap"><table><thead><tr><th>Talking point</th><th>Pattern</th></tr></thead><tbody id="preset-table"></tbody></table></div>
+  </div>
+  <div class="col">
+    <h2>Method and coverage</h2>
+    <ul class="src">
+      <li><b>Official agencies.</b> 1,565 Taiwan-related Q&amp;A items from the Foreign Ministry (736, July 2022 to September 2026), the Defense Ministry (260, July 2022 to September 2026; one of its three spokesperson channels before May 2026) and the Taiwan Affairs Office (569, April to September 2026 only). Same corpus as the PRC Rhetoric Heatmap, including its duplicate removal. July to September 2026 were collected from the official sites on 28 September 2026 and brought up to 30 September on 30 September 2026; a re-check on 2 October 2026 found nothing dated 1 or 2 October (National Day holiday). Taiwan Affairs Office items carry the Chinese original plus a machine translation (Google, or Claude for most of July to September 2026, where Google refused requests). Defense Ministry briefings with no official English are held in Chinese only and match through the Chinese side of each talking point.</li>
+      <li><b>State media headlines.</b> TSM's state-media repository: headline and link for 68,520 articles from 14 outlets, January 2025 to 10 June 2026, plus 19,535 headlines from 11 outlets for 11 June to 28 September 2026 from TSM's monthly state-media workbooks (China Taiwan Network, China News Service and Voice of the Strait are not in these). Collection depth varies by outlet, and some outlets are missing for whole months. Headline records are matched on the title only.</li>
+      <li><b>State media full text.</b> Article text for April to June 2026 from CGTN, China Daily, Global Times, People's Daily and China Taiwan Network (English) and Xinhua, People's Daily, CCTV, PLA Daily, Qiushi, Huanqiu, Guancha, The Paper and China News Service (Chinese). Chinese coverage in April and May is partial for CCTV, PLA Daily and China News Service. Lists of related articles that some sites (notably Guancha) append after the article are cut before matching, so a record counts only when the article itself uses the phrase.</li>
+      <li><b>What ships with this page.</b> 9,107 records: every Taiwan-related one plus any record that matches a preset. A record counts as Taiwan-related when it names Taiwan, its leaders, parties or offshore islands, the Taiwan Affairs Office, cross-Strait (两岸) ties or reunification; the Chinese word 统一 on its own (&ldquo;unified&rdquo;) does not count. Articles in the full-text export that turned out to be older than 2026 (The Paper items from 2015 to 2023) are left out, and CCTV items take the date in their URL. For each, the page holds the title and up to a few matching sentences, not the whole article. Presets were matched against the same windows shown here. Custom searches can miss a phrase that sits elsewhere in an article.</li>
+      <li><b>Not covered.</b> Global Times before April 2026, Voice of the Strait after July 2025, PLA Daily English in 2026, Xinhua English after April 2026, China Daily for most months from July 2025 to March 2026, China Taiwan Network and China News Service after June 2026, article text after June 2026, state-media headlines after 28 September 2026, official briefings after 30 September 2026, and social media. China Taiwan Network carries many TAO and MND answers as headlines, which partly fills the official gaps.</li>
+      <li><b>Sources.</b> TSM MFA, MND, TAO and state-media repositories (July 2026 build), the June–July 2026 intake and TSM's July–September 2026 collection of official briefings, compiled from fmprc.gov.cn, mfa.gov.cn, mod.gov.cn, eng.mod.gov.cn, gwytb.gov.cn and the outlets' own sites (news.cn, people.com.cn, cctv.com, cgtn.com, chinadaily.com.cn, globaltimes.cn, 81.cn, taiwan.cn, chinanews.com.cn, huanqiu.com, guancha.cn, qstheory.cn, vos.com.cn, thepaper.cn). Links go to the originals; some may have moved or expired since collection.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  import { PRESETS } from './data/presets.js';
+  mountChrome({ title: 'Narrative Diffusion', sub: 'Follow a PRC talking point on Taiwan from the spokesperson\'s podium through state media, record by record.', category: 'Narrative & rhetoric' });
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  document.getElementById('preset-table').innerHTML = PRESETS.map(p => `<tr><td>${esc(p.label)} <span lang="zh">${esc(p.zh)}</span></td><td><code>${esc(p.re)}</code>${p.ctx ? `<br>and <code>${esc(p.ctx)}</code>` : ''}</td></tr>`).join('');
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

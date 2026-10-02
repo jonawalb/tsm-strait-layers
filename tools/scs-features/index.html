@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>South China Sea Features | Taiwan Security Monitor</title>
+<meta name="description" content="Interactive map of the Spratly and Paracel features and who occupies them, with the 2016 arbitral award, China's island-building and the Second Thomas Shoal confrontations.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="scs-features.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="bar">
+      <div class="views" role="group" aria-label="Map view">
+        <button type="button" class="btn" data-view="sea">Whole sea</button>
+        <button type="button" class="btn" data-view="spratly">Spratlys</button>
+        <button type="button" class="btn" data-view="paracel">Paracels</button>
+        <button type="button" class="btn" data-view="shoals">Scarborough to Palawan</button>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of the South China Sea with occupied features colored by occupant"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="toolbar" role="toolbar" aria-label="Map tools">
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+      </div>
+      <p class="maphint">Click a feature for its card · Drag to pan · Pinch or ⌘-scroll to zoom</p>
+    </div>
+    <div class="card tl">
+      <div class="tl-h"><div class="tl-tabs" id="tl-tabs" role="tablist" aria-label="Timeline"></div><p class="fine">Click a date or a card to see where it happened.</p></div>
+      <svg id="tl-strip" class="tl-strip" role="group" aria-label="Timeline dates"></svg>
+      <div id="tl-cards" class="tl-cards"></div>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Filters, layers and feature details"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this</h2>
+    <p>Five claimants occupy nearly 70 disputed reefs and islets in the South China Sea and have built more than 90 outposts on them, by AMTI's count. Each marker is a feature listed by CSIS's Asia Maritime Transparency Initiative (AMTI), colored by who occupies it. Diamonds mark the outposts built on the largest artificial islands, where AMTI records 100 acres or more of reclaimed land. Scarborough Shoal is drawn hollow: China controls it with a constant coast guard presence but has built nothing there.</p>
+    <p>Occupation is not ownership. Every outpost on this map is claimed by at least one other government, and the map takes no position on sovereignty.</p>
+    <p>The 2016 arbitral award, in a case the Philippines brought against China under the UN Convention on the Law of the Sea, did not decide who owns any feature. It concluded that, as between the Philippines and China, there was no legal basis for China to claim historic rights to resources within the nine-dash line beyond those the Convention provides, and it classified each feature put before it. A low-tide elevation, submerged at high tide, generates no maritime zone of its own. A "rock" above water at high tide gets a 12 nautical mile territorial sea but no 200 nm exclusive economic zone. The tribunal found that no high-tide feature in the Spratlys, including Taiwan-held Itu Aba, is capable of generating an EEZ. China called the ruling "null and void" (<a href="https://www.uscc.gov/sites/default/files/Research/Issue%20Brief_South%20China%20Sea%20Arbitration%20Ruling%20What%20Happened%20and%20What's%20Next071216.pdf" target="_blank" rel="noopener">U.S.-China Commission</a>). Taiwan, which was not a party, refused to accept it, objecting above all to the finding on Itu Aba (<a href="https://www.taipeitimes.com/News/front/archives/2016/07/13/2003650919" target="_blank" rel="noopener">Taipei Times</a>).</p>
+    <h2 class="mt">China's island-building by the numbers</h2>
+    <p>Acres of land reclaimed at each of China's seven Spratly features, from AMTI's feature pages. Click a bar to find the feature.</p>
+    <div class="acres" id="acres"></div>
+    <p class="fine mt">The AMTI feature-page figures above sum to about 3,170 acres; the Pentagon's 2016 report put the total at "over 3,200 acres" across the seven. AMTI's May 2026 count puts China's total at about 5,460 acres once new reclamation at Antelope Reef in the Paracels is included, and Vietnam's Spratly total at about 2,771 acres. Vietnam's per-feature pages on AMTI predate most of that work, so the map cards show older, smaller figures for Vietnamese features.</p>
+  </div>
+  <div class="col">
+    <h2>Method and caveats</h2>
+    <ul class="src">
+      <li>One marker per feature, as AMTI lists them. Vietnam has 49 to 51 outposts spread across its 27 features; multi-outpost reefs and the six DK1 banks are shown by a single AMTI point. DK1 bank positions (Vanguard, Rifleman, Alexandra, Grainger) mark large submerged banks and are approximate.</li>
+      <li>Positions come from AMTI's "GPS" field and were cross-checked against the 2016 award's own coordinates, Wikipedia, Wikidata or GeoNames. Where gazetteers disagreed by more than 5 km, AMTI's point was kept when an independent source agreed with it. The award's latitude for Second Thomas Shoal (para. 290) repeats the one it gives for Mischief Reef and appears to be a typo; AMTI's position is used.</li>
+      <li>Tribunal classifications are shown only for features the award named. AMTI's own "legal status" labels are not treated as rulings. The Paracels and Pratas were not before the tribunal.</li>
+      <li><b>12 nm rings</b> measure distance around each marker. They are not entitlements: low-tide elevations and submerged banks have no territorial sea of their own.</li>
+      <li><b>200 nm from coastlines</b> is an approximate distance band from the mainland and major-island coasts of each state, drawn from the 1:50m Natural Earth coastline. It ignores legal baselines and median lines and excludes the disputed features themselves. The shaded areas show where entitlements could reach and overlap, not agreed boundaries. Built with <code>scripts/build_buffers.py</code>.</li>
+      <li><b>The nine-dash line is not drawn.</b> China has never published coordinates for the dashes. The U.S. State Department's <i>Limits in the Seas</i> No. 143 (2014) notes this directly and digitizes the dashes from small-scale maps for its own approximate calculations, publishing maps and distances but no coordinates. Drawing it here would mean inventing positions.</li>
+      <li>Not included: Taiwan-held Zhongzhou Reef (Ban Than Reef), which is not on the AMTI tracker and for which no checked coordinates were found; per-outpost positions; runway lengths and most infrastructure detail, which AMTI's feature pages do not list.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Occupants, positions, dates taken and reclaimed areas: CSIS Asia Maritime Transparency Initiative, <a href="https://amti.csis.org/island-tracker/" target="_blank" rel="noopener">Island Tracker</a> and its per-feature pages (linked from each card; imagery stays on AMTI's site). Infrastructure notes: AMTI, <a href="https://amti.csis.org/chinas-big-three-near-completion/" target="_blank" rel="noopener">"China's Big Three Near Completion"</a> (2017).</li>
+      <li>Legal classifications: <i>The South China Sea Arbitration (Philippines v. China)</i>, PCA Case No. 2013-19, <a href="https://pcacases.com/web/sendAttach/2086" target="_blank" rel="noopener">Award of 12 July 2016</a> and the tribunal's <a href="https://pcacases.com/web/sendAttach/1801" target="_blank" rel="noopener">press release</a> of the same day (paragraph numbers on each card; case page <a href="https://web.archive.org/web/2026/https://pca-cpa.org/en/cases/7/" target="_blank" rel="noopener">archived here</a>).</li>
+      <li>Reactions to the award: U.S.-China Economic and Security Review Commission, <a href="https://www.uscc.gov/sites/default/files/Research/Issue%20Brief_South%20China%20Sea%20Arbitration%20Ruling%20What%20Happened%20and%20What's%20Next071216.pdf" target="_blank" rel="noopener">issue brief</a>, July 12, 2016; <a href="https://www.taipeitimes.com/News/front/archives/2016/07/13/2003650919" target="_blank" rel="noopener">Taipei Times</a>, July 13, 2016.</li>
+      <li>Nine-dash line: U.S. Department of State, <a href="https://www.state.gov/wp-content/uploads/2019/10/LIS-143.pdf" target="_blank" rel="noopener">Limits in the Seas No. 143</a> (2014), p. 4, and <a href="https://www.state.gov/wp-content/uploads/2022/01/LIS150-SCS.pdf" target="_blank" rel="noopener">No. 150</a> (2022).</li>
+      <li>Island-building figures: U.S. Department of Defense, <i>Military and Security Developments Involving the PRC 2016</i>, p. 13 (<a href="https://web.archive.org/web/20161229105337/https://www.defense.gov/Portals/1/Documents/pubs/2016%20China%20Military%20Power%20Report.pdf" target="_blank" rel="noopener">archived defense.gov copy</a>); AMTI, <a href="https://amti.csis.org/keeping-score-vietnams-spratly-island-overhaul-continues/" target="_blank" rel="noopener">"Keeping Score"</a> (May 2026).</li>
+      <li>Timeline entries: each card links its sources, including AMTI, the White House archive, CNN, VOA, The Diplomat, Rappler, Philstar, Inquirer, Al Jazeera, BenarNews/RFA and ABC News. All links checked September 28, 2026.</li>
+      <li>Pratas: position from Wikipedia, cross-checked against GeoNames. Taiwan Security Monitor's China Coast Guard tracker records <span id="dongsha-n"></span> CCG incidents near Dongsha (Pratas) in 2026 through <span id="tsm-asof"></span> (TSM local data).</li>
+      <li>Coastlines: Natural Earth (public domain), via TSM shared map data.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'South China Sea Features', sub: 'Who holds which reef in the Spratlys and Paracels, what was built, and what the 2016 tribunal said.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

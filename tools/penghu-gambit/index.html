@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Penghu Gambit | Taiwan Security Monitor</title>
+<meta name="description" content="A turn-based, notional wargame of a PLA attempt to seize the Penghu archipelago: set Taiwan's defenses and the PLA plan, play 12-hour turns with every die roll shown, then run 1,000 games.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="penghu-gambit.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<div class="pg-actions">
+  <p class="pg-flag"><b>Notional model, not a prediction.</b> Most numbers are assumptions you can change; sourced values are marked.</p>
+  <div><button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+  <button type="button" class="btn" id="copy-link">Copy link</button></div>
+</div>
+<nav class="pg-tabs" role="tablist" aria-label="Game sections">
+  <button type="button" role="tab" data-tab="setup" aria-selected="false">1 · Setup</button>
+  <button type="button" role="tab" data-tab="play" aria-selected="true">2 · Play</button>
+  <button type="button" role="tab" data-tab="mc" aria-selected="false">3 · 1,000 games</button>
+</nav>
+<main class="layout" data-tab="play">
+  <div class="stage">
+    <div class="mapbox" id="box">
+      <svg id="map" role="img" aria-label="Map of the Penghu islands and Taiwan's southwest coast with three notional landing sectors, Magong, Magong Air Base, and an inset showing Taiwan's defense assets in a notional zone."></svg>
+      <div class="tooltip" id="tip" hidden></div>
+    </div>
+    <div class="status status-mini" id="status-mini" aria-hidden="true"></div>
+    <div class="card playbar">
+      <div class="pb-btns">
+        <button type="button" class="btn" id="prev" aria-label="Previous turn">Back</button>
+        <button type="button" class="btn solid" id="next">Next turn</button>
+        <button type="button" class="btn" id="playall">Play all turns</button>
+      </div>
+      <label class="scrub"><span class="sr">Turn</span><input type="range" id="scrub" min="0" max="8" step="1"></label>
+      <p class="pb-t num" id="turn-t"></p>
+    </div>
+    <div class="turncols">
+      <div class="card res">
+        <p class="eyebrow">This turn: every roll</p>
+        <div id="log"></div>
+      </div>
+      <div class="card res side">
+        <p class="eyebrow">State after the turn</p>
+        <dl class="readout" id="readout"></dl>
+        <div id="crt-wrap">
+          <p class="eyebrow mt">Combat results table <span class="notional">notional</span></p>
+          <p class="fine" id="crt-note"></p>
+          <div id="crt"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card res" id="mc-card">
+      <p class="eyebrow">Monte Carlo: <span id="mc-h"></span></p>
+      <div id="mc" class="mc"></div>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Setup"></aside>
+  <div class="pg-go"><button type="button" class="btn solid" data-go="play">Play this setup</button>
+    <button type="button" class="btn" data-go="mc">See 1,000 games</button></div>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p><b>Set up.</b> In the panel, spend Taiwan's budget on a defense posture for Penghu, then choose the PLA's plan: seize the islands by assault, or blockade them and wait. For an assault, pick how many turns of preparatory strikes, which broad sector to land in, how many landing groups sail in each wave, and whether helicopters or paratroopers join.</p>
+    <p><b>Play.</b> Each assault turn is 12 hours. Strikes hit Taiwan's missile batteries, air defense and drones. Landing groups cross under missile fire and through any mines, air lifts face air defense, drones hit the troops ashore, and then the two ground forces fight on the combat results table. The log lists every chance and every die, so you can see why each thing happened. Take the airfield intact and the PLA can fly in reinforcements; reach Magong and it wins.</p>
+    <p><b>Monte Carlo.</b> One game is one roll of the dice. The Monte Carlo card replays your setup 1,000 times with the same seeded dice and reports how often the PLA holds Magong, the defense holds, or the fight ends in a stalemate. <b>Key drivers</b> changes one lever at a time, replays the same 1,000 games, and ranks the levers by how much they move the PLA's chance.</p>
+    <p>Outcomes: <b>PLA holds Magong</b> means the landing force reached Magong, or the blockaded garrison capitulated. <b>Defense holds</b> means the landing force was destroyed, or is pinned on the beach and outnumbered more than two to one, or the blockaded garrison still has supplies. Anything else is a <b>stalemate</b>.</p>
+
+    <h2 class="mt">Method and notional values</h2>
+    <p>This is a teaching model in the style of a board wargame. It does not use real unit positions, beach surveys or order-of-battle data. Taiwan's assets sit in a notional zone off the map on purpose, the three landing sectors are broad areas, and the only places marked are Magong and the publicly known Magong Air Base, which shares Penghu Airport.</p>
+    <p>Only a few numbers come from open sources: the garrison of about 6,000 troops (a 2025 Taipei Times op-ed, which reported a cut from 7,185), reserves at half effect and the 30% Falklands offload penalty (both CSIS), and the facts behind each menu item: Hsiung Feng launchers and a drone force on Penghu in 2026 (Reuters), the value of stockpiles (CNAS) and of demolishing port and air facilities (RAND). Every probability, cost, rate and the combat results table are <span class="notional">notional</span> TSM assumptions. The table below lists them all; edit any of them in the panel and the whole page updates.</p>
+    <p>The dice use a seeded generator, so the same link replays the same game and the same 1,000 Monte Carlo games. Strength points are notional: one point is about 1,000 troops. Distances on the map are measured from Natural Earth coastlines.</p>
+    <p>Left out: the U.S. and allied response, Taiwan's air force and navy, missiles fired from Taiwan itself at the landing force (folded into a higher chance of hits in the east sector), weather and sea state, civilians, and the time needed to assemble the PLA force. Use the model to reason about how the pieces trade off, not to estimate any real operation.</p>
+    <div class="tablewrap"><table id="param-table"></table></div>
+  </div>
+  <div class="col">
+    <h2>What history shows</h2>
+    <ol class="history" id="history"></ol>
+    <h2 class="mt">Sources</h2>
+    <ul class="src" id="sources"></ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Penghu Gambit', sub: 'A turn-based, notional wargame of a PLA attempt to seize the Penghu islands.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

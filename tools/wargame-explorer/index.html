@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wargame Results Explorer | Taiwan Security Monitor</title>
+<meta name="description" content="Compare published, open-source Taiwan conflict wargames from CSIS, CNAS, the Sasakawa Peace Foundation and JFSS: their assumptions, their results, and which assumptions drive the outcome, with a page citation for every figure.">
+<meta property="og:title" content="Wargame Results Explorer | Taiwan Security Monitor">
+<meta property="og:description" content="Eight published Taiwan wargames side by side: assumptions, outcomes and page-cited sources.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="wargame-explorer.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="layout">
+  <div class="stage">
+    <section class="card mcard" id="matrix-card" aria-labelledby="m-h">
+      <div class="ch">
+        <div><p class="eyebrow">Assumptions and outcomes</p><h2 id="m-h">What each game assumed, and how it came out</h2></div>
+        <button type="button" class="btn solid" id="tour">Take the walkthrough</button>
+      </div>
+      <p class="fine lead">One row per scenario variant a report scores on its own. Click a column heading to group the rows by that assumption. Click a study name for its card, method and sources.</p>
+      <div class="tablewrap mwrap"><table id="matrix" class="matrix"></table></div>
+    </section>
+
+    <section class="card dcard" id="drivers-card" aria-labelledby="d-h">
+      <div class="ch"><div><p class="eyebrow">Which assumptions drive results</p><h2 id="d-h">Outcomes split by <span id="dname">an assumption</span></h2></div></div>
+      <div class="dgrid">
+        <div id="drivers" class="drivers"></div>
+        <div class="contr">
+          <p class="dh">Controlled comparisons within one study</p>
+          <ul id="contrasts" class="contrasts"></ul>
+        </div>
+      </div>
+      <p class="fine">Rows from different studies differ in design, year and scope, so the bars show patterns, not causes. The comparisons on the right hold the rest of a study fixed and are the stronger evidence.</p>
+    </section>
+
+    <section class="card fcard" id="findings" aria-labelledby="f-h">
+      <div class="ch"><div><p class="eyebrow">Across the games</p><h2 id="f-h">What the games agree and disagree on</h2></div></div>
+      <p class="fine lead">Each point restates only what the cited pages say. Points drawn entirely from studies you have filtered out are dimmed.</p>
+      <div class="fgrid">
+        <div><h3 class="fh agree">Agree</h3><ul id="agree" class="plist"></ul></div>
+        <div><h3 class="fh disagree">Disagree or differ</h3><ul id="disagree" class="plist"></ul></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="c-h" class="cardsec">
+      <p class="eyebrow">Study cards</p><h2 id="c-h" class="sh">The games, one by one</h2>
+      <div id="cards" class="cards"></div>
+    </section>
+  </div>
+
+  <aside class="panel" aria-label="Filters and summary">
+    <div class="sec">
+      <p class="eyebrow">Scenario type</p>
+      <div class="choices" id="f-scen" aria-label="Scenario type (any number)"></div>
+      <p class="fine">Pick none to see all.</p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Game format</p>
+      <div class="choices one" id="f-fmt" aria-label="Game format (any number)"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Japan basing</p>
+      <div class="choices" id="f-japan" aria-label="Japan basing"></div>
+      <p class="eyebrow mt8">U.S. intervention</p>
+      <div class="choices" id="f-us" aria-label="U.S. intervention"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Group the matrix by</p>
+      <div class="choices" id="f-group" aria-label="Group by"></div>
+      <div class="choices two mt8" id="f-weight" aria-label="Count by"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">In view</p>
+      <dl class="readout" id="readout"></dl>
+      <ul class="otally" id="otally"></ul>
+      <div class="row-btns">
+        <button type="button" class="btn" id="reset">Clear filters</button>
+        <button type="button" class="btn" id="copy">Copy link to this view</button>
+      </div>
+      <p class="fine" id="copy-msg" aria-live="polite">The address bar always holds the current view.</p>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>This tool compares published, open-source wargames about a war or coercion campaign over Taiwan. Each study appears once as a card. The matrix breaks studies into the scenario variants their authors scored separately. CSIS's First Battle project, for example, reports its base, optimistic and pessimistic runs apart.</p>
+    <p>The five assumption columns hold what each report says it assumed. "Not stated" means the report does not say, or the question does not apply. The outcome bar splits a row's runs by how the authors scored them, colored with the key below. A row with one run is a single game played once.</p>
+    <p>Group by an assumption to see outcomes side by side. Use the controlled comparisons for the strongest evidence: one study changing one assumption while holding the rest.</p>
+    <ul class="legend" id="legend"></ul>
+    <h2 class="mt">What is not here</h2>
+    <ul class="src">
+      <li><b>RAND.</b> This tool found no RAND report that publishes the design and results of its own Taiwan wargame. RAND's 2024 "Denial Without Disaster" (RR-A2312-1) surveys the CSIS games rather than reporting new ones, so it is cited only as context. It describes the CSIS series as set in 2027, while the CSIS report sets it in 2026 (RAND p. 7; CSIS p. 2).</li>
+      <li><b>CSIS "Hunger Games" quarantine study.</b> Not found under that name. CSIS China Power's 2024 quarantine study could not be opened from this build (the page returned 403) and describes scenarios rather than game results, so it is left out.</li>
+      <li><b>CNAS and CSIS follow-on games in 2025.</b> None with published results were found beyond "Lights Out?" (CSIS, July 2025).</li>
+      <li><b>Nikkei coverage and the other JFSS simulations.</b> The JFSS primary report is used instead of press coverage. The 1st (2021), 2nd (2022) and 4th (2024) JFSS reports are posted in Japanese on the JFSS site but were not coded here. The same page lists a joint FRA-JFSS simulation held in Taipei on August 8-9, 2026; it is not coded here either.</li>
+      <li><b>Classified games.</b> Government wargames are not public. CSIS discusses why its results may differ from reported classified games (CSIS pp. 102-105).</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>Method and limits</h2>
+    <ul class="src">
+      <li>Every figure was read in the source PDF or web page listed on its card. Page numbers are the report's printed page numbers; the links open the PDF at that page. No value is estimated or filled from memory, and the tool has no notional values.</li>
+      <li>Outcome classes are TSM's coding of each report's own scoring, using the rules in the key. The "Lights Out?" report assigns no winners, so its rows are coded from its end-of-game electricity and import figures.</li>
+      <li>Assumption codes compress longer text. "Delayed (some runs)" and "Degraded (some runs)" mark CSIS's pessimistic set, where 12 of 18 runs carried that assumption and results are not reported separately.</li>
+      <li>The studies differ in year modeled (2025 to 2028), length of play (six days to twenty weeks), who played and how combat was resolved. A single seminar game is weak evidence; the 24-, 15- and 26-run CSIS series weigh more but share one designer team and one model.</li>
+      <li>Where a report contradicts itself or the press, the card says so and shows both.</li>
+      <li>Everything here is conceptual. No unit locations or infrastructure targets are shown.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ol class="src" id="srclist"></ol>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Wargame Results Explorer', sub: 'Published Taiwan wargames side by side: what they assumed, what happened, and which assumptions drive the result.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

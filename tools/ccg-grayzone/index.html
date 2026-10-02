@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CCG Gray-Zone Map | Taiwan Security Monitor</title>
+<meta name="description" content="Every China Coast Guard incident recorded by the Taiwan Security Monitor from June 2024 to September 2026, on a map with a time slider and year selector, from Kinmen and Matsu to Dongsha, east of Taiwan and Taiping Island.">
+<meta property="og:title" content="CCG Gray-Zone Map | Taiwan Security Monitor">
+<meta property="og:description" content="Watch China Coast Guard incidents spread from Kinmen to Dongsha and the waters east of Taiwan, 2024 to 2026.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="ccg-grayzone.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="timebar card">
+  <div class="tb-date">
+    <p class="eyebrow">Showing incidents through</p>
+    <p class="big-date" id="date" aria-live="polite">September 24, 2026</p>
+    <p class="fine tb-from" id="from"></p>
+  </div>
+  <div class="tb-stats">
+    <p><b class="num" id="count">0</b> <span id="count-l">incidents</span></p>
+    <p><b class="num" id="locs">0</b> <span id="locs-l">locations</span></p>
+    <p class="fine" id="recent"></p>
+  </div>
+  <div class="tb-controls">
+    <div class="tb-years" role="group" aria-label="Year" id="years"></div>
+    <div class="tb-buttons">
+      <button type="button" class="btn" id="to-start" aria-label="Go to the start">|◀</button>
+      <button type="button" class="btn solid" id="play" aria-pressed="false"><span aria-hidden="true">▶</span> Play</button>
+      <button type="button" class="btn" id="to-end" aria-label="Go to the latest date">▶|</button>
+      <span class="speed" role="group" aria-label="Playback speed">
+        <button type="button" class="btn sm" data-speed="1" aria-pressed="true">1×</button>
+        <button type="button" class="btn sm" data-speed="2.5" aria-pressed="false">2.5×</button>
+      </span>
+      <button type="button" class="btn" id="start-tour">Walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link</button>
+    </div>
+    <label class="slider tb-slider"><span class="sr">Date</span>
+      <input type="range" id="slider" min="0" max="100" step="1" value="100">
+      <span class="ticks" id="ticks" aria-hidden="true"></span>
+    </label>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of the waters around Taiwan with China Coast Guard incidents placed at approximate positions by location, with an inset for Taiping Island in the South China Sea"></svg>
+      <div class="tooltip" id="map-tip" hidden></div>
+      <p class="maphint">Pins sit at <b>approximate</b> positions around each location, spread out so they don't stack. The tracker records a location, not coordinates.</p>
+    </div>
+    <div class="card strip-card">
+      <p class="eyebrow">Firsts, computed from the tracker</p>
+      <div class="firsts" id="firsts"></div>
+    </div>
+    <div class="card chart-card">
+      <p class="eyebrow">Incidents per month, by location, up to the slider date</p>
+      <div class="chartwrap"><svg id="chart" role="img" aria-label="Stacked bar chart of incidents per month by location"></svg><div class="tooltip" id="chart-tip" hidden></div></div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Filters and incident detail">
+    <div class="sec">
+      <p class="eyebrow">Locations</p>
+      <div class="filters" id="filters"></div>
+      <label class="tg"><input type="checkbox" id="adiz" checked><span class="sw"></span><span class="t">Taiwan ADIZ<small>Air defense identification zone boundary, for reference</small></span></label>
+    </div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read the map</h2>
+    <p>Each pin is one row in the Taiwan Security Monitor's China Coast Guard incident tracker, which starts in June 2024. Most rows are incursions that Taiwan's Coast Guard Administration (CGA) reported: China Coast Guard formations, and occasionally other PRC government ships, entering the restricted waters around Taiwan's outlying islands or operating off Taiwan's coasts. A few rows are other incidents the tracker logs, such as a fishing-boat detention, and the card says so.</p>
+    <p>Pick all years or a single year, then drag the slider or press play. Incidents appear on the date they happened and stay on the map, so the picture builds up across the period. Pins from the last ten days pulse. The chart counts incidents per month, split by location, and the strip of "firsts" marks when each area first appears in the record and when the tracker logged a major incident.</p>
+    <p>The tracker records a location category and a short description, not coordinates. Pins are grouped around a reference point for each location and spread in a fixed pattern so they don't overlap. Position within a cluster means nothing. Rows the tracker records for several areas at once, on PLA exercise days, sit at a label point off northeast Taiwan. Taiping Island, about 1,500 km southwest of Kaohsiung in the Spratly Islands, sits in the inset at the lower right.</p>
+    <p>Amber tags are data notes. They mark rows that appear in only one tracker version, hull numbers withheld in public reporting, timeline problems and similar issues. The notes describe the problem; they do not fix the record. Green "CGA release" links mark rows checked by hand against the Coast Guard Administration's own release.</p>
+    <h2 class="mt">All incidents</h2>
+    <p class="fine"><span id="table-note">All years, newest first.</span> Filters apply. Click a row to show it on the map.</p>
+    <div class="tablewrap tall"><table>
+      <thead><tr><th>Date</th><th>Location</th><th>Description</th><th>Event timeline</th><th>CCG/PRC vessels</th><th>CGA vessels</th><th>Data notes</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+  <div class="col">
+    <h2>Sources and method</h2>
+    <ul class="src">
+      <li><b>Incidents:</b> Taiwan Security Monitor, CGA/CCG Incident Tracker, complete version dated September 24, 2026, with TSM's September 28 corrections sheet (June 25, 2024 to September 11, 2026), compiled from Taiwan Coast Guard Administration releases. One later incident is added from a news report of a CGA release and tagged on its card: the CCG Zhujiajian formation east of Taiwan on September 29, 2026 (<a href="https://www.cna.com.tw/news/asoc/202609290266.aspx" target="_blank" rel="noopener">CNA</a>, Chinese; the CGA site did not respond when this was checked on October 2). <a href="https://www.cga.gov.tw/" target="_blank" rel="noopener">Coast Guard Administration</a>. Descriptions, timelines and vessel lists appear as recorded, including the tracker's own spellings.</li>
+      <li><b>Cross-check:</b> the 2026 rows were compared with the earlier public 2026 tracker (September 16, 2026). Two rows in the public version are missing from the complete version (June 18 Kinmen, June 19 Penghu). They are kept and tagged. Four September rows appear only in the complete version. CGA releases confirm all four (September 7 Dongsha, September 8 afternoon, 10 and 11).</li>
+      <li><b>Vessels:</b> hull numbers or names are as recorded. For six 2026 incidents (June 27, August 13, 18, 19 and 29, and the September 8 morning incursion) the public tracker says the CGA did not release hull numbers. The CGA releases for all six do name the hulls, and they match the complete version, so the hulls are shown with the release linked. The July 21, 2026 release gives no hull numbers. The CGA-vessel column is new in the complete version and is often blank or "Unknown" for earlier rows. Some rows list non-CCG ships: a PRC Maritime Safety Administration ship (July 16, 2026, which the tracker marks as not CCG), Haixun and Sansha law-enforcement ships (June 2026), Yanping No.2 (March 2025, which the tracker calls ostensibly a research vessel), and Dongfanghong 3 and Xiangyanghong 18 (September 2025).</li>
+      <li><b>Checked against CGA releases</b> (Chinese). Every 2026 row that has a matching release on the CGA news list, and the two Justice Mission-2025 rows, links its release on the card (green "CGA release" tags, opened September 28 to 30, 2026). 51 of the 53 tracker rows for 2026 have one; June 1 (east of Taiwan) and June 11 (Taiping Island) do not. Most releases match the tracker's times and hulls. Where they differ, the card says so: the CGA counted 14 CCG ships during Justice Mission-2025 against the tracker's 13 and 15; on June 7, 2026 the CGA says the Haixun ships stayed outside restricted waters; and three 2026 timelines have typos the release resolves (January 14 Dongsha, January 19 and March 20 Kinmen). The CGA news list reaches back only to September 2025, so earlier rows rely on the tracker. Key releases: <a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=168932&ctNode=650&mp=999" target="_blank" rel="noopener">September 3</a> names CCG 1306 Putuoshan and 2502 Daishan east of Green Island (the first public tracker had 2305, the hull it gives Xiushan in July); <a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=168921&ctNode=650&mp=999" target="_blank" rel="noopener">September 8 morning</a> and <a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=168933&ctNode=650&mp=999" target="_blank" rel="noopener">afternoon</a> are two separate Kinmen intrusions; <a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=168960&ctNode=650&mp=999" target="_blank" rel="noopener">September 10</a> and <a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=168966&ctNode=650&mp=999" target="_blank" rel="noopener">September 11</a> are two events with the same four hulls and times, which the CGA describes as an identical formation two days in a row.</li>
+      <li><b>Locations:</b> "Southwest of Taiwan" is the tracker's "Taiwan" category (its one entry is 30 nautical miles southwest of Eluanbi). "Several areas at once" collects the tracker's major-incident rows for Joint Sword 2024B around Taiwan, Strait Thunder-2025A and Justice Mission-2025. Other major-incident rows keep their area (Matsu, Dongsha, East of Taiwan). Reference points are island or sea-area centers chosen for drawing. They are not incident positions.</li>
+      <li><b>Counts:</b> one incident is one tracker row. The April 1, 2025 summary row for Strait Thunder-2025A may overlap the separate Wuqiu and Matsu rows for that day. The CGA's own count, issued September 29, 2026, is 46 CCG passages through Kinmen's restricted waters in 2025 and 35 so far in 2026 (<a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=169091&amp;ctNode=650&amp;mp=999" target="_blank" rel="noopener">CGA release</a>, Chinese). The tracker holds 35 CCG rows at Kinmen for 2026, which agrees, but 36 for 2025, so its 2025 Kinmen record is incomplete.</li>
+      <li><b>Firsts:</b> computed in the browser from the tracker dates. "First" means first in this tracker, which starts in June 2024, not first ever.</li>
+      <li><b>Clock times:</b> only times written in the tracker's event timeline are shown. Some entries have none. Where the timeline gives an impossible date or out-of-order times, the card says so. For three 2026 rows the clock uses the CGA release's times instead of a mistyped timeline, and the card says so.</li>
+      <li>Basemap: Natural Earth. Taiwan ADIZ boundary: TSM GIS layer.</li>
+      <li>Related: TSM's monthly <a href="https://tsm.schar.gmu.edu/strait-snapshot/" target="_blank" rel="noopener">Strait Snapshot</a> reports.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'CCG Gray-Zone Map', sub: 'Every China Coast Guard incident recorded by TSM from June 2024 to September 2026, from Kinmen to the waters east of Taiwan.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

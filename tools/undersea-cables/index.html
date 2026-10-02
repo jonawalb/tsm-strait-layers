@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taiwan's Undersea Cables | Taiwan Security Monitor</title>
+<meta name="description" content="Map of the submarine cables that land in Taiwan and its outlying islands, with a simulator for cutting them and a timeline of reported cable-damage incidents.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="undersea-cables.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="bar">
+      <div class="views" role="group" aria-label="Map view">
+        <button type="button" class="btn" data-view="region">Region</button>
+        <button type="button" class="btn" data-view="taiwan">Taiwan</button>
+        <button type="button" class="btn" data-view="outer">Outlying islands</button>
+        <button type="button" class="btn" data-view="matsu">Matsu</button>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of submarine cables landing in Taiwan, Penghu, Kinmen and Matsu, with regional cables nearby"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="toolbar" role="toolbar" aria-label="Map tools">
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" id="cut-mode" aria-pressed="false" title="When on, clicking a cable cuts or restores it">Cut mode</button>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="lg intl"></i>International</span><span><i class="lg prc"></i>Lands only in PRC</span><span><i class="lg dom"></i>Domestic</span><span><i class="lg cut"></i>Cut</span><span><i class="lg reg"></i>Regional, no Taiwan landing</span>
+      </div>
+      <p class="maphint">Hover a cable for details, click to select · Drag to pan · Pinch or ⌘-scroll to zoom</p>
+    </div>
+    <div class="card tl">
+      <div class="tl-h"><p class="eyebrow">Reported cable damage around Taiwan</p><p class="fine">Click a date or a card. Replays set the network to that year and cut the cables named in reporting.</p></div>
+      <svg id="tl-strip" class="tl-strip" role="group" aria-label="Incident dates"></svg>
+      <div id="tl-cards" class="tl-cards"></div>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Cut simulator and readout"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this</h2>
+    <p>Almost all of Taiwan's international internet and phone traffic travels through submarine fiber-optic cables. This map shows every cable that TeleGeography's public Submarine Cable Map lists as landing in Taiwan (<span id="n-cables"></span> in service or under construction, plus planned systems if you switch them on), where each comes ashore, and the domestic cables that link the main island to Penghu, Kinmen and the Matsu islands.</p>
+    <p>The simulator treats the network as a graph. Each island is a node, and landing points on the same island are assumed to be joined over land. Cutting an international cable at a Taiwanese landing removes that landing's link to the outside world; cutting a domestic segment removes one link between islands. The panel then reports, for each island, whether it can still reach a foreign landing, whether its only remaining route runs through a cable that lands solely in mainland China, and how many further cuts would isolate it.</p>
+    <p>The count is of cables, not capacity. TeleGeography's public data does not include bandwidth, and a new trans-Pacific system carries far more traffic than a 2001 regional one. Two cables left standing can mean very different things. The model also leaves out satellite links, microwave radio backups and the time it takes to reroute traffic, so "cut off" here means cut off by cable. Matsu, for one, has a microwave backup (reported in 2023 as a Yangmingshan–Dongyin link) with a maximum capacity of 12.6 Gbps by January 2025, against a weekday peak load of about 9.5 Gbps, and satellite dishes as a further backup (<a href="https://www.taipeitimes.com/News/taiwan/archives/2023/03/08/2003795708" target="_blank" rel="noopener">Taipei Times, 2023</a>; <a href="https://www.taipeitimes.com/News/front/archives/2025/01/23/2003830680" target="_blank" rel="noopener">2025</a>).</p>
+    <p>Official counts differ from the public map. In May 2024 the head of Taiwan's National Security Bureau told legislators that Taiwan has 14 international cables and 10 cables to its outlying islands (<a href="https://www.taipeitimes.com/News/taiwan/archives/2024/05/02/2003817262" target="_blank" rel="noopener">Taipei Times</a>). The Ministry of Digital Affairs counted 15 international and 10 domestic cables as of the end of February 2026 (<a href="https://moda.gov.tw/en/press/press-releases/19392" target="_blank" rel="noopener">MODA, April 2026</a>). TeleGeography lists only three domestic systems, TPKM2, TPKM3 and Taiwan–Matsu No. 4, so some of the domestic links are missing from this model, which makes the outlying islands look more fragile than they are.</p>
+    <p>Cables break often, from fishing gear, anchors and wear. The timeline under the map lists incidents around Taiwan that were covered in reliable reporting, with the vessels named where reporting named them. Taiwan Security Monitor is also researching cable landing stations; this tool covers only what the public cable data and the cited reporting show.</p>
+    <h2 class="mt">Method and caveats</h2>
+    <ul class="src">
+      <li>Cable routes are schematic. TeleGeography draws them to show which places a cable joins, not the exact path on the seabed.</li>
+      <li>Landing points are kept at the town level TeleGeography publishes. The tool shows no station addresses or other infrastructure.</li>
+      <li>International cables that land more than once in Taiwan (EAC-C2C, SJC2, AUG East) can be cut landing by landing. Domestic cables are split into landing-to-landing segments derived from TeleGeography's route geometry; the split is ours.</li>
+      <li>"Cuts to isolate" is the number of edge-disjoint cable routes from an island to any foreign landing (a max-flow count with every cable link worth one).</li>
+      <li>The year slider uses each cable's ready-for-service year. Cables retired before today are not in TeleGeography's current data, so earlier years undercount the network.</li>
+      <li>Historical replays match reported cable names to TeleGeography's records. Reporting on the 2023 Matsu incident names the "Taiwan–Matsu No. 2" and "No. 3" cables; TeleGeography lists the Matsu legs of TPKM2 and TPKM3. Treating them as the same cables is our inference; it fits later reporting that places damage to "No. 3" on the Dongyin–Beigan section and to "No. 2" near the Dongyin cable station, which is where TeleGeography's TPKM3 and TPKM2 run.</li>
+      <li>Replays cut only the cables named in reporting and do not model repair times. The December 2025 earthquake damage has no replay: reporting names the cables but not the damaged sections, and cutting whole cables would overstate it.</li>
+      <li>Taiwan Security Monitor's cable incident database (September 2026) lists a February 2024 Matsu No. 3 incident. Its cited source (Taipei Times, August 5, 2024) describes the February 8, 2023 cut already shown here, so the timeline does not list it twice. Where that database and the cited reporting differ on a cable name or date, the timeline follows the reporting.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src" id="sources">
+      <li>Cable routes, landing points, owners, RFS dates and lengths: TeleGeography, <a href="https://www.submarinecablemap.com/country/taiwan" target="_blank" rel="noopener">Submarine Cable Map</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Data fetched <span id="fetched"></span> from TeleGeography's public API and redistributed here under the same licence. Regenerate with <code>scripts/build.py</code>.</li>
+      <li>Incident reporting: each card under the map links its sources (Taipei Times, Focus Taiwan/CNA, VOA, Taiwan Ministry of Digital Affairs, Taiwan News, New Bloom, Maritime Executive, Digitimes). All links checked September 28, 2026.</li>
+      <li>Cable counts and Matsu backups: <a href="https://www.taipeitimes.com/News/taiwan/archives/2024/05/02/2003817262" target="_blank" rel="noopener">Taipei Times, May 2, 2024</a>; <a href="https://www.taipeitimes.com/News/front/archives/2025/01/23/2003830680" target="_blank" rel="noopener">Taipei Times, January 23, 2025</a>; <a href="https://www.taipeitimes.com/News/taiwan/archives/2023/03/08/2003795708" target="_blank" rel="noopener">Taipei Times, March 8, 2023</a>.</li>
+      <li>Fault counts conflict between official sources (the Ministry of Digital Affairs cited three cable incidents in 2023, per <a href="https://www.taipeitimes.com/News/front/archives/2025/04/12/2003835043" target="_blank" rel="noopener">Reuters via Taipei Times</a>; the NSB chief was reported as saying the lines were cut 20 times that year), so the tool does not chart a fault rate. The ministry's 2025 damage report gives a third framing: an average of 7 to 8 incidents a year within 24 nautical miles of Taiwan over the past four years (<a href="https://moda.gov.tw/en/press/press-releases/19392" target="_blank" rel="noopener">MODA, April 2026</a>).</li>
+    </ul>
+    <p class="fine mt">This tool's cable data (<code>data/cables.js</code>) is a derivative of TeleGeography's data and is shared under CC BY-SA 4.0.</p>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Taiwan\'s Undersea Cables', sub: 'Where Taiwan\'s submarine cables land, what cutting them would do, and the incidents so far.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

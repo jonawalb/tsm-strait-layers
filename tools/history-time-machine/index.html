@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taiwan Time Machine | Taiwan Security Monitor</title>
+<meta name="description" content="Explore 1895 to 2026 to see who controlled Taiwan, Penghu, Kinmen, Matsu and the Dachens, with the treaties, crises and U.S. policy documents behind each change.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="history-time-machine.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="card yearbar">
+      <div class="yb-top">
+        <div class="yb-year">
+          <output id="year-out" class="yb-num" aria-live="polite">1949</output>
+          <p id="era" class="yb-era"></p>
+        </div>
+        <div class="yb-btns" role="group" aria-label="Time controls">
+          <button type="button" class="btn" id="prev-ev" aria-label="Previous event">‹ Event</button>
+          <button type="button" class="btn solid" id="play" aria-pressed="false">Play</button>
+          <button type="button" class="btn" id="next-ev" aria-label="Next event">Event ›</button>
+        </div>
+      </div>
+      <label class="yb-range"><span class="sr">Year</span>
+        <input type="range" id="year" min="1895" max="2026" step="1" value="1949" aria-describedby="era">
+      </label>
+    </div>
+    <div class="maps" id="maps">
+      <figure class="mapbox" id="box-a"><svg id="map-a" role="img" aria-label="Map of Taiwan, its outlying islands and the facing mainland coast, shaded by which government controlled each at the end of the selected year"></svg></figure>
+      <figure class="mapbox" id="box-b" hidden><svg id="map-b" role="img" aria-label="Map for the comparison year"></svg></figure>
+      <div class="tour-slot" id="tour-slot"></div>
+    </div>
+    <div class="card diff" id="diff" hidden aria-live="polite"></div>
+    <div class="card tlcard">
+      <div class="tl-head">
+        <p class="eyebrow">Timeline · click a dot for an event, drag to explore</p>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="tl-scroll"><svg id="timeline" class="timeline" role="img" aria-label="Timeline from 1895 to 2026 with policy bands and events. Use the year slider above for keyboard control."></svg></div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Controls and readout">
+    <div class="sec">
+      <p class="eyebrow" id="ctl-title">Control at the end of 1949</p>
+      <ul class="ctl" id="ctl"></ul>
+      <p class="fine">Shading shows the controlling government at the end of each year. <a href="#method">How it is drawn</a></p>
+    </div>
+    <div class="sec" id="event-sec">
+      <p class="eyebrow">Event</p>
+      <div id="event"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Show events</p>
+      <div id="filters"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Compare two years</p>
+      <label class="tg"><input type="checkbox" id="compare"><span class="sw"></span><span class="t">Split view<small>Two maps side by side, with what changed in between</small></span></label>
+      <div class="slider" id="b-wrap" hidden>
+        <div class="sl-h"><label for="year-b">Second year</label><output id="year-b-out" class="num"></output></div>
+        <input type="range" id="year-b" min="1895" max="2026" step="1" value="1955">
+        <div class="pairs" id="pairs"></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="row-btns">
+        <button type="button" class="btn solid" id="start-tour">Start the guided tour</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Move the year slider, drag across the timeline, or press Play. The map shades Taiwan, the Penghu islands, Kinmen, Matsu, the Dachen Islands and the facing mainland coast by the government that controlled each one at the end of that year. Circles mark the small island groups so their color stays visible.</p>
+    <p>The bands above the event dots track the arrangements that framed the Strait: who governed Taiwan, the martial-law era, the U.S. defense treaty, which government Washington recognized as China, and who held China's seat at the United Nations. Each dot is an event, colored by type. Click one to read what happened, a short quote from the document where one exists, and the source.</p>
+    <p>Turn on <b>Split view</b> to put two years side by side. Places and arrangements that changed between them are outlined and listed, along with the events in between.</p>
+    <h2 class="mt">All events</h2>
+    <div class="tablewrap"><table class="evtable">
+      <thead><tr><th>Date</th><th>Event</th><th>Type</th></tr></thead>
+      <tbody id="evtable"></tbody>
+    </table></div>
+  </div>
+  <div class="col">
+    <h2 id="method">Method and limits</h2>
+    <ul class="src">
+      <li>The map shows control, meaning which government administered each place at the end of the selected year. It does not rule on sovereignty. Taiwan's legal status has been argued since the 1951 San Francisco treaty, in which Japan renounced Taiwan and Penghu without naming a recipient. The ROC, the PRC and the United States each describe that status differently; the quotes in the event cards give each document's own wording.</li>
+      <li>One controller per place per year. The mainland is shaded Qing until 1911, ROC from 1912 to 1948 and PRC from 1949. Warlord-era divisions and Japan's wartime occupation of parts of China are not shaded. That occupation included Kinmen, which Japan held from 1937 until its 1945 surrender, and parts of Matsu held by Japanese-backed forces. Kinmen and Matsu are shaded as part of Fujian before 1949.</li>
+      <li>Coastlines: Natural Earth 10 m land through TSM's shared map data. The Dachen Islands are missing from that data, so they appear as a marker at 28°28′N 121°54′E. Other small ROC-held islands (such as Wuqiu and Dongsha) are not drawn.</li>
+      <li>Band dates are the year a change took effect, with one exception: the Mutual Defense Treaty band starts when it was signed in December 1954 (it entered into force on 3 March 1955) and ends with its termination on 31 December 1979; U.S. recognition moved to the PRC on 1 January 1979; the band for U.S. recognition of the ROC starts in 1928, when the State Department recognized the Nationalist Government.</li>
+      <li>The event list is a teaching selection and leaves many events out. Every fact comes from the linked sources, and every quote was checked against the linked page. There are no notional values in this tool.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src" id="sources"></ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Taiwan Time Machine', sub: 'Who controlled Taiwan and its outlying islands from 1895 to 2026, and the treaties, crises and U.S. policy behind each change.', category: 'Classroom' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

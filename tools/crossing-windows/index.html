@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crossing Windows | Taiwan Security Monitor</title>
+<meta name="description" content="Thirty years of Taiwan Strait wind, wave, fog and typhoon records, tested against amphibious sea-state limits you set, with moon, daylight and tide for any week.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="crossing-windows.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <section class="card pad" aria-labelledby="hm-h">
+      <div class="card-h">
+        <div>
+          <p class="eyebrow">Every week, 1996 to 2025</p>
+          <h2 id="hm-h">When the Strait allowed a crossing</h2>
+        </div>
+        <p class="fine" id="hm-note"></p>
+      </div>
+      <div class="chartbox scroll">
+        <svg id="heatmap" class="chart" role="img" aria-label="Heatmap: one row per year, one column per week, shaded by the share of days that open a crossing window. Click a column to open that week."></svg>
+        <div class="tooltip" id="tip-hm" hidden></div>
+      </div>
+      <p class="fine">Brackets above the grid mark April and October, the two months Ian Easton rates best. Click any column to open that week below.</p>
+    </section>
+
+    <section class="card pad" aria-labelledby="wk-h">
+      <div class="card-h">
+        <div>
+          <p class="eyebrow">Thirty-year average by week</p>
+          <h2 id="wk-h">Go windows and typhoon exposure</h2>
+        </div>
+        <ul class="key">
+          <li><i class="k-bar"></i>Days that open a window</li>
+          <li><i class="k-tc"></i>Years with a tropical storm nearby</li>
+          <li><i class="k-easton"></i>April, October (Easton)</li>
+          <li><i class="k-wotr"></i>Mar to May, Sep to Oct (WOTR reading)</li>
+        </ul>
+      </div>
+      <div class="chartbox scroll">
+        <svg id="weekchart" class="chart" tabindex="0" role="img" aria-label="Bar chart by week of the share of days that open a crossing window. Use left and right arrow keys to change the selected week."></svg>
+        <div class="tooltip" id="tip-wk" hidden></div>
+      </div>
+    </section>
+
+    <section class="card pad drill" id="drill" aria-labelledby="dr-title">
+      <div class="card-h">
+        <div>
+          <p class="eyebrow">Selected week</p>
+          <h2 id="dr-title">Week</h2>
+          <p class="fine" id="dr-sub"></p>
+        </div>
+        <div class="wkstep">
+          <button type="button" class="btn" id="wk-prev" aria-label="Previous week">&larr;</button>
+          <button type="button" class="btn" id="wk-next" aria-label="Next week">&rarr;</button>
+        </div>
+      </div>
+      <div class="drill-grid">
+        <div>
+          <h3>Which tests fail</h3>
+          <div id="dr-tests" class="tests"></div>
+          <p class="fine">Share of the week's day-years that fail each test. A day can fail more than one.</p>
+        </div>
+        <div>
+          <h3>Daily max wind</h3>
+          <svg id="dr-wind" class="box" role="img"></svg>
+          <p class="fine" id="dr-wind-t"></p>
+          <h3>Daily max significant wave height</h3>
+          <svg id="dr-wave" class="box" role="img"></svg>
+          <p class="fine" id="dr-wave-t"></p>
+          <p class="fine">Box: middle half of days. Whiskers: 10th to 90th percentile. Bar: median.</p>
+        </div>
+        <div>
+          <h3>Typhoons</h3>
+          <div id="dr-storms"></div>
+          <h3>Fog</h3>
+          <div id="dr-fog"></div>
+        </div>
+      </div>
+      <h3 id="dr-tide-h" class="mt">Moon, light and tide</h3>
+      <div class="chartbox scroll"><svg id="dr-tide" class="chart" role="img"></svg></div>
+      <p class="fine">Line: predicted tide relative to mean sea level at the chosen port. Shading: night, darker when less of the moon is lit. Times are local (UTC+8).</p>
+      <div class="tablewrap mt"><table>
+        <thead><tr><th>Day</th><th>Sunrise</th><th>Sunset</th><th>Nautical dusk</th><th>Moon</th><th>Tide range</th></tr></thead>
+        <tbody id="dr-rows"></tbody>
+      </table></div>
+    </section>
+
+    <section class="card pad" aria-labelledby="cl-h">
+      <p class="eyebrow">The claim against the record</p>
+      <h2 id="cl-h">April and October?</h2>
+      <div class="claim-grid">
+        <div>
+          <svg id="monthchart" class="chart" role="img" aria-label="Share of days that open a window, by month"></svg>
+          <ul class="key">
+            <li><i class="k-claim"></i>April, October (Easton)</li>
+            <li><i class="k-wotr2"></i>Other months in the WOTR reading</li>
+          </ul>
+        </div>
+        <div id="claim-text" class="claim-text"></div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="panel" aria-label="Thresholds and readout">
+    <div class="sec">
+      <div class="status" id="status" data-s="warn"><b id="st-b">Loading</b><span id="st-s"></span></div>
+      <div class="btnrow">
+        <button type="button" class="btn solid" id="tour-btn">Walkthrough</button>
+        <button type="button" class="btn" id="copy-btn">Copy link</button>
+        <button type="button" class="btn" id="reset-btn">Reset</button>
+      </div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Thresholds</p>
+      <div class="choices" id="presets" role="group" aria-label="Preset limits">
+        <button type="button" data-preset="ss3">Sea state 3<br><small>waves 1.25 m, wind 21 kt</small></button>
+        <button type="button" data-preset="ss2">Sea state 2<br><small>waves 0.5 m, wind 16 kt</small></button>
+        <button type="button" data-preset="ss4">Sea state 4<br><small>waves 2.5 m, wind 27 kt</small></button>
+      </div>
+      <label class="slider"><span class="sl-h"><span>Max significant wave height <sup>S</sup></span><output id="o-h"></output></span>
+        <input type="range" id="i-h" min="0.25" max="4" step="0.05">
+        <small>WMO sea state: 2 up to 0.5 m, 3 up to 1.25 m, 4 up to 2.5 m. Which state is the limit is a judgment call.</small></label>
+      <label class="slider"><span class="sl-h"><span>Max wind <sup>S</sup></span><output id="o-w"></output></span>
+        <input type="range" id="i-w" min="6" max="40" step="1">
+        <small>Beaufort: 4 is 11 to 16 kt, 5 is 17 to 21 kt, 6 is 22 to 27 kt.</small></label>
+      <label class="slider"><span class="sl-h"><span>Days in a row needed <span class="notional">notional</span></span><output id="o-n"></output></span>
+        <input type="range" id="i-n" min="1" max="10" step="1">
+        <small>A window opens on a day when it and the days after it all pass.</small></label>
+      <label class="slider"><span class="sl-h"><span>Typhoon radius <span class="notional">notional</span></span><output id="o-r"></output></span>
+        <input type="range" id="i-r" min="0" max="1000" step="50">
+        <small>Fail a day when a tropical storm (34 kt or more) is this close to the Strait center. 0 turns the test off.</small></label>
+      <label class="tg"><input type="checkbox" id="i-fog"><span class="sw"></span><span class="t">Fail days with fog reported<small>From a shore weather station, chosen below or on the map.</small></span></label>
+      <label class="selrow">Fog station <select id="i-st"></select></label>
+      <p class="fine"><sup>S</sup> The scale is sourced (WMO, NWS); choosing it as a limit is the user's call. See method.</p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Where</p>
+      <div class="choices three" id="points" role="group" aria-label="Grid point"></div>
+      <div class="mapbox locator"><svg id="locator" role="img" aria-label="Locator map of the Taiwan Strait with the three grid points, fog stations and tide ports"></svg></div>
+      <ul class="key small">
+        <li><i class="k-pt"></i>Open-water grid point</li><li><i class="k-stn"></i>Fog station</li><li><i class="k-port"></i>Tide port</li><li><i class="k-ring"></i>Typhoon radius</li>
+      </ul>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Selected week</p>
+      <label class="slider"><span class="sl-h"><span>Week</span><output id="o-wk"></output></span>
+        <input type="range" id="i-wk" min="0" max="51" step="1"></label>
+      <label class="selrow">Moon and tide year <select id="i-yr"></select></label>
+      <label class="selrow">Tide port <select id="i-port"></select></label>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Each day from 1996 through 2025 is tested at one open-water point in the Strait. A day is a <b>go day</b> when the largest waves and the strongest wind that day both stay under your limits, no fog is reported at the chosen shore station, and no tropical storm is inside the typhoon radius. A crossing and the landings behind it take more than a day, so a <b>window</b> opens on a day only when it and the next few days all pass.</p>
+    <p>The top grid shows every year. Pale columns mean bad weeks almost every year; a lone dark cell is one lucky year. The bar chart averages the thirty years. The selected week shows which test does the damage, how wide the spread of wind and waves is, which storms came close, and the moon, darkness and tide for that week in a year you pick.</p>
+    <p>The two months analysts cite, April and October, are shaded. Move the sliders and watch how their rank changes. October in particular depends on how much wave height you allow: in this record, wind and waves at the center point rise sharply from September to October.</p>
+    <h2 class="mt">Method</h2>
+    <ul class="src">
+      <li><b>Wind:</b> daily maximum 10 m wind from the ERA5 reanalysis (ECMWF), through the Open-Meteo Historical Weather API, at 25.0N 120.5E, 24.0N 119.5E and 23.0N 118.5E. Days run midnight to midnight, Taiwan time.</li>
+      <li><b>Waves:</b> daily maximum significant wave height from ERA5's ocean-wave model (Open-Meteo Marine API, <span class="num">era5_ocean</span>) at the same points. Significant wave height is the mean of the highest third of waves; single waves run higher. Reanalysis smooths peaks, so storm days read lower than a buoy would record.</li>
+      <li><b>Fog:</b> the fog flag in NOAA's Global Surface Summary of the Day for Pingtan, Xiamen Gaoqi airport and Taichung airport. A flag means fog was reported at some point that day, on shore. Taichung has reports only for 1996 to 2000 and 2014 to 2025; days with no report pass the fog test. NOAA's files run to late August 2025.</li>
+      <li><b>Typhoons:</b> IBTrACS v04r01, Western Pacific. A day fails when any 3- or 6-hourly position with winds of 34 kt or more (U.S., Japan Meteorological Agency or WMO estimate) lies within the radius of 24.0N 119.5E.</li>
+      <li><b>Tides:</b> Taiwan's Central Weather Administration publishes tide predictions, but its open-data API needs a registered key, so this tool does not use it. Instead, 18 tidal constituents were fitted by least squares to hourly modelled sea level (Open-Meteo Marine API, January 2023 to September 2026) just off four ports. The fit misses by about 10 to 20 cm (root-mean-square; tested on 2026 data held out of the fit). No nodal corrections. Use it for spring and neap timing and rough range, not navigation.</li>
+      <li><b>Moon and sun:</b> computed in your browser with the low-precision formulas of the original SunCalc library (after Meeus). Nautical dusk is when the sun is 12 degrees below the horizon.</li>
+      <li><b>Not modelled:</b> surf on any beach, currents, rain, low cloud, visibility at sea, or anything military. Points are open water in mid-Strait, between the two coasts. The tool names no landing sites; tides are given only for public ports.</li>
+    </ul>
+    <p class="fine mt" id="prov"></p>
+  </div>
+  <div class="col">
+    <h2>Where the thresholds come from</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Setting</th><th>Default</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>Wave height</td><td class="num">1.25 m</td><td>Top of WMO sea state 3 ("slight", 0.5 to 1.25 m), <a href="https://www.nodc.noaa.gov/gtspp/document/codetbls/wmocodes/table3700.html" target="_blank" rel="noopener">WMO code table 3700</a>. The scale is sourced; treating sea state 3 as the limit is <span class="notional">notional</span>, a common rule of thumb and not a published PLA figure.</td></tr>
+        <tr><td>Sea state 2 preset</td><td class="num">0.5 m</td><td>The U.S. Navy LCAC is rated at 40-plus knots loaded in sea state 2 (<a href="https://www.globalsecurity.org/military/systems/ship/lcac-specs.htm" target="_blank" rel="noopener">GlobalSecurity LCAC specifications</a>).</td></tr>
+        <tr><td>Wind</td><td class="num">21 kt</td><td>Top of Beaufort force 5, "fresh breeze", <a href="https://www.weather.gov/mfl/beaufort" target="_blank" rel="noopener">NWS Beaufort scale</a>. Chosen to sit with sea state 3; <span class="notional">notional</span> as a limit.</td></tr>
+        <tr><td>Days in a row</td><td class="num">3</td><td><span class="notional">notional</span>. A stand-in for crossing, landing and a first resupply.</td></tr>
+        <tr><td>Typhoon radius</td><td class="num">500 km</td><td><span class="notional">notional</span>. The 34 kt cut-off is the lower bound of a tropical storm in the <a href="https://forecast.weather.gov/glossary.php?word=tropical%20storm" target="_blank" rel="noopener">NWS glossary</a>; winds are taken from <a href="https://www.ncei.noaa.gov/products/international-best-track-archive" target="_blank" rel="noopener">IBTrACS</a>.</td></tr>
+        <tr><td>Fog</td><td>on</td><td>Any fog report that day at the chosen station. The U.S. National Weather Service issues a dense fog advisory when fog cuts visibility to a quarter mile or less (<a href="https://forecast.weather.gov/glossary.php?word=fog" target="_blank" rel="noopener">NWS glossary</a>); station flags do not give a duration.</td></tr>
+      </tbody>
+    </table></div>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Ian Easton, <i>The Chinese Invasion Threat: Taiwan's Defense and American Strategy in Asia</i> (2017). Quoted as rating April and October the only two months of "good suitability" in <a href="https://www.19fortyfive.com/2025/01/the-chinese-military-could-face-a-taiwan-invasion-nightmare/" target="_blank" rel="noopener">19FortyFive, January 2025</a>. Summarized as March to May and September to October in <a href="https://warontherocks.com/2023/06/a-strait-too-far-how-a-deliberate-campaigning-approach-in-the-pacific-can-make-beijing-think-twice/" target="_blank" rel="noopener">War on the Rocks, June 2023</a>. The tool shows both readings.</li>
+      <li>ERA5 wind: <a href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener">Open-Meteo Historical Weather API</a>. ERA5 waves and modelled sea level: <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noopener">Open-Meteo Marine API</a>. Hersbach et al., <a href="https://doi.org/10.1002/qj.3803" target="_blank" rel="noopener">The ERA5 global reanalysis</a>, <i>Quarterly Journal of the Royal Meteorological Society</i> (2020), Copernicus Climate Change Service.</li>
+      <li>Fog: NOAA NCEI <a href="https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/" target="_blank" rel="noopener">Global Surface Summary of the Day</a>, stations 58944 (Pingtan), 59134 (Xiamen Gaoqi), 46770 (Taichung).</li>
+      <li>Typhoons: NOAA NCEI <a href="https://www.ncei.noaa.gov/products/international-best-track-archive" target="_blank" rel="noopener">IBTrACS</a> v04r01, Western Pacific file; Knapp et al., <a href="https://doi.org/10.1175/2009BAMS2755.1" target="_blank" rel="noopener">The International Best Track Archive for Climate Stewardship (IBTrACS)</a>, <i>Bulletin of the American Meteorological Society</i> (2010).</li>
+      <li>Surf context: the U.S. Marine Corps set an interim surf limit of a 4-foot significant breaker height for its Amphibious Combat Vehicle after two mishaps in 2022 (<a href="https://www.congress.gov/crs-product/IF11755" target="_blank" rel="noopener">CRS In Focus IF11755</a>, updated May 2026). Surf is not modelled here.</li>
+      <li>Sun and moon formulas: <a href="https://github.com/mourner/suncalc" target="_blank" rel="noopener">SunCalc</a>. Data build script: <span class="num">tools/crossing-windows/scripts/build.py</span>.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Crossing Windows', sub: 'When Taiwan Strait wind, waves, fog and typhoons have allowed an amphibious crossing, from thirty years of records.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

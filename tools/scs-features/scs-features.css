@@ -1,0 +1,103 @@
+/* South China Sea Features. Built on shared/css/tsm.css tokens only. */
+.bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; }
+.views, .acts { display: flex; flex-wrap: wrap; gap: 4px; }
+.btn[aria-pressed="true"] { border-color: var(--brand-ink); background: var(--chip); }
+.mt { margin-top: 18px !important; }
+code { font-family: var(--mono); font-size: .92em; }
+
+
+/* Map */
+.mapbox svg { aspect-ratio: 1000 / 955; cursor: grab; max-height: 86vh; }
+.mapbox svg.panning { cursor: grabbing; }
+.toolbar { position: absolute; top: 8px; left: 8px; display: flex; gap: 4px; }
+.toolbar button { background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--rule); border-radius: 3px; padding: 4px 9px; font-size: 12px; cursor: pointer; min-width: 30px; }
+.toolbar button:hover { border-color: var(--muted); }
+.maphint { position: absolute; right: 8px; bottom: 6px; margin: 0; font-family: var(--mono); font-size: 11px; color: var(--muted); background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 3px 7px; border-radius: 3px; pointer-events: none; }
+@media (max-width: 600px) { .maphint { display: none; } }
+.grat { stroke: var(--grat); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.t-grat { font: calc(9.5px / var(--z)) var(--mono); fill: var(--faint); }
+.t-sea { font: italic calc(13px / var(--z)) var(--body); fill: var(--faint); letter-spacing: .08em; }
+.t-place { font: calc(11px / var(--z)) var(--body); fill: var(--muted); }
+.t-place.big { font: 700 calc(13px / var(--z)) var(--display); letter-spacing: .25em; }
+.eez-a { fill-opacity: .07; stroke-opacity: .85; stroke-width: 1.6; stroke-dasharray: 7 4; vector-effect: non-scaling-stroke; }
+.eez:hover .eez-a { fill-opacity: .2; }
+.ndl { fill: none; stroke: var(--prc); stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.t-ndl { font: italic calc(11px / var(--z)) var(--body); fill: var(--prc); paint-order: stroke; stroke: var(--sea); stroke-width: calc(3px / var(--z)); }
+.ts12 { fill: color-mix(in srgb, var(--muted) 10%, transparent); stroke: var(--muted); stroke-width: .9; vector-effect: non-scaling-stroke; }
+svg.award .ts12.lte { fill: none; stroke: var(--faint); stroke-dasharray: 3 3; }
+.hidden { display: none; }
+.feat { cursor: pointer; }
+.feat-hit { fill: transparent; }
+.feat-sym { stroke: var(--panel); stroke-width: 1.3; }
+.feat-sym.hollow { fill: var(--panel); stroke-width: 2.6; }
+.feat.sel .feat-sym, .feat:hover .feat-sym, .feat:focus-visible .feat-sym { stroke: var(--ink); stroke-width: 2.4; }
+.feat.flash .feat-hit { fill: none; stroke: var(--accent); stroke-width: 3; }
+.t-feat { font: 11px var(--body); fill: var(--ink); paint-order: stroke; stroke: var(--sea); stroke-width: 3px; stroke-linejoin: round; display: none; pointer-events: none; }
+svg[data-zoom="mid"] .t-feat.top, svg[data-zoom="close"] .t-feat, .feat.sel .t-feat, .feat.flash .t-feat, .feat:hover .t-feat { display: inline; }
+.feat.sel .t-feat { font-weight: 600; }
+
+/* Panel */
+.sec[hidden] { display: none; }
+.occ-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 1px; }
+.occ-btns { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 5px; }
+.occ { display: flex; align-items: center; gap: 7px; border: 1px solid var(--rule); border-radius: 3px; background: transparent; padding: 6px 8px; cursor: pointer; font-size: 13px; text-align: left; }
+.occ i { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.occ span { flex: 1; }
+.occ b { font-weight: 500; color: var(--muted); }
+.occ[aria-pressed="false"] { opacity: .45; }
+.occ[aria-pressed="false"] span { text-decoration: line-through; }
+.occ:hover { border-color: var(--muted); }
+.tg.disabled { opacity: .6; cursor: default; }
+.card-h { display: flex; justify-content: space-between; align-items: center; }
+.sec .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.fname { margin: 0; font-size: 22px; line-height: 1.1; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+#card .readout { grid-template-columns: 86px 1fr; }
+#card .readout dd { font-family: var(--body); font-size: 12.5px; }
+.built { margin: 0; font-size: 13px; }
+.award-box { border-left: 3px solid var(--rule); padding: 4px 0 4px 10px; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; }
+.award-box[data-c="lte"] { border-color: var(--warn); } .award-box[data-c="rock"] { border-color: var(--blue); }
+.award-box b { font-family: var(--display); font-size: 13px; letter-spacing: .04em; }
+.key { display: inline-block; width: 10px; height: 10px; vertical-align: -1px; background: var(--muted); }
+.key.k-art { transform: rotate(45deg) scale(.9); } .key.k-out { border-radius: 50%; } .key.k-ctl { border-radius: 50%; background: none; border: 2px solid var(--muted); }
+.find { display: flex; flex-direction: column; gap: 6px; }
+.find select { font: inherit; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); }
+.acres { display: flex; flex-direction: column; gap: 3px; font-size: 12px; }
+.acres div { display: grid; grid-template-columns: 92px 1fr 52px; gap: 6px; align-items: center; cursor: pointer; }
+.acres i { height: 9px; background: var(--prc); border-radius: 2px; }
+.acres span:last-child { font-family: var(--mono); text-align: right; }
+.acres div[data-f]:hover span:first-child { text-decoration: underline; }
+.acres .sum { cursor: default; border-top: 1px solid var(--rule); padding-top: 3px; font-weight: 600; }
+.acres div { grid-template-columns: 130px 1fr 60px; }
+.below code { font-family: var(--mono); font-size: .92em; }
+.below .tablewrap { margin-top: 8px; }
+/* Walkthrough */
+.tour { position: absolute; left: 12px; bottom: 12px; width: min(380px, calc(100% - 24px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 8px 28px rgba(0, 0, 0, .18); display: flex; flex-direction: column; gap: 6px; z-index: 6; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x, .sec .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13px; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+@media (max-width: 600px) { .tour { position: static; width: auto; margin: 8px; box-shadow: none; } }
+
+/* Incident timeline */
+.tl { min-width: 0; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.tl-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.tl-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.tl-strip { width: 100%; height: auto; display: block; }
+.tl-axis { stroke: var(--muted); stroke-width: 1.2; }
+.tl-tick { stroke: var(--muted); }
+.tl-year { font: var(--axis-font); font-size: 12px; fill: var(--axis-ink); }
+.tl-dot circle { fill: var(--panel); stroke: var(--bad); stroke-width: 2.5; cursor: pointer; }
+.tl-dot.on circle, .tl-dot:hover circle { fill: var(--bad); }
+.tl-dot:focus-visible circle { stroke: var(--accent); stroke-width: 4; }
+.tl-cards { min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 1fr); gap: 10px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x proximity; }
+.inc { border: 1px solid var(--rule); border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; scroll-snap-align: start; background: var(--bg); }
+.inc.on { border-color: var(--bad); }
+.inc h3 { margin: 0; font-size: 16.5px; line-height: 1.2; }
+.inc p { margin: 0; font-size: 12.5px; }
+.inc-date { color: var(--bad); font-size: 11.5px; }
+.inc .replay { align-self: flex-start; margin-top: auto; }
+.inc.intro { background: var(--panel); border-style: dashed; }
+@media (max-width: 600px) { .tl-year { font-size: 28px; } .tl-year.alt { display: none; } .tl-dot circle { r: 12; } }

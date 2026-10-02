@@ -1,0 +1,88 @@
+/* Trailer look for games on Interactive Deterrence: the night plotting table from the /interactive trailers.
+   Loaded on game pages (registry `game: true`) on either site, and only when the player picks it for that game (shared/js/skin.js).
+   It remaps the shared tokens, so every tool that uses them changes with no per-tool CSS. The doubled
+   attribute selector beats the site palette and its dark-mode rules. */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,500&family=Martian+Mono:wght@300;400;600&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+
+:root[data-skin="trailer"][data-skin] {
+  color-scheme: dark;
+  --bg: #0b1712; --panel: #11231b; --ink: #efe9dc; --muted: #9db3a6; --faint: #7f998b; --rule: #24402f; --chip: #16291f;
+  --brand: #f0a93b; --brand-ink: #f0a93b; --accent: #f0a93b; --focus: #f0a93b;
+  --sea: #0c1d22; --land: #12251c; --coast: #3f6150; --grat: #173026;
+  --blue: #7fb6d9; --blue-soft: rgba(127, 182, 217, .16); --red: #e8604a; --red-soft: rgba(232, 96, 74, .15);
+  --good: #6fbf8b; --warn: #f0a93b; --bad: #e8604a;
+  --prc: #ff5a4e; --roc: #2cc2ac; --us: #7fb6d9; --jp: #d77ab0; --ph: #efc12f; --ccg: #ef6aa6; --ally: #63b3d6;
+  --axis-ink: var(--muted); --axis-line: var(--faint);
+  --display: "Newsreader", Georgia, serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Martian Mono", ui-monospace, Menlo, monospace;
+  --glow: 0 0 0 1px rgba(240, 169, 59, .35), 0 0 22px -4px rgba(240, 169, 59, .45);
+}
+
+/* The table: vignette, faint plotting grid and grain. */
+:root[data-skin="trailer"] body {
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(34, 64, 48, .55), rgba(5, 12, 9, 0) 70%),
+    linear-gradient(rgba(36, 64, 47, .45) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(36, 64, 47, .45) 1px, transparent 1px) 0 0 / 64px 64px,
+    #08120d;
+  background-attachment: fixed;
+}
+:root[data-skin="trailer"] body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Type: italic serif titles, mono labels. */
+:root[data-skin="trailer"] h1, :root[data-skin="trailer"] h2, :root[data-skin="trailer"] .tsm-title { font-family: var(--display); font-style: italic; font-weight: 500; letter-spacing: -.01em; }
+:root[data-skin="trailer"] .eyebrow, :root[data-skin="trailer"] .tsm-org, :root[data-skin="trailer"] .sl-h,
+:root[data-skin="trailer"] th, :root[data-skin="trailer"] .num, :root[data-skin="trailer"] output { font-family: var(--mono); letter-spacing: .04em; }
+:root[data-skin="trailer"] .eyebrow, :root[data-skin="trailer"] .tsm-org { text-transform: uppercase; font-size: .72rem; letter-spacing: .18em; color: var(--muted); }
+
+/* Panels float on the table. */
+:root[data-skin="trailer"] .card, :root[data-skin="trailer"] .panel, :root[data-skin="trailer"] .mapbox {
+  background: color-mix(in srgb, var(--panel) 88%, transparent); border-color: var(--rule);
+  box-shadow: 0 18px 40px -26px #000, inset 0 1px 0 rgba(255, 255, 255, .03);
+}
+:root[data-skin="trailer"] .tsm-head { border-bottom: 1px solid var(--rule); }
+
+/* Buttons: amber is the player's action. */
+:root[data-skin="trailer"] .btn { border-radius: 999px; border-color: var(--rule); background: var(--chip); color: var(--ink); transition: box-shadow .2s, transform .12s, background .2s; }
+:root[data-skin="trailer"] .btn:hover { box-shadow: var(--glow); }
+:root[data-skin="trailer"] .btn:active { transform: translateY(1px); }
+:root[data-skin="trailer"] .btn.solid, :root[data-skin="trailer"] .btn.primary, :root[data-skin="trailer"] .btn[aria-pressed="true"] {
+  background: var(--accent); border-color: var(--accent); color: #111; font-weight: 600;
+}
+:root[data-skin="trailer"] .btn.solid:hover { background: #f6bb5c; }
+:root[data-skin="trailer"] input[type="range"] { accent-color: var(--accent); }
+:root[data-skin="trailer"] .status { background: var(--panel); }
+:root[data-skin="trailer"] a { color: var(--accent); }
+:root[data-skin="trailer"] ::selection { background: rgba(240, 169, 59, .35); }
+
+/* Style switch and first-visit chooser (both skins). */
+.skin-switch { display: inline-flex; align-items: center; gap: 6px; font: 500 12px var(--body); color: var(--muted); }
+.skin-switch .skin-seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.skin-switch button { font: inherit; padding: 4px 10px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.skin-switch button[aria-pressed="true"] { background: var(--accent); color: #111; font-weight: 600; }
+.skin-switch button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.skin-chooser { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: end; padding: 16px; background: transparent; pointer-events: none; }   /* non-modal: the page behind stays live (D-28) */
+.skin-chooser .box { pointer-events: auto; }
+.skin-chooser[hidden] { display: none; }
+.skin-chooser .box { width: min(520px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--panel); color: var(--ink); border: 1px solid var(--rule); border-radius: 10px; padding: 22px; box-shadow: 0 30px 80px -30px #000; }
+.skin-chooser h2 { margin: 0 0 4px; font-size: 1.35rem; }
+.skin-chooser p { margin: 0 0 16px; color: var(--muted); }
+.skin-chooser .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.skin-chooser .opt { text-align: left; border: 1px solid var(--rule); border-radius: 8px; padding: 0; overflow: hidden; background: var(--chip); color: var(--ink); cursor: pointer; font: inherit; }
+.skin-chooser .opt:hover, .skin-chooser .opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.skin-chooser .sw { height: 92px; display: block; }
+.skin-chooser .sw.orig { background: linear-gradient(135deg, #f4f5f6 0 58%, #0c1f3a 58% 62%, #f4f5f6 62%); }
+.skin-chooser .sw.trl { background:
+  radial-gradient(circle at 70% 45%, rgba(240, 169, 59, .9) 0 5px, transparent 6px),
+  radial-gradient(circle at 30% 60%, rgba(232, 96, 74, .9) 0 4px, transparent 5px),
+  linear-gradient(rgba(36, 64, 47, .8) 1px, transparent 1px) 0 0 / 18px 18px,
+  linear-gradient(90deg, rgba(36, 64, 47, .8) 1px, transparent 1px) 0 0 / 18px 18px, #0b1712; }
+.skin-chooser .opt b { display: block; padding: 10px 12px 2px; }
+.skin-chooser .opt span { display: block; padding: 0 12px 12px; font-size: .88rem; color: var(--muted); }
+.skin-chooser .fine { margin: 14px 0 0; font-size: .82rem; }
+@media (max-width: 520px) { .skin-chooser .opts { grid-template-columns: 1fr; } .skin-chooser .sw { height: 60px; } }
+@media (prefers-reduced-motion: reduce) { :root[data-skin="trailer"] .btn { transition: none; } }

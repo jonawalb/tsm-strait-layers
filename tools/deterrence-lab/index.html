@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deterrence Lab | Taiwan Security Monitor</title>
+<meta name="description" content="Three formal models of deterrence for teaching: audience costs in a crisis, tying hands versus sinking costs, and salami tactics as a reputation game. Move the parameters and watch the equilibrium change.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="deterrence-lab.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="toolbar-top">
+  <nav class="tabs" role="tablist" aria-label="Model">
+    <button type="button" role="tab" data-m="A" aria-controls="stage"><b>A · Audience costs</b><span>Crisis bargaining, Fearon (1994)</span></button>
+    <button type="button" role="tab" data-m="B" aria-controls="stage"><b>B · Costly signals</b><span>Tying hands vs. sinking costs, Fearon (1997)</span></button>
+    <button type="button" role="tab" data-m="C" aria-controls="stage"><b>C · Salami tactics</b><span>Reputation, Kreps and Wilson (1982)</span></button>
+  </nav>
+  <div class="actions">
+    <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage" id="stage" role="tabpanel" aria-live="off"></div>
+  <aside class="panel" id="panel" aria-label="Parameters and equilibrium readout"></aside>
+</main>
+<div id="tour-root"></div>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Each tab is a small game of incomplete information. One side, S, knows something the other side, R, does not: whether S is <b>resolute</b> and would really fight. The sliders set payoffs and beliefs. The panel reports the perfect Bayesian equilibrium those values produce, and the figures show how play and beliefs change as you move them.</p>
+    <p>Read S as any government making a threat or commitment in a Taiwan crisis and R as its opponent. The models do not say who is who, and nothing in them is calibrated to real governments. All payoffs are abstract utilities where the stake is worth 1. The point is the logic: when a threat is believed, when bluffing pays, and why a little doubt can carry a lot of deterrence.</p>
+    <ul class="howto">
+      <li><b>Region plots</b> color each combination of two parameters by the type of equilibrium. Click or drag on them to move the current point.</li>
+      <li><b>Separating</b> means the types act differently, so R learns the type. <b>Pooling</b> means they act alike, so R learns nothing. <b>Semi-separating</b> means one type mixes and R learns something.</li>
+      <li>The <b>Bayes box</b> in each panel shows R's updated belief with the current numbers substituted.</li>
+      <li>The link in your address bar stores the tab and every parameter, so you can hand a class an exact setup.</li>
+    </ul>
+    <h2 class="mt">Teaching prompts</h2>
+    <ol class="howto">
+      <li><a href="#" data-goto="A">Module A</a>: in the semi-separating region, raise the audience cost. Why does R call bluffs less often, while the share of threats that are bluffs stays the same?</li>
+      <li><a href="#" data-goto="B">Module B</a>: with P<sub>0</sub> = 0, can a tied-hands signal ever fully separate the types? What does it do instead?</li>
+      <li><a href="#" data-goto="C">Module C</a>: find the smallest prior that keeps the challenger out of the first half of the slices. How does it change with b?</li>
+    </ol>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src">
+      <li>James D. Fearon, "Domestic Political Audiences and the Escalation of International Disputes," <i>American Political Science Review</i> 88, no. 3 (1994): 577–592. <a href="https://doi.org/10.2307/2944796" target="_blank" rel="noopener">doi:10.2307/2944796</a> · <a href="https://www.jstor.org/stable/2944796" target="_blank" rel="noopener">JSTOR</a></li>
+      <li>James D. Fearon, "Signaling Foreign Policy Interests: Tying Hands versus Sinking Costs," <i>Journal of Conflict Resolution</i> 41, no. 1 (1997): 68–90. <a href="https://doi.org/10.1177/0022002797041001004" target="_blank" rel="noopener">doi:10.1177/0022002797041001004</a></li>
+      <li>David M. Kreps and Robert Wilson, "Reputation and Imperfect Information," <i>Journal of Economic Theory</i> 27, no. 2 (1982): 253–279. <a href="https://doi.org/10.1016/0022-0531(82)90030-8" target="_blank" rel="noopener">doi:10.1016/0022-0531(82)90030-8</a></li>
+      <li>Paul Milgrom and John Roberts, "Predation, Reputation, and Entry Deterrence," <i>Journal of Economic Theory</i> 27, no. 2 (1982): 280–312. <a href="https://doi.org/10.1016/0022-0531(82)90031-X" target="_blank" rel="noopener">doi:10.1016/0022-0531(82)90031-X</a></li>
+      <li>Reinhard Selten, "The Chain Store Paradox," <i>Theory and Decision</i> 9, no. 2 (1978): 127–159. <a href="https://doi.org/10.1007/BF00131770" target="_blank" rel="noopener">doi:10.1007/BF00131770</a></li>
+      <li>In-Koo Cho and David M. Kreps, "Signaling Games and Stable Equilibria," <i>Quarterly Journal of Economics</i> 102, no. 2 (1987): 179–221. <a href="https://doi.org/10.2307/1885060" target="_blank" rel="noopener">doi:10.2307/1885060</a></li>
+      <li>Thomas C. Schelling, <i>Arms and Influence</i> (Yale University Press, 1966), a classic discussion of "salami tactics," the piecemeal erosion of a commitment. The term itself predates the book. <a href="https://yalebooks.yale.edu/book/9780300246742/arms-and-influence/" target="_blank" rel="noopener">Yale University Press</a></li>
+    </ul>
+    <p class="fine mt">Modules A and B are two-type, one-round simplifications written for teaching. They keep each paper's central mechanism but not its full model: Fearon (1994) is a continuous-time war of attrition, and Fearon (1997) lets a continuum of types choose the size of their signal. The method notes below say where the simplified versions agree with the originals and where they differ.</p>
+  </div>
+</section>
+
+<section class="below method" id="method">
+  <div class="col">
+    <h2>Method A · Audience costs</h2>
+    <p>The stake is worth 1 to both sides and R holds it. Nature makes S resolute (war cost \(c_L &lt; q\)) with probability \(p\), otherwise irresolute (\(c_H &gt; q\)). S stays quiet or threatens; R concedes or resists; if resisted, S fights or backs down. Payoffs \((u_S, u_R)\):</p>
+    $$\begin{gathered}\text{quiet } (0,0),\qquad \text{concede } (1,-1),\\ \text{back down } (-a,0),\qquad \text{war } (q-c_t,\,-q-c_R).\end{gathered}$$
+    <p><b>S's last move.</b> Type \(t\) fights iff \(q-c_t \ge -a\). The resolute type always fights. The irresolute type fights iff \(a \ge c_H-q\): a large enough audience cost ties its hands.</p>
+    <p><b>R's move.</b> Let \(\mu\) be R's belief that S will fight, given a threat. Resisting pays \(-\mu(q+c_R)\) and conceding pays \(-1\), so R resists iff</p>
+    $$\mu \le \mu^* = \frac{1}{q+c_R}.$$
+    <p>If \(q+c_R\le 1\), then \(\mu^*\ge1\): R resists every threat, only the resolute type threatens, and war occurs with probability \(p\).</p>
+    <p><b>Case 1, commitment</b> (\(a\ge c_H-q\)). Both types fight, so \(\mu=1\ge\mu^*\). R concedes and both types threaten. The audience cost is never paid.</p>
+    <p><b>Case 2, pooling</b> (\(a&lt;c_H-q,\ p\ge\mu^*\)). If both types threaten, \(\mu=p\ge\mu^*\) and R concedes, so bluffing pays.</p>
+    <p><b>Case 3, semi-separating</b> (\(a&lt;c_H-q,\ p&lt;\mu^*\)). No pure equilibrium exists: if the irresolute type never bluffs, R concedes and bluffing pays; if it always bluffs, R resists and bluffing loses \(a\). In the mixed equilibrium the irresolute type threatens with probability \(\sigma_H\) and R resists with probability \(\rho\), each set to make the other indifferent:</p>
+    $$\frac{p}{p+(1-p)\sigma_H}=\mu^* \;\Rightarrow\; \sigma_H=\frac{p\,(1-\mu^*)}{(1-p)\,\mu^*},$$
+    $$(1-\rho)\cdot1+\rho\,(-a)=0 \;\Rightarrow\; \rho=\frac{1}{1+a}.$$
+    <p>War occurs when the resolute type is resisted: \(\Pr(\text{war})=p/(1+a)\). A higher audience cost lowers the chance that R calls a threat, because bluffing is already costlier. The share of threats that are bluffs, \(1-\mu^*\), does not depend on \(a\). This shares the core logic of Fearon (1994): the cost of backing down makes bluffing expensive, so a public threat carries information. The one-round game cannot reproduce his results about <i>when</i> in a crisis each side backs down.</p>
+    <p class="fine">For generic parameters the equilibrium is unique. At \(a=0\) the irresolute type is indifferent and any bluff rate at or above \(\sigma_H\) is also an equilibrium; the tool reports the lowest.</p>
+  </div>
+  <div class="col">
+    <h2>Method B · Tying hands and sinking costs</h2>
+    <p>S values the stake at \(v_R=1\) if resolute (probability \(p\)) and \(v_I&lt;c\) if irresolute; war costs S an amount \(c\le1\). S signals or stays silent, then R pushes or backs off. If R backs off, S keeps \(v_t\). If R pushes, S fights for \(v_t-c\) or quits for 0. R's war cost \(c_R\) is private and uniform on \([-L,\bar c_R]\), so a share \(P_0=L/(L+\bar c_R)\) of receivers want war anyway. R gains 1 from pushing a quitter and loses \(c_R\) pushing a fighter, so with belief \(\varphi\) that S fights it pushes with probability</p>
+    $$\pi(\varphi)=\Pr\!\left(c_R&lt;\tfrac{1-\varphi}{\varphi}\right),\qquad \pi(1)=P_0,\quad \pi(0)=1.$$
+    <p><b>Sinking costs</b> (a signal costs \(k\) up front). After a separating signal R pushes with probability \(P_0\); after silence it pushes for sure. The resolute type signals iff \(1-k-P_0c\ge 1-c\), and the irresolute type stays out iff \((1-P_0)v_I\le k\). So the signal separates iff</p>
+    $$(1-P_0)\,v_I\;\le\;k\;\le\;(1-P_0)\,c.$$
+    <p>Below that range the irresolute type mixes. Indifference, \((1-\pi)v_I-k=0\), gives \(\pi^*=1-k/v_I\); R's belief must satisfy \(\pi(\mu)=\pi^*\), and Bayes' rule then fixes the bluff rate \(\sigma_I=p(1-\mu)/((1-p)\mu)\). If that rate would exceed 1, both types pool on the signal. Above the range nobody signals.</p>
+    <p><b>Tying hands</b> (a signal is free, but quitting after it costs \(a\)). The irresolute type is committed iff \(a\ge c-v_I\); then every signaler fights, \(\varphi=1\), and R pushes with probability \(P_0\). Short of that, a bluffer who is pushed quits and pays \(a\). Indifference, \((1-\pi)v_I-\pi a=0\), gives \(\pi^*=v_I/(v_I+a)\). If \(\pi^*\le P_0\), the war-seeking receivers alone make bluffing unprofitable and the signal separates.</p>
+    <p><b>Selection.</b> Silence is always an equilibrium if R treats any signal as a bluff. The tool reports the most informative equilibrium and says when silence also survives the Intuitive Criterion (Cho and Kreps 1987): silence fails it when the irresolute type could never gain from signaling and the resolute type would gain if R drew that inference.</p>
+    <p><b>Link to Fearon (1997).</b> In his model each type chooses how large a signal to send, and in equilibrium "leaders never bluff." Here the size is a slider, so bluffing appears at small sizes. The button <i>Set the smallest bluff-proof signal</i> moves to the size at which no one who signals would back down: \((1-P_0)v_I\) for sunk costs, and \(\min\{c-v_I,\ v_I(1-P_0)/P_0\}\) for tied hands. At those sizes the comparison table reproduces his second result: tying hands leaves S better off on average, because no cost is paid unless war comes, but carries a higher chance of war, because committed irresolute types fight the receivers who push anyway.</p>
+  </div>
+  <div class="col">
+    <h2>Method C · Salami tactics as a reputation game</h2>
+    <p>Schelling discussed the step-by-step erosion of a commitment under the name "salami tactics." This module uses the finite reputation game of Kreps and Wilson (1982) to show why a defender might resist small slices it would otherwise let pass. A defender faces \(N\) slices, each decided by a challenger who moves once. With \(k\) slices left, a challenger who stays out gets 0; one who takes a slice gets \(b\) if the defender gives way and \(b-1\) if it resists (\(0&lt;b&lt;1\)). A weak defender gets \(a&gt;1\) from a quiet round, 0 from giving way and \(-1\) from resisting. A tough defender always resists. Let \(p_k\) be the challenger's belief that the defender is tough.</p>
+    <p><b>Weak defender.</b> On the last slice it gives way. Earlier, if \(p_k&lt;b^{k-1}\), it resists with probability \(\beta_k\) chosen so that a resisted slice lifts its reputation to exactly \(b^{k-1}\):</p>
+    $$\frac{p_k}{p_k+(1-p_k)\beta_k}=b^{k-1}\;\Rightarrow\;\beta_k=\frac{(1-b^{k-1})\,p_k}{(1-p_k)\,b^{k-1}}.$$
+    <p><b>Challenger.</b> The slice is resisted with probability \(p_k+(1-p_k)\beta_k=p_k/b^{k-1}\), so taking it pays \(b-p_k/b^{k-1}\). The challenger holds back iff</p>
+    $$p_k&gt;b^{k}.$$
+    <p>At \(p_k=b^k\) it holds back with probability \(1/a\), which keeps the weak defender indifferent one slice earlier. Because \(b^k\) shrinks as \(k\) grows, even a small prior \(p_0\) exceeds the threshold for every slice with \(k&gt;\ln p_0/\ln b\): the challenger stays out early and probes only near the end.</p>
+    <p><b>Selten's paradox.</b> With \(p_0=0\) the weak defender gives way on the last slice, so resisting earlier buys nothing, and by backward induction every slice is taken. Deterrence rests on the small chance that the defender is tough.</p>
+    <p><b>Limits of the analogy.</b> Kreps and Wilson's challengers are short-lived: each moves once. A single long-lived challenger, as in a real cross-Strait contest, can also invest in learning, which this model leaves out. The expected-value readouts are exact, computed by recursion over the equilibrium strategies; the strip shows one random draw from a seeded generator, stored in the link.</p>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Deterrence Lab', sub: 'Audience costs, costly signals and salami tactics as formal models you can move: change the costs and beliefs and watch the equilibrium shift.', category: 'Classroom' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

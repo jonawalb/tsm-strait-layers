@@ -1,0 +1,119 @@
+/* Kinmen Close-Up. Built on shared/css/tsm.css tokens only. */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mt { margin-top: 26px !important; }
+.btn.sm { padding: 5px 8px; font-size: 12px; }
+.nowrap { white-space: nowrap; }
+
+/* Time bar */
+.timebar { max-width: 1400px; margin: 16px auto 0; padding: 14px 18px; display: grid; grid-template-columns: minmax(230px, auto) minmax(180px, auto) minmax(0, 1fr); gap: 12px 28px; align-items: center; }
+.big-date { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.05; margin: 2px 0; font-variant-numeric: tabular-nums; }
+.tb-stats p { margin: 0; font-size: 13px; color: var(--muted); }
+.tb-stats b { font-size: 21px; color: var(--ink); font-weight: 600; }
+.tb-stats .fine { font-size: 11.5px; }
+.tb-controls { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.tb-buttons, .tb-years { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tb-years { gap: 4px; }
+.tb-years .btn[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--panel); }
+.tb-slider input { margin: 0; height: 22px; }
+.ticks { position: relative; display: block; height: 14px; font: 11px var(--mono); color: var(--faint); }
+.ticks span { position: absolute; top: 0; white-space: nowrap; }
+.ticks span:not(:first-child) { transform: translateX(-50%); }
+@media (max-width: 1020px) { .timebar { grid-template-columns: 1fr auto; } .tb-controls { grid-column: 1 / -1; } }
+@media (max-width: 520px) { .timebar { grid-template-columns: 1fr; padding: 12px; } }
+
+/* Map */
+.w-restricted { fill: var(--blue-soft); stroke: var(--blue); stroke-width: 1.6; stroke-linejoin: round; }
+.w-prohibited { fill: var(--red-soft); stroke: var(--red); stroke-width: 1.6; stroke-linejoin: round; }
+.vx { fill: var(--panel); stroke: var(--muted); stroke-width: 1; cursor: help; outline: none; }
+.vx.unsure { stroke: var(--warn); stroke-dasharray: 2 1.5; stroke-width: 1.5; }
+.vx:hover, .vx:focus-visible { stroke: var(--focus); stroke-width: 2; }
+.t-isle { font: 600 17px var(--display); fill: var(--muted); letter-spacing: .12em; paint-order: stroke; stroke: var(--land); stroke-width: 3px; }
+.t-isle.sm { font-size: 13px; }
+.t-cn { font: 500 13px var(--body); fill: var(--faint); paint-order: stroke; stroke: var(--land); stroke-width: 3px; }
+.t-country { font: 600 15px var(--display); letter-spacing: .3em; fill: var(--faint); }
+.sec-ring { fill: none; stroke: var(--ccg); stroke-width: 1.1; stroke-dasharray: 3 3; opacity: .7; }
+.sec-lab { font: 600 12px var(--display); fill: var(--ccg); paint-order: stroke; stroke: var(--sea); stroke-width: 4px; stroke-linejoin: round; }
+.sector.empty .sec-ring, .sector.empty .sec-lab { opacity: .35; }
+.sector.off { opacity: .12; }
+.pin { cursor: pointer; outline: none; }
+.pin .dot { fill: var(--ccg); stroke: var(--panel); stroke-width: 1.3; }
+.pin .pulse { fill: none; stroke: var(--ccg); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.pin.new .pulse { animation: pulse 1.6s ease-out infinite; }
+.pin.dim .dot { opacity: .2; }
+.pin.sel .dot { r: 8; stroke: var(--ink); stroke-width: 2; opacity: 1; }
+.pin:hover .dot, .pin:focus-visible .dot { r: 8; }
+.pin:focus-visible .dot { stroke: var(--focus); stroke-width: 2.5; }
+.pin.hidden { display: none; }
+@keyframes pulse { 0% { opacity: .9; transform: scale(.45); } 100% { opacity: 0; transform: scale(1.5); } }
+@media (prefers-reduced-motion: reduce) { .pin.new .pulse { opacity: .8; transform: none; } }
+.fix { fill: var(--muted); stroke: var(--panel); stroke-width: 1; cursor: help; outline: none; }
+.fix.in { fill: var(--warn); }
+.fix:hover, .fix:focus-visible { stroke: var(--focus); stroke-width: 2; }
+.maphint { position: absolute; left: 8px; top: 8px; margin: 0; max-width: 300px; font-size: 11.5px; color: var(--muted); background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 5px 8px; opacity: .94; }
+@media (max-width: 600px) { .maphint { position: static; max-width: none; border-width: 1px 0 0; border-radius: 0; } }
+
+/* Charts */
+.twin { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 760px) { .twin { grid-template-columns: 1fr; } }
+.chart-card { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.chart-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px; }
+.mode { display: inline-flex; gap: 2px; flex-wrap: wrap; }
+.chartwrap { position: relative; }
+.chartwrap svg { display: block; width: 100%; height: auto; }
+.chartwrap .tsm-axis text { font-size: 20px; }
+.ch-grid { stroke: var(--rule); stroke-width: 1; }
+.ch-total { font: 600 18px var(--mono); fill: var(--ink); }
+.ch-year { font-weight: 600; }
+.ch-cur { fill: var(--chip); }
+.bar { fill: var(--ccg); }
+.bar.hour { fill: var(--c7); }
+.night { fill: var(--chip); }
+.ch-hit { fill: transparent; cursor: pointer; outline: none; }
+.ch-hit:focus-visible { stroke: var(--focus); stroke-width: 3; }
+
+/* Panel */
+.sectors { display: flex; flex-direction: column; gap: 4px; }
+.sec-btn { display: flex; justify-content: space-between; gap: 8px; text-align: left; padding: 6px 9px; border: 1px solid var(--rule); border-left: 4px solid var(--ccg); background: transparent; border-radius: 3px; cursor: pointer; font-size: 12.5px; color: var(--ink); }
+.sec-btn[aria-pressed="true"] { background: var(--chip); }
+.sec-btn[aria-pressed="false"] { color: var(--faint); border-left-style: dashed; }
+.sec-btn b { font-weight: 500; }
+.hbar { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 330px; overflow-y: auto; }
+.hbar button { width: 100%; display: grid; grid-template-columns: 52px 1fr 24px; align-items: center; gap: 8px; border: 1px solid transparent; background: none; border-radius: 3px; padding: 2px 4px; cursor: pointer; font-size: 12px; color: var(--ink); }
+.hbar button:hover { border-color: var(--rule); }
+.hbar button[aria-pressed="true"] { border-color: var(--ink); background: var(--chip); }
+.hb { height: 8px; background: var(--chip); border-radius: 2px; overflow: hidden; }
+.hb i { display: block; height: 100%; background: var(--ccg); }
+.hbar b { text-align: right; font-weight: 500; }
+.det-h { display: flex; justify-content: space-between; align-items: center; }
+.det-nav { display: flex; gap: 4px; }
+.det-date { font-size: 24px; margin: 0; line-height: 1.1; }
+.det-desc { margin: 0; font-size: 14px; }
+.det-tl { margin: 0; font-size: 12.5px; color: var(--muted); }
+.det-vs { margin: 0; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.pill.approx { color: var(--warn); font-size: 11px; }
+button.pill { cursor: pointer; font: inherit; font-size: 12px; font-family: var(--mono); }
+.pill.hull { color: var(--ccg); background: transparent; }
+.pill.hull[aria-pressed="true"] { background: var(--chip); border-color: var(--ccg); }
+.det-flags { border-left: 3px solid var(--warn); padding: 4px 0 4px 10px; }
+.det-flags .eyebrow { color: var(--warn); margin: 0 0 2px; }
+.flag-note { margin: 0 0 4px; font-size: 12.5px; }
+.det-cites { border-left: 3px solid var(--good); padding: 4px 0 4px 10px; }
+
+/* Table */
+.tablewrap.tall { max-height: 420px; overflow-y: auto; }
+.tablewrap tr[data-k] { cursor: pointer; }
+.tablewrap tr[data-k]:hover { background: var(--chip); }
+.tablewrap tr.sel { background: var(--blue-soft); }
+
+/* Walkthrough */
+.tour { position: absolute; right: 10px; top: 10px; width: min(340px, calc(100% - 20px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .18); z-index: 6; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font: 11.5px var(--mono); color: var(--muted); }
+.tour .x { border: 0; background: transparent; font-size: 20px; cursor: pointer; line-height: 1; color: var(--ink); }
+.tour h3 { margin: 6px 0 4px; font-size: 20px; }
+.tour p { margin: 0 0 10px; font-size: 13px; }
+.tour-nav { display: flex; justify-content: space-between; }
+@media (max-width: 600px) { .tour { position: fixed; left: 10px; right: 10px; top: auto; bottom: 10px; width: auto; } }
+
+.timebar > *, .chart-card, .panel, .sec, .twin { min-width: 0; }
+.stage > * { min-width: 0; max-width: 100%; }

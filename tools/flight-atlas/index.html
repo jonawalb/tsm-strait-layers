@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PLA Flight-Path Atlas | Taiwan Security Monitor</title>
+<meta name="description" content="Which sectors of Taiwan's ADIZ PLA aircraft entered, day by day since 2020, parsed from the text of Taiwan MND's daily reports.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="flight-atlas.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="card winbar">
+      <div>
+        <p class="eyebrow">Window</p>
+        <h2 class="wtitle" id="win" aria-live="polite"></h2>
+      </div>
+      <div class="bar-actions">
+        <span class="seg" role="group" aria-label="Window presets">
+          <button type="button" class="btn sm" data-preset="month">1 mo</button>
+          <button type="button" class="btn sm" data-preset="quarter">3 mo</button>
+          <button type="button" class="btn sm" data-preset="year">1 yr</button>
+          <button type="button" class="btn sm" data-preset="all">All</button>
+        </span>
+        <button type="button" class="btn sm solid" id="play" aria-pressed="false">Play</button>
+        <button type="button" class="btn sm" id="tour">Walkthrough</button>
+        <button type="button" class="btn sm" id="copy">Copy link</button>
+      </div>
+    </div>
+    <div class="mapbox">
+      <svg id="map" role="img" aria-label="Map of Taiwan's ADIZ split into approximate sectors, shaded by the number of days with reported PLA entries"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="legend-box">
+        <span class="seg" role="group" aria-label="Map measure">
+          <button type="button" class="btn sm" data-metric="days">Days</button>
+          <button type="button" class="btn sm" data-metric="share">Share of entry days</button>
+        </span>
+        <span class="ramp" aria-hidden="true"><i></i>fewer → more days</span>
+      </div>
+    </div>
+    <div class="card tlcard">
+      <div class="tl-h"><p class="eyebrow">Daily median line / ADIZ count, Nov 2020 to now</p>
+        <p class="legend"><span><i class="k k-bar"></i>MND count</span><span><i class="k k-hi"></i>Selected sector</span><span><i class="k k-jc"></i>JCRP day</span></p></div>
+      <div class="tlbox">
+        <svg id="tl" role="group" aria-label="Timeline. Drag the shaded window to move it, drag its edges to resize, drag elsewhere to draw a new window, click a bar to open that day."></svg>
+        <div class="tooltip" id="tltip" hidden></div>
+      </div>
+      <p class="fine">Drag the window, its edges, or a new span. Click a day to read its report. Bar height uses a square-root scale.</p>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Readouts">
+    <div class="sec">
+      <p class="eyebrow">In this window</p>
+      <dl class="readout" id="readout"></dl>
+      <label class="tg"><input type="checkbox" id="jcrp"><span class="sw"></span><span class="t">JCRP days only<small>Joint combat readiness patrol days flagged in TSM data (Dec 2022 on)</small></span></label>
+    </div>
+    <div class="sec">
+      <div class="sec-h"><p class="eyebrow">Days with entries, by sector</p><button type="button" class="btn sm" id="clear-sec" hidden>Clear</button></div>
+      <div class="seclist" id="seclist" role="group" aria-label="Pick a sector"></div>
+      <p class="fine" id="rare"></p>
+    </div>
+    <div class="sec day" id="day"></div>
+    <div class="sec"><p class="eyebrow">Entry days</p><div id="daylist"></div></div>
+  </aside>
+</main>
+
+<section class="tables">
+  <article class="card tcard">
+    <h2>Yearly totals per sector</h2>
+    <p class="fine">Days on which MND reported an entry into each sector. "MND count" sums MND's daily figure for aircraft that crossed the median line or entered the ADIZ; MND does not split that figure by sector. Click a year to set the window.</p>
+    <div class="tablewrap" id="years"></div>
+  </article>
+  <article class="card tcard">
+    <h2 id="months-h">Monthly totals per sector</h2>
+    <p class="fine">Each cell is a month; darker means more days with a reported entry into that sector. The bottom row counts JCRP days. Click a cell to set the window to that month. The outlined cells are inside the current window.</p>
+    <div class="tablewrap" id="months"></div>
+  </article>
+</section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this atlas</h2>
+    <p>Every morning, Taiwan's Ministry of National Defense (MND) publishes a short report on PLA activity around Taiwan over the previous 24 hours. The report says how many aircraft were detected, how many crossed the Taiwan Strait median line or entered Taiwan's air defense identification zone (ADIZ), and which parts of the ADIZ they entered, for example "northern, central, southwestern and eastern ADIZ". It also attaches a map of flight paths.</p>
+    <p>This atlas reads the text of every report in MND's English list and counts, for each sector, the days on which MND said aircraft entered it. Pick a window on the timeline or press Play; the map, the sector bars and the list of days update. Click a sector to highlight its days on the timeline. Click a day to read MND's own words and follow the link to its report and flight-path map.</p>
+    <p><b>What the numbers are not.</b> MND gives one count for all sectors together, so this page counts days per sector, not aircraft per sector. A day that names three sectors counts once in each. The sector shapes on the map are TSM's approximate drawing: MND names sectors but does not publish their boundaries.</p>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li><b>Reports:</b> Taiwan Ministry of National Defense, <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">PLA Activities list (English)</a>, every report from <span class="num" id="m-first"></span> to <span class="num" id="m-last"></span> (<span class="num" id="m-n"></span> reports). Report text was fetched from each report page. TSM's archive of report texts (adiz_cache.json, Nov 2020 to Mar 2026) was the fallback where a page could not be fetched<span id="m-cache"></span>.</li>
+      <li><b>Parsing:</b> <code>scripts/build.py</code> reads each report's text for the reporting window, the aircraft total, MND's median line/ADIZ figure and the sector words after "entered". "Southwest" and "southwestern" count as one sector, and so on. Rarely used names (western, northwestern, southern) are listed in the panel but not drawn. Flight-path images are not read or digitized.</li>
+      <li><b>Dates:</b> from the report for November 15–16, 2022 each report covers 6 a.m. to 6 a.m. (UTC+8) and names the median line and ADIZ sectors; a day on this page is the window's start date, which matches TSM's daily data. From August 3 to mid-November 2022 MND listed PLA aircraft around Taiwan by calendar day and named no sectors, so those days carry a total but no sector. Earlier reports covered a single day and were issued only when aircraft entered the southwestern ADIZ, so a blank day before August 2022 means no report, not a confirmed zero.</li>
+      <li><b>JCRP days:</b> the joint combat readiness patrol flags in TSM's daily dataset, rebuilt from MND press releases from December 2022. Days before that carry no flag.</li>
+      <li><b>ADIZ outline:</b> TSM's Taiwan ADIZ layer. <b>Sector regions:</b> drawn by TSM for display, approximate, not official.</li>
+      <li><b>Median line / ADIZ figure:</b> MND's wording changed over time ("crossed the median line or entered", "crossed the median line and entered", "entered"). The page sums the figure as MND gives it.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'PLA Flight-Path Atlas', sub: 'Which sectors of Taiwan\'s ADIZ PLA aircraft entered, day by day, from the text of MND\'s daily reports.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

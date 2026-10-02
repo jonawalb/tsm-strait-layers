@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mine Warfare Simulator | Taiwan Security Monitor</title>
+<meta name="description" content="Lay a notional minefield off a generic landing beach, choose how the PLA clears it, and watch what mines do to the timing and cost of an amphibious assault.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="mine-warfare.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<div class="mw-actions">
+  <p class="fine">A notional model. Every number in the simulation is illustrative.</p>
+  <div><button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+  <button type="button" class="btn" id="copy-link">Copy link</button></div>
+</div>
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="box">
+      <svg id="grid" tabindex="0" role="application" aria-label="Minefield grid off a generic landing beach. Click or drag to place mine groups; with the keyboard, use the arrow keys and press Space to place or remove."></svg>
+      <div class="tooltip" id="tip" hidden></div>
+    </div>
+    <div class="status status-mini" id="status-mini" aria-hidden="true"></div>
+    <div class="card runbar">
+      <button type="button" class="btn solid" id="run">Run clearance and assault</button>
+      <label class="hourscrub"><span class="sr">Clearance hour</span><input type="range" id="hour" min="0" max="48" step="1"></label>
+      <p class="fine num" id="hour-t"></p>
+      <ul class="legend" aria-label="Legend">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="13" x2="12" y2="21" class="lg-cable"/><circle cx="12" cy="9" r="6" class="lg-m1"/></svg>Moored contact</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18a9 7 0 0 1 18 0z" class="lg-m2"/></svg>Bottom influence</li>
+        <li><span class="sw-swept"></span>Searched</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" class="lg-x"/></svg>Neutralized</li>
+        <li><span class="sw-craft"></span>Landing craft</li>
+        <li><span class="sw-sunk"></span>Craft lost to a mine</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6" class="lg-miss"/></svg>Missed by the search</li>
+      </ul>
+    </div>
+    <div class="results" id="results"></div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Controls and results"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>The grid is a generic stretch of sea, 12 km wide and 7 km deep, off a notional landing beach. It is not a real place. The PLA transport area is at the top; the beach is at the bottom.</p>
+    <p><b>Step 1.</b> As Taiwan, lay mines. Each cell you paint holds a group of eight mines. How many groups you can lay depends on how many minelayers you have and how many sorties they make before the landing, which is really a question of warning time.</p>
+    <p><b>Step 2.</b> As the PLA, pick a mine countermeasures (MCM) force, the hours you have, and whether to clear narrow lanes or the whole area. Shaded cells have been searched. A searched mine is usually neutralized, marked with a cross, but some are missed.</p>
+    <p><b>Step 3.</b> Run the assault. Landing craft cross the field in waves along the cleared lanes or across the whole front. The panel shows expected losses, the search time the field demands, and the comparison between lanes and full-area clearance.</p>
+    <h2 class="mt">The core idea</h2>
+    <p>Mines buy time. The attacker does not know which cells hold mines, so it must search every cell it intends to use, and most of that searching is empty water. Clearance is slow, and MCM ships work in slow, predictable patterns that a defender can see and shoot at.</p>
+    <p>Clearing lanes is much faster than clearing the whole area, which is why real clearance operations cut Q-routes. The price is that the assault has to funnel through a few kilometres of front, exactly where a defender would aim coastal missiles, artillery and drones. Mines channel; fires destroy.</p>
+    <p>The biggest variable sits outside the grid: how early Taiwan decides to lay. A field laid with days of warning is far denser than one laid in the last hours, and minelaying before shots are fired is a political decision with real costs to Taiwan's own shipping.</p>
+    <h2 class="mt">Method and notional values</h2>
+    <ul class="src">
+      <li>Every numeric parameter in the simulation is <span class="notional">notional</span>: cell size (500 m), mines per group (8), mines per minelayer sortie (48, a middle value of the 32 to 64 range TSM cites; The Defense Post reports up to 64), MCM search rates (vessel 0.06, helicopter 0.10, UUV 0.04 cells per hour), chances a search neutralizes a group (vessel 85/80%, helicopter 80/45%, UUV 90/90% for moored/bottom mines), the 1.5× effort penalty for a mixed field, landing-craft loss chances per intact group (moored 30%, bottom 40%), MCM loss rates under coastal fire (0.8%, 0.4% and 0.2% per hour), 48 landing craft, and 12 approach columns for a full-area assault.</li>
+      <li>Clearance searches cells in a fixed order from seaward to shoreward. Losses are expected values: each craft's survival is the product of its chances of passing each mined cell in its column. The animation shows one seeded random draw of the same odds, so it can differ from the readout.</li>
+      <li>Left out: currents, weather, sand waves that bury and expose bottom mines, mine counts and ship counters, decoys and mine-like clutter, PLA preemptive strikes on minelayers, Taiwanese fires against the landing craft themselves, and the time to lay the field. Use the model to reason about the shape of the trade, not to estimate any real operation.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>What history shows</h2>
+    <ol class="history" id="history"></ol>
+    <h2 class="mt">Sources and further reading</h2>
+    <ul class="src" id="reading">
+      <li>Framing from Taiwan Security Monitor analysis: Jonathan Walberg, "What Hormuz Should Teach Taiwan About Mine Warfare" (September 2026), and Ethan Connell, "Taiwan's Mine Strategy Needs an Exit Plan." Cited as TSM analysis.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Mine Warfare Simulator', sub: 'Lay a minefield off a generic landing beach, choose how the PLA clears it, then run the assault.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

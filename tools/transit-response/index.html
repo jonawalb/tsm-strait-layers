@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transit Response Explorer | Taiwan Security Monitor</title>
+<meta name="description" content="Pick an allied warship transit of the Taiwan Strait and see how daily PLA activity moved in the days around it, against a 30-day baseline.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="transit-response.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="bar">
+  <div class="choices seg" id="view" role="group" aria-label="View">
+    <button type="button" data-v="single"><b>One transit</b><span>Day −7 to +10 around a single event</span></button>
+    <button type="button" data-v="agg"><b>U.S. vs. others</b><span>Averages across all events, with intervals</span></button>
+  </div>
+  <div class="acts">
+    <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="card pad" id="tour-root">
+      <div class="cardh">
+        <p class="eyebrow">Allied Taiwan Strait transits, 2017–2026</p>
+        <p class="legend"><span><i class="dot us"></i>U.S. ship present</span><span><i class="dot ally"></i>No U.S. ship</span><span><i class="dot off"></i>Not analyzable</span><span><i class="sw ex"></i>Major exercise</span></p>
+      </div>
+      <div class="stripwrap"><svg id="strip" class="strip" role="img" aria-label="Timeline of allied Taiwan Strait transit events. Click a dot to select an event; the list in the side panel has the same events."></svg></div>
+    </div>
+    <div class="card pad">
+      <div class="cardh">
+        <p class="eyebrow" id="chart-title">Event window</p>
+        <p class="legend" id="chart-legend"></p>
+      </div>
+      <div id="chart-wrap" class="chart-wrap">
+        <svg id="chart" class="chart" tabindex="0" role="img" aria-label="Event window chart. Use left and right arrow keys to step through days."></svg>
+        <div id="chart-msg" class="chart-msg" hidden></div>
+      </div>
+      <p class="tip" id="tip" aria-live="polite">Hover or use the arrow keys on the chart for daily detail.</p>
+    </div>
+    <div class="card pad single-only shipcard">
+      <div class="mapbox"><svg id="map" role="img" aria-label="Map of the Taiwan Strait with the transiting ships on a schematic route"></svg></div>
+      <div class="shipcol">
+        <p class="eyebrow">Ships in this event</p>
+        <div id="ships"></div>
+        <p class="fine">*The tracker records the date, ships and flag state, not the track or direction. The route line is schematic <span class="notional">notional</span>.</p>
+      </div>
+    </div>
+    <p class="research fine"><b>TSM research in progress.</b> Connell, Walberg and Hunzeker's working paper <i>Calibrated Coercion</i> studies whether the PLA responds differently to U.S. and allied transits. This tool does not reproduce its method or results; it shows simple, transparent computations you can check yourself.</p>
+  </div>
+  <aside class="panel" aria-label="Controls and readout">
+    <section class="sec">
+      <p class="eyebrow">Metric</p>
+      <div class="choices metric" id="metric" role="group" aria-label="Metric"></div>
+      <p class="fine" id="metric-help"></p>
+    </section>
+    <section class="sec single-only">
+      <div class="evh"><p class="eyebrow">Transit event</p>
+        <div class="stepper"><button type="button" class="btn" id="prev" aria-label="Previous analyzable event">‹</button><button type="button" class="btn" id="next" aria-label="Next analyzable event">›</button></div></div>
+      <ol class="evlist" id="evlist" aria-label="Transit events, newest first"></ol>
+    </section>
+    <section class="sec" id="readout-sec">
+      <div id="readout"></div>
+    </section>
+    <section class="sec single-only">
+      <p class="eyebrow">What else was going on</p>
+      <ul class="notes" id="flags"></ul>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">Options</p>
+      <div class="choices two" id="unit" role="group" aria-label="Units">
+        <button type="button" data-u="count">Count vs. baseline</button>
+        <button type="button" data-u="pct">% vs. baseline</button>
+      </div>
+      <div class="slider">
+        <div class="sl-h"><label for="win">Summary window</label><output id="win-out"></output></div>
+        <input type="range" id="win" min="0" max="10" step="1">
+        <small>Days after the transit that the headline number averages.</small>
+      </div>
+      <label class="tg"><input type="checkbox" id="dropx"><span class="sw"></span><span class="t">Leave exercise days out of the baseline<small>Drops days within 3 days of a major PLA exercise.</small></span></label>
+      <label class="tg agg-only"><input type="checkbox" id="clean"><span class="sw"></span><span class="t">Only clean events<small>Set aside events with another transit or an exercise in the window.</small></span></label>
+      <label class="tg agg-only"><input type="checkbox" id="showev"><span class="sw"></span><span class="t">Show individual events<small>Faint lines behind the group averages.</small></span></label>
+    </section>
+  </aside>
+</main>
+
+<section class="below">
+  <div>
+    <h2>How to read this</h2>
+    <p>Each dot on the timeline is a day when one or more allied warships transited the Taiwan Strait, as recorded by the TSM Taiwan Strait Transit Tracker. Ships that went through on the same day count as one event. Pick an event and the chart shows daily PLA activity from a week before to ten days after.</p>
+    <p>The top panel shows the raw daily count. The dashed line is the <b>baseline</b>, the average of the 30 days before the transit, and the grey band is one standard deviation around it. The bottom panel shows how far each day sits above or below that baseline. The headline number in the side panel averages those deviations over the summary window you choose.</p>
+    <p><b>U.S. vs. others</b> averages the same deviations across every analyzable event, split into events with at least one U.S. ship and events without one. Shaded bands are 95% bootstrap intervals. Click any dot in the lower strip to open that event.</p>
+    <h2 class="mt">What this can and cannot tell you</h2>
+    <p>This is descriptive. PLA activity rises and falls for many reasons: exercises, weather, holidays, political events and other transits. A rise after a transit does not show the transit caused it. Transits cluster in time, many events overlap an exercise, and the number of events is small, especially for the ship metrics, which start in August 2024. Use the flags and the "only clean events" option to see how much these issues matter.</p>
+  </div>
+  <div>
+    <h2>Method</h2>
+    <ul class="src">
+      <li><b>Events.</b> Transits on the same date are merged. An event is analyzable for a metric if TSM has a daily value on the transit day and at least 10 usable baseline days. Aircraft counts start Aug. 6, 2022 and ADIZ entries Aug. 7, 2022 (each with some missing days); PLAN ships and official ships start Aug. 13, 2024. Earlier events appear greyed out with the reason.</li>
+      <li><b>Baseline.</b> Mean of days −30 to −1, leaving out any day within 3 days of another transit event. The optional exercise filter also leaves out days within 3 days of a major exercise (list from TSM's <i>Exercises as Theater</i> data). Missing days are skipped.</li>
+      <li><b>Deviation.</b> Daily value minus baseline, or that difference as a percent of the baseline. The summary is the mean deviation over day 0 to day +N.</li>
+      <li><b>Intervals.</b> Percentile bootstrap: resample events with replacement within each group 2,000 times and take the 2.5th and 97.5th percentiles. The random generator is seeded (mulberry32, seed 20260916), so the intervals are the same on every visit. Groups with fewer than two events get no interval.</li>
+      <li><b>Daily counts</b> come from Taiwan MND reports that cover roughly 06:00 to 06:00 local time; TSM files each under the day the window starts (rows from Aug. 23 to Sept. 27, 2026 were reset to this convention from MND's own reports). Transit dates are as recorded in the tracker, which does not give times.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Daily activity: Taiwan Security Monitor PLA Activity Center, compiled from Taiwan Ministry of National Defense daily releases (data through <span id="asof"></span>). <a href="https://tsm.schar.gmu.edu/" target="_blank" rel="noopener">tsm.schar.gmu.edu</a></li>
+      <li>Transits: TSM Taiwan Strait Transit Tracker, 2017–2026. Coverage is thin from September 2025 to January 2026: the only transit recorded between Sept. 12, 2025 and Jan. 16, 2026 is HMNZS Aotearoa on Nov. 5, 2025. Display fixes: "HMCS Ottowa" shown as HMCS Ottawa and "USS McCampell" as USS McCampbell; the Canadian frigate that sailed with USS Dewey on Oct. 14, 2021 is shown as HMCS Winnipeg (FFH-338), not the tracker's HMCS Vancouver, per <a href="https://www.cbc.ca/news/politics/china-canada-warships-taiwan-strait-1.6214303" target="_blank" rel="noopener">CBC News</a>. Six tracker dates are moved to the first day of the passage given by the navy or Taiwan's defense ministry: Apr. 28 and May 22, 2019 (<a href="https://www.mnd.gov.tw/en/News/PressRelease/76207" target="_blank" rel="noopener">MND</a>, <a href="https://www.mnd.gov.tw/en/News/PressRelease/76295" target="_blank" rel="noopener">MND</a>), May 13, 2020 (<a href="https://web.archive.org/web/20200516230725/https://news.usni.org/2020/05/14/uss-mccampbell-transits-taiwan-strait-ahead-of-taiwanese-presidential-inauguration" target="_blank" rel="noopener">7th Fleet via USNI News</a>), Sept. 13, 2024 (<a href="https://www.mnd.gov.tw/en/News/PressRelease/83468" target="_blank" rel="noopener">MND</a>), Feb. 16, 2025 (<a href="https://www.mnd.gov.tw/en/News/PressRelease/84037" target="_blank" rel="noopener">MND</a>) and Sept. 6, 2025 (<a href="https://www.globalsecurity.org/wmd/library/news/taiwan/2025/taiwan-250906-cna01.htm" target="_blank" rel="noopener">CNA</a>); ship types filled or aligned with the class where the tracker types the same class consistently elsewhere (Hobart-class destroyer, Halifax-class frigate).</li>
+      <li>Exercise dates: TSM <i>Exercises as Theater</i> event list (13 URL-sourced events). See the <a href="../joint-sword/">Anatomy of an Exercise</a> tool for each exercise's sources.</li>
+      <li>Median line as drawn in TSM's Taiwan ADIZ GIS layer. Coastline: Natural Earth.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Transit Response Explorer', sub: 'Pick an allied warship transit of the Taiwan Strait and see how PLA activity moved in the days around it.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

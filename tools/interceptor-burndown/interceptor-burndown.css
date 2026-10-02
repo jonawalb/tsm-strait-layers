@@ -1,0 +1,135 @@
+/* Interceptor Burn-down. Built on shared/css/tsm.css tokens only. */
+.stage { position: relative; }
+.card { padding: 12px 14px; }
+.nbanner { margin: 0; font-size: 12.5px; color: var(--muted); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.nbanner .notional { flex: none; }
+
+/* Clock card */
+.clock { display: flex; flex-direction: column; gap: 10px; }
+.clock-h { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: end; }
+.clock-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.play { min-width: 76px; font-family: var(--display); letter-spacing: .04em; }
+.daylabel { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.daylabel b { font-family: var(--display); font-size: 30px; color: var(--ink); line-height: 1; margin-right: 6px; }
+#day { width: 100%; accent-color: var(--accent); }
+
+/* Magazine bars */
+.mags { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 20px; }
+.mags li { display: grid; grid-template-columns: 96px minmax(0, 1fr) 52px; grid-template-rows: auto auto; gap: 1px 8px; align-items: center; font-size: 12.5px; }
+.mags .mn { font-weight: 600; grid-row: 1 / span 2; }
+.mags .mbar { height: 12px; background: var(--chip); border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; display: block; }
+.mags .mbar span { display: block; height: 100%; transition: width .2s ease-out; }
+.mags .mv { text-align: right; }
+.mags .md { grid-column: 2 / span 2; font-size: 11px; color: var(--muted); font-family: var(--mono); }
+.mags li[data-state="low"] .mv { color: var(--warn); }
+.mags li[data-state="empty"] .mv { color: var(--bad); font-weight: 600; }
+.mags li[data-state="empty"] .mbar { border-color: var(--bad); }
+.mags li.none { display: block; color: var(--muted); }
+@media (max-width: 700px) { .mags { grid-template-columns: minmax(0, 1fr); } }
+
+/* Charts */
+.chartcard { display: flex; flex-direction: column; gap: 6px; }
+.chart-h { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: center; }
+.chart { width: 100%; height: auto; display: block; cursor: ew-resize; touch-action: none; user-select: none; -webkit-user-select: none; }
+.tchart { cursor: default; touch-action: auto; }
+.legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 5px; }
+.legend .sw { display: inline-block; width: 12px; height: 10px; border-radius: 2px; }
+.legend .incsw { background: color-mix(in srgb, var(--ink) 12%, transparent); border: 1px solid var(--rule); }
+.legend .tgood { background: color-mix(in srgb, var(--good) 60%, transparent); }
+.legend .tbad { background: color-mix(in srgb, var(--bad) 60%, transparent); }
+.chart .area { opacity: .82; }
+.chart .grid { stroke: var(--rule); stroke-width: 1; }
+.chart .ax { stroke: var(--faint); }
+.chart .ax-t { font: var(--axis-font); fill: var(--axis-ink); }
+.chart .cur { stroke: var(--accent); stroke-width: 2; }
+.chart .cur-h { fill: var(--accent); stroke: var(--panel); stroke-width: 2; }
+.chart .drymark { stroke: var(--bad); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.chart .dry-t { font: 600 11.5px var(--body); fill: var(--bad); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.chart .incbar { fill: color-mix(in srgb, var(--ink) 10%, transparent); }
+.chart .leakbar { opacity: .9; }
+.chart .row-t { font: 600 12px var(--body); fill: var(--ink); }
+.chart .tb-t { font: 11px var(--mono); fill: var(--muted); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.chart .basel { stroke: var(--ink); stroke-width: 1.5; }
+.chart .tbar.good { fill: color-mix(in srgb, var(--good) 60%, transparent); }
+.chart .tbar.bad { fill: color-mix(in srgb, var(--bad) 60%, transparent); }
+.leakday { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--muted); }
+.leakday b { color: var(--ink); font-weight: 500; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+/* Segmented buttons */
+.seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.seg button { font-size: 12px; padding: 5px 8px; border: 1px solid var(--rule); background: transparent; border-radius: 3px; cursor: pointer; }
+.seg button:hover { border-color: var(--muted); }
+.seg button[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); }
+.seg.small .btn { padding: 4px 9px; font-size: 12px; font-weight: 500; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Panel */
+.choices small { color: var(--muted); font-size: 11.5px; }
+.choices b { font-weight: 600; }
+#salvo-sliders, #inv-sliders, #supply-box { display: flex; flex-direction: column; gap: 8px; }
+.rule { display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px; border-bottom: 1px dashed var(--rule); margin-bottom: 4px; }
+.rule-h { margin: 0; font-weight: 600; font-size: 13px; }
+.readout dd { text-align: right; }
+
+/* Below */
+.below h2.mt { margin-top: 22px; }
+.mt-s { margin-top: 8px !important; }
+.tablewrap td.num { text-align: right; }
+
+/* Walkthrough card (pattern from strait-layers) */
+.tour { background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13.5px; max-width: 80ch; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.chartcard .tsm-export { margin-top: 4px; }
+.col .tsm-export { margin-top: 6px; }
+
+@media (max-width: 520px) {
+  .daylabel b { font-size: 24px; }
+  .mags li { grid-template-columns: 84px minmax(0, 1fr) 46px; }
+  .choices { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .mags .mbar span { transition: none; } }
+.chart .tb-t.in { fill: var(--ink); }
+
+/* ---- Motion: Interactive Deterrence only (the .ib-m class is set by js/fx.js there and on localhost) ---- */
+.ib-m .chartcard { position: relative; }
+.ib-m .ib-fx { position: absolute; pointer-events: none; overflow: visible; }
+.ib-m .chart.ib-pre { clip-path: inset(0 100% 0 0); }
+.ib-m .chart.ib-draw { animation: ib-wipe .7s cubic-bezier(.3, .7, .2, 1) both; }
+@keyframes ib-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.ib-m .tbar.ib-grow { transform-box: fill-box; animation: ib-grow .5s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes ib-grow { from { transform: scaleX(0); } }
+.ib-m .mags .mbar span { transition: width .25s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .ib-m .chart.ib-pre { clip-path: none; }
+  .ib-m .chart.ib-draw, .ib-m .tbar.ib-grow { animation: none; }
+}
+
+/* ---- Trailer look (the night plotting table; only when a player picks it on Interactive Deterrence) ----
+   Seven interceptor bands and three threat types, re-tuned for the dark table and kept apart in hue and
+   lightness: amber, teal, pink, lime, violet, blue, sand, with red for the ballistic threat. */
+:root[data-skin="trailer"] {
+  --c1: #f0a93b; --c2: #e8604a; --c3: #5fc4b0; --c4: #d98cc0; --c5: #c9dc7a; --c6: #a68ef0; --c7: #7fb6d9; --c8: #cdb98f;
+}
+:root[data-skin="trailer"] .daylabel b { font-style: italic; font-weight: 500; font-size: 36px; color: var(--accent); text-shadow: 0 0 18px rgba(240, 169, 59, .3); }
+:root[data-skin="trailer"] .play { font-family: var(--mono); letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+:root[data-skin="trailer"] .mags .mbar { background: #0a1510; }
+:root[data-skin="trailer"] .mags .mbar span { box-shadow: 0 0 10px -3px currentColor; }
+:root[data-skin="trailer"] .mags .mn { font-family: var(--mono); font-weight: 400; font-size: 11.5px; letter-spacing: .03em; }
+:root[data-skin="trailer"] .chart .area { opacity: .78; }
+:root[data-skin="trailer"] .chart .cur { filter: drop-shadow(0 0 4px rgba(240, 169, 59, .7)); }
+:root[data-skin="trailer"] .chart .drymark { filter: drop-shadow(0 0 3px rgba(232, 96, 74, .7)); }
+:root[data-skin="trailer"] .chart .dry-t, :root[data-skin="trailer"] .chart .tb-t { font-family: var(--mono); font-size: 10.5px; }
+:root[data-skin="trailer"] .chart .row-t { font-family: var(--body); }
+:root[data-skin="trailer"] .chart-h .seg button { color: var(--ink); }
+:root[data-skin="trailer"] .chart-h .seg button[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+:root[data-skin="trailer"] .tour { background: color-mix(in srgb, var(--panel) 94%, transparent); box-shadow: 0 22px 50px -24px #000; }
+:root[data-skin="trailer"] .mags .mv { font-size: 11.5px; }
+:root[data-skin="trailer"] .mags li { grid-template-columns: 96px minmax(0, 1fr) 60px; }
+@media (max-width: 520px) { :root[data-skin="trailer"] .mags li { grid-template-columns: 84px minmax(0, 1fr) 56px; } }

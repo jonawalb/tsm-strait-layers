@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arms Sales Backlog | Taiwan Security Monitor</title>
+<meta name="description" content="Every U.S. arms sale to Taiwan still waiting for delivery, from congressional notification to contract, first delivery and expected completion, with the backlog total over time.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=PT+Serif:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="arms-backlog.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<section class="monthview" id="monthview" aria-labelledby="mv-h">
+  <div class="mv-top card">
+    <div class="mv-head">
+      <div>
+        <p class="eyebrow" id="mv-h">Month by month · backlog update</p>
+        <div class="mv-nav">
+          <button type="button" class="btn mv-arrow" id="mv-prev"><span aria-hidden="true">←</span></button>
+          <h2 class="mv-month" id="mv-month">August 2026</h2>
+          <button type="button" class="btn mv-arrow" id="mv-next"><span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="mv-pick">
+        <label class="sortl">Jump to <select id="mv-select"></select></label>
+        <div class="mv-strip" id="mv-strip" role="group" aria-label="Monthly updates, November 2023 to August 2026; bar height is the backlog total"></div>
+      </div>
+    </div>
+    <p class="mv-chg" id="mv-chg"></p>
+    <p class="mv-sr" aria-live="polite" id="mv-live"></p>
+  </div>
+  <div class="mv-grid">
+    <figure class="card mv-figcard">
+      <div class="mv-paper mv-figbox">
+        <svg id="mv-fig" role="group" aria-label="Figure 1: backlog by weapons category. Each wedge is a button that filters Table 1."></svg>
+      </div>
+      <figcaption class="fine">Redrawn in TSM's current Figure 1 style for every month, including the Cato Institute's updates of November 2023 to December 2024. Orange wedges are cases with deliveries under way; Cato and TSM count them at full value until the last item arrives. Select a wedge to list its cases.</figcaption>
+    </figure>
+    <div class="card mv-tablecard">
+      <div class="mv-paper" id="mv-tablebox"></div>
+      <ul class="mv-key" aria-label="Table key">
+        <li><span class="mv-pm" aria-hidden="true"></span><i>Italics: partly delivered</i></li>
+        <li><span class="mv-sw s-add" aria-hidden="true"></span>Added this month</li>
+        <li><span class="mv-sw s-newp" aria-hidden="true"></span>Newly partly delivered</li>
+        <li><span class="mv-sw s-out" aria-hidden="true"></span>Left the backlog this month</li>
+      </ul>
+      <p class="fine">Select a case for its record, milestones and status in every monthly update.</p>
+    </div>
+  </div>
+  <div class="mv-foot">
+    <div class="mv-src" id="mv-src"></div>
+    <div class="mv-notes" id="mv-notes"></div>
+  </div>
+  <dialog class="mv-dialog" id="mv-card" aria-label="Case record">
+    <div class="mv-dh"><button type="button" class="btn" id="mv-card-tl">Show in timeline</button><button type="button" class="mv-x" aria-label="Close case record">×</button></div>
+    <div class="sec detail" id="mv-card-body"></div>
+  </dialog>
+</section>
+
+<section class="headline" aria-label="Backlog summary">
+  <div class="counter">
+    <p class="eyebrow">Sold, not yet delivered · as of <span id="asof">Aug. 31, 2026</span></p>
+    <p class="big"><span class="num" id="big-total">$29.72B</span></p>
+    <p class="fine" id="big-sub">28 open cases notified to Congress since 2017.</p>
+  </div>
+  <dl class="tiles" id="tiles"></dl>
+</section>
+
+<main class="layout">
+  <div class="stage">
+    <div class="card chartcard">
+      <div class="chart-h">
+        <div>
+          <p class="eyebrow">Case timeline</p>
+          <p class="fine" id="gantt-sub"></p>
+        </div>
+        <ul class="legend" aria-label="Timeline legend">
+          <li><i class="lg-wait"></i>Waiting since notification</li>
+          <li><i class="lg-deliv"></i>Deliveries under way</li>
+          <li><i class="lg-future"></i>Reported expected completion</li>
+          <li><i class="lg-contract"></i>Contract or LOA</li>
+          <li><i class="lg-event"></i>Other milestone</li>
+        </ul>
+      </div>
+      <div class="ganttbox" id="ganttbox">
+        <svg id="gantt" role="list" aria-label="U.S. arms sale cases to Taiwan on a timeline. Select a row for details."></svg>
+        <div class="tooltip" id="tip" hidden></div>
+      </div>
+    </div>
+
+    <div class="card chartcard">
+      <div class="chart-h">
+        <div>
+          <p class="eyebrow" id="total-title">Backlog total, as published each month</p>
+          <p class="fine" id="total-sub"></p>
+        </div>
+        <div class="seg" role="group" aria-label="Backlog chart view">
+          <button type="button" class="btn" data-view="topline" aria-pressed="true">Monthly total</button>
+          <button type="button" class="btn" data-view="vintage" aria-pressed="false">How it piled up</button>
+        </div>
+      </div>
+      <div class="totalbox" id="totalbox">
+        <svg id="total" role="img" aria-label="Backlog value over time"></svg>
+        <p class="fine total-read" id="total-read" aria-live="polite"></p>
+        <ol class="t-events" id="total-events" aria-label="Changes to the total"></ol>
+      </div>
+    </div>
+  </div>
+
+  <aside class="panel" id="panel" aria-label="Filters and case details">
+    <div class="sec">
+      <p class="eyebrow">System type</p>
+      <div class="cats" id="cats"></div>
+      <p class="eyebrow">Status</p>
+      <div class="choices st" id="status"></div>
+      <div class="row2">
+        <label class="sortl">Sort by
+          <select id="sort">
+            <option value="age">Longest waiting</option>
+            <option value="value">Dollar value</option>
+            <option value="new">Most recent</option>
+          </select>
+        </label>
+        <label class="tg"><input type="checkbox" id="gone"><span class="sw"></span><span class="t">Left the backlog<small>Delivered or removed since Jan. 2025</small></span></label>
+      </div>
+      <p class="fine" id="filter-read" aria-live="polite"></p>
+    </div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+    <div class="sec actions">
+      <button type="button" class="btn solid" id="tour-btn">Start the walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link to this view</button>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Each row is one Foreign Military Sales case that the U.S. government has notified to Congress and that Taiwan has not yet fully received. The bar starts on the notification date and runs to the data date. Its length is how long Taiwan has been waiting.</p>
+    <p>An orange stretch means deliveries have started but the case is not finished. A dashed tail runs to the completion date most recently reported by Taiwan's Ministry of National Defense, a contract notice or the press. Diamonds mark a contract award or signed Letter of Offer and Acceptance (LOA). Small ticks mark other milestones, such as the ministry listing a case as delayed. Hover or focus a mark to read it, and select a row for the full record and sources.</p>
+    <p><b>Month by month</b>, at the top, redraws Figure 1 and Table 1 for each monthly update, all in TSM's current figure style: the Cato Institute's November 2023 baseline and its January to December 2024 updates, then TSM's updates since January 2025. Each month's source line names its publisher. Use the arrows (or the ← and → keys) to step through the months. Select a wedge to list its cases, and a case for its record and its status in every update. Green rows were added that month, cases that left the backlog are struck through at the bottom, and numbered notes mark places where the published post differs from its own data.</p>
+    <p>The second chart shows the backlog's dollar total. <b>Monthly total</b> is the figure published each month: the Cato Institute's updates from January to December 2024, then TSM's since January 2025. <b>How it piled up</b> stacks today's open cases by the date each was notified, so you can see which years produced the weapons Taiwan is still waiting for.</p>
+    <h2 class="mt">Method</h2>
+    <p>The universe of cases is what the U.S. notified to Congress under the Arms Export Control Act, as tracked by the Taiwan Security Monitor. Maintenance, spare-parts and training cases are left out. A case keeps its full notified value until final delivery; TSM does not estimate partial values, so the headline overstates what is still owed where deliveries are under way. Notified values are ceilings, and contracts often come in lower.</p>
+    <p>Milestone dates carry the precision of their source. A year-only date is drawn at mid-year, and a year-only completion at year end. Expected dates are what officials or contracts said at the time, not forecasts by TSM, and many have slipped before.</p>
+    <p><b>Category subtotals.</b> The Traditional, Asymmetric and Munitions subtotals in this tool are summed from the individual cases: Traditional $12,927 million, Asymmetric $14,463 million and Munitions $2,329 million in August 2026, for a total of $29,719 million. These match Table 1 of TSM's <a href="https://tsm.schar.gmu.edu/taiwan-arms-sale-backlog-august-2026-update/" target="_blank" rel="noopener">August 2026 update</a> as published when last checked (Sept. 29, 2026).</p>
+    <div id="verify-block"></div>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src" id="sources"></ul>
+    <h2 class="mt">What is missing</h2>
+    <ul class="src" id="missing"></ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Arms Sales Backlog', sub: 'U.S. arms sales to Taiwan from congressional notification to delivery, and the backlog in between.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

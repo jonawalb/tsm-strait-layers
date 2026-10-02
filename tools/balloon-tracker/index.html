@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Balloon Tracker | Taiwan Security Monitor</title>
+<meta name="description" content="PRC balloons reported by Taiwan's Ministry of National Defense: where MND placed them, when they came, and how the sightings cluster in winter.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="balloon-tracker.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<section class="card seasonbar" aria-label="Choose a season">
+  <div class="sb-top">
+    <div><p class="eyebrow">Season, July to June</p><h2 class="stitle" id="stitle" aria-live="polite"></h2></div>
+    <div class="sb-actions">
+      <button type="button" class="btn sm" id="tour">Walkthrough</button>
+      <button type="button" class="btn sm" id="copy">Copy link</button>
+    </div>
+  </div>
+  <div class="seasons" id="seasons" role="group" aria-label="Seasons"></div>
+</section>
+
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="mapbox">
+      <svg id="map" role="img" aria-label="Map of the Taiwan Strait with computed balloon positions and the cities MND measured them from"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="map-note"><span><i class="k k-dot"></i>Computed position (approximate)</span><span><i class="k k-ref"></i>MND reference city</span></div>
+      <p class="nopos" id="nopos" hidden>MND gave no positions for balloons in this season, only counts. See the timeline below.</p>
+    </div>
+    <div class="card chart">
+      <div class="ch-h"><p class="eyebrow">Balloons per reporting day</p>
+        <p class="legend"><span><i class="k k-bar"></i>MND report</span><span><i class="k k-sheet"></i>TSM sheet only</span><span><i class="k k-win"></i>Nov to Mar</span></p></div>
+      <div class="chbox"><svg id="tl" role="group" aria-label="Timeline of balloons per day. Bars are buttons that open the day."></svg><div class="tooltip" id="tltip" hidden></div></div>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Readouts">
+    <div class="sec"><p class="eyebrow">In this season</p><dl class="readout" id="readout"></dl></div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+    <div class="sec"><p class="eyebrow">Reports</p><div id="list"></div></div>
+  </aside>
+</main>
+
+<section class="tables">
+  <article class="card chart">
+    <h2 id="seas-h">Seasonality: balloons by calendar month</h2>
+    <p class="legend" id="seas-legend"></p>
+    <div class="chbox"><svg id="seas" role="img" aria-label="Balloons by calendar month for each season"></svg></div>
+    <p class="fine">Sums MND's stated count per report plus the TSM sheet's count on days with no matching MND text. Both sources start in December 2023, so the chart starts with the 2023–24 season; earlier winters are not covered. Click a bar to filter to its season.</p>
+  </article>
+</section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this tracker</h2>
+    <p>Taiwan's Ministry of National Defense (MND) publishes a report on PLA activity around Taiwan every morning. When its forces detect a PRC balloon, the report adds a balloon section. In December 2023, early January 2024 and December 2024 that section gave each balloon's detection time, altitude, heading and position, written as a distance and bearing from a Taiwanese city. From mid-January to April 2024 the English reports carry no balloon section, and in January 2025 several English report pages have no text at all; TSM's sheet fills some of those days with counts. From February 2025 MND gives a count only.</p>
+    <p>The map shows only balloons whose position MND stated. Pick a season at the top, then a dot, a bar on the timeline or a report in the list. The panel quotes MND's words and links to the report.</p>
+    <p><b>Every dot is approximate.</b> TSM computes it by going the stated distance from the city center on the stated bearing. MND rounds distances to whole nautical miles and uses compass words such as "northwest", so a dot can be several kilometers from where the balloon was. Days without a stated position have no dot.</p>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li><b>Balloon reports:</b> Taiwan Ministry of National Defense, <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">PLA Activities list (English)</a>. All <span class="num" id="m-n"></span> reports from <span class="num" id="m-first"></span> to <span class="num" id="m-last"></span> were read; the balloon section of each is quoted in full on this page. The report pages are fetched directly (MND's certificate chain fails validation, so the build script skips TLS verification).</li>
+      <li><b>TSM sheet:</b> the "balloon" column of TSM's <i>PLAAF Activity Around Taiwan</i> spreadsheet (TSM local). Where the sheet has a count and no MND report text mentions balloons, the day appears as "sheet only". Where both exist and disagree, the panel says so.</li>
+      <li><b>Reference points:</b> coordinates from each place's Wikipedia article (city centers, and the air base's listed coordinates for Ching-Chuan-Kang): <span id="m-refs"></span>. MND does not say which point in each place it measures from.</li>
+      <li><b>Computation:</b> great-circle destination from the city on the bearing (north = 0°, northwest = 315°, and so on) for the stated distance (1 nautical mile = 1.852 km). Dates are the start of MND's 6 a.m.-to-6 a.m. reporting window; times are as MND gives them.</li>
+      <li><b>Build:</b> <code>scripts/build.py</code> regenerates <code>data/balloons.js</code> from the report pages and the sheet.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Balloon Tracker', sub: 'PRC balloons reported by Taiwan\'s Ministry of National Defense: where, when, and how they cluster in winter.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
