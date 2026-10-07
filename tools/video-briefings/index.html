@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Video Briefings | Taiwan Security Monitor</title>
+<meta name="description" content="A short narrated weekly video built from Taiwan Security Monitor data: PLA air and naval activity, exercises, China Coast Guard incursions and PRC official rhetoric, each against the previous 12 weeks.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="video-briefings.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="vb">
+  <section class="vb-player card" aria-labelledby="vb-title">
+    <div class="vb-frame">
+      <video id="video" controls playsinline preload="none" aria-describedby="vb-meta"></video>
+      <p class="vb-status" id="vstatus" role="status">Loading the briefing…</p>
+    </div>
+    <div class="vb-info">
+      <div>
+        <p class="eyebrow">Weekly briefing</p>
+        <h2 id="vb-title" class="vb-title">…</h2>
+        <p class="fine" id="vb-meta"></p>
+      </div>
+      <div class="vb-actions">
+        <button type="button" class="btn" id="prev" aria-label="Older briefing">‹ Older</button>
+        <button type="button" class="btn" id="next" aria-label="Newer briefing">Newer ›</button>
+        <a class="btn" id="dl-mp4" download>MP4</a>
+        <a class="btn" id="dl-vtt" download>Captions (VTT)</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="vb-transcript card" aria-labelledby="tr-h">
+    <div class="tr-head">
+      <h3 id="tr-h">Transcript</h3>
+      <label class="tg"><input type="checkbox" id="show-refs" checked><span class="sw"></span><span class="t">Show the numbers<small>each sentence's source figures</small></span></label>
+    </div>
+    <p class="fine">Select a sentence to jump to it. Every sentence is filled in from the figures listed under it.</p>
+    <ol class="tr-list" id="transcript"></ol>
+  </section>
+</main>
+
+<section class="vb-data" aria-labelledby="data-h">
+  <h2 id="data-h">The week in numbers</h2>
+  <div class="tiles" id="tiles"></div>
+  <div class="vb-grid">
+    <article class="card pad">
+      <h3>Daily MND counts</h3>
+      <div class="tablewrap"><table id="t-days"></table></div>
+      <p class="fine">A day is the start of MND's 6 a.m.-to-6 a.m. reporting window. ★ joint combat readiness patrol, ✈ long-range flight. The 12-week average covers <span id="basewin"></span>.</p>
+    </article>
+    <article class="card pad">
+      <h3>China Coast Guard and exercises</h3>
+      <div id="ccg"></div>
+      <h3 class="mt">PRC official rhetoric</h3>
+      <div class="tablewrap"><table id="t-rh"></table></div>
+      <p class="fine">Week: mean share of a document's sentences expressing that tone (0 to 1). Change: against the 12-week baseline. z: the week against the stream's previous 12 weeks; |z| ≥ 2 is outside the normal range and shown in bold red. Orange names: the three largest shifts by |z|. "All PRC official statements" combines the Taiwan Affairs Office, Foreign Ministry and Defense Ministry streams.</p>
+      <div id="quotes"></div>
+    </article>
+  </div>
+</section>
+
+<section class="vb-archive" aria-labelledby="arch-h">
+  <h2 id="arch-h">Archive</h2>
+  <ul class="arch" id="archive"></ul>
+</section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this page</h2>
+    <p>Each briefing covers one Monday-to-Sunday week and runs about two minutes. It walks through PLA aircraft and ADIZ entries, PLA Navy and other PRC official ships, declared exercises and China Coast Guard incursions, then PRC official rhetoric, and ends on a card of what changed from the week before. MND is Taiwan's Ministry of National Defense. The ADIZ is Taiwan's air defense identification zone, the area where it asks aircraft to identify themselves. CCG is the China Coast Guard. A z-score says how many standard deviations a week sits from its recent average. The map shows counts, not positions: MND publishes daily totals, so the video lights up the ADIZ and the waters around Taiwan by how many aircraft and ships MND reported, without placing any of them.</p>
+    <p>The transcript, the tables and the video are generated together from the same numbers. With "Show the numbers" on, each sentence in the transcript lists exactly which figures it states and where they come from.</p>
+
+    <h2 class="mt" id="method">Method &amp; sources</h2>
+    <p><b>What the data is.</b> PLA aircraft, ADIZ entries, PLA Navy ships and PRC official ships are Taiwan Ministry of National Defense (MND) daily reports, as held in TSM's shared daily dataset, the same series behind Strait Snapshot Live. Joint combat readiness patrols and long-range flights are the days TSM flags from MND press releases. China Coast Guard incursions come from TSM's CGA/CCG Incident Tracker as used by the CCG Gray-Zone Map. Declared exercises and their closure zones come from TSM's 13-event exercise list, as used by Anatomy of an Exercise. Allied transits come from TSM's Taiwan Strait Transit Tracker. Rhetoric comes from TSM's rhetoric corpus: PRC Taiwan Affairs Office, Foreign Ministry and Defense Ministry statements in English and Chinese, scored sentence by sentence for six tone dimensions.</p>
+    <p><b>How the numbers are computed.</b> A week runs Monday to Sunday by MND window-start date. The baseline is the 12 weeks (84 days) before the Monday, the same window the rhetoric corpus uses. Aircraft and ADIZ entries are weekly totals, compared with the 84-day daily mean times seven; ships are daily averages, because MND counts ships present each day rather than sorties. "Close to" means within 15 percent of the baseline. CCG incursions are tracker rows dated in the week. For rhetoric, a tone value is the mean share of a document's sentences expressing that dimension; the z-score compares the week with the stream's previous 12 weeks. A measure counts as outside its normal range at |z| ≥ 2. Quotes are official English sentences of at most 300 characters that mention Taiwan; per source, the one the tone model scores most hostile is chosen, so they show the sharpest line of the week, not a typical one.</p>
+    <p><b>How the script is written.</b> A fixed template turns the numbers into sentences. It compares, and does not interpret: no claims about intent, no forecasts. The same numbers always give the same script. Narration uses the macOS "Samantha" synthetic voice; captions are cut from the script and timed to the audio.</p>
+    <p><b>Limits.</b> MND totals say nothing about where aircraft or ships were, what types they were, or why they flew. The CCG tracker depends on Taiwan Coast Guard Administration releases, so unreported incidents are missing, and the tracker can lag; the video says so when a week runs past the tracker's last date. The exercise list holds declared, URL-sourced exercises only. The tone model is checked against an NLI teacher model, not against human coders, and small weekly volumes (the Foreign Ministry often has only a handful of items) make z-scores unavailable or noisy for those streams. English and Chinese versions of a statement are counted separately.</p>
+    <p><b>How to cite.</b> Taiwan Security Monitor, "Weekly video briefing, <span class="cite-week">week</span>," TSM Interactive Video Briefings, generated <span class="cite-gen"></span>. Cite the underlying figures to Taiwan MND, the Taiwan Coast Guard Administration and the PRC ministries as listed below.</p>
+    <p><b>Regenerating.</b> One command builds the latest complete week (data, script, narration, video, captions and this page's index): <code>uv run --with playwright python tools/video-briefings/scripts/make_briefing.py</code>, run from the repository root on a Mac with Chrome and ffmpeg. Add <code>--week 2026-09-14</code> for a given week.</p>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src" id="sources">
+      <li>Taiwan Ministry of National Defense, daily PLA activity reports: <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">mnd.gov.tw/en/news/plaactlist</a>, via TSM's shared daily dataset (MND figures; see <a href="../strait-snapshot/">Strait Snapshot Live</a>).</li>
+      <li>TSM CGA/CCG Incident Tracker, compiled from Taiwan Coast Guard Administration releases, via the <a href="../ccg-grayzone/">CCG Gray-Zone Map</a>.</li>
+      <li>TSM exercise event list and published closure zones, via <a href="../joint-sword/">Anatomy of an Exercise</a>.</li>
+      <li>TSM Taiwan Strait Transit Tracker, via <a href="../transit-response/">Transit Response Explorer</a>.</li>
+      <li>TSM rhetoric corpus: PRC Taiwan Affairs Office (<a href="https://www.gwytb.gov.cn/" target="_blank" rel="noopener">gwytb.gov.cn</a>), Ministry of Foreign Affairs (<a href="https://www.mfa.gov.cn/" target="_blank" rel="noopener">mfa.gov.cn</a>) and Ministry of National Defense (<a href="http://eng.mod.gov.cn/" target="_blank" rel="noopener">eng.mod.gov.cn</a>) statements; see the <a href="../rhetoric-heatmap/">PRC Rhetoric Heatmap</a>. Each quote links to its statement.</li>
+      <li>Map: Natural Earth land; ADIZ outline from TSM's QGIS layer.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Video Briefings', sub: 'A two-minute narrated video of the week in the Taiwan Strait, built from TSM data.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

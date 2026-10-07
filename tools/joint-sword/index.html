@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anatomy of an Exercise | Taiwan Security Monitor</title>
+<meta name="description" content="Replay major PLA exercises around Taiwan day by day: daily activity counts, announcements with sources, and officially published exercise zones.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="joint-sword.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="bar">
+  <div class="choices seg" id="view" role="group" aria-label="View">
+    <button type="button" data-v="replay"><b>Replay</b><span>One exercise, day by day</span></button>
+    <button type="button" data-v="compare"><b>Compare</b><span>Overlay exercises on day 0</span></button>
+  </div>
+  <div class="acts">
+    <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<nav class="picker" aria-label="Exercises">
+  <p class="eyebrow" id="picker-label">Pick an exercise</p>
+  <div class="exlist" id="exlist"></div>
+</nav>
+
+<main class="layout">
+  <div class="stage">
+    <div class="card pad replay-only">
+      <div class="cardh">
+        <p class="eyebrow" id="map-title">Map</p>
+        <p class="legend"><span><i class="sw zon"></i>Zone in force</span><span><i class="sw zpend"></i>Announced, not yet in force</span><span><i class="sw zdone"></i>Expired</span><span><i class="sw adz"></i>Taiwan ADIZ</span></p>
+      </div>
+      <div class="mapbox"><svg id="map" role="img" aria-label="Map of Taiwan and surrounding waters with any officially published exercise zones"></svg></div>
+      <p class="fine" id="zone-src"></p>
+    </div>
+    <div class="card pad replay-only">
+      <div class="cardh">
+        <p class="eyebrow" id="chart-title">Daily activity</p>
+        <p class="legend"><span><i class="sw bar"></i>Daily count</span><span><i class="sw exd"></i>Exercise days</span><span><i class="sw nod"></i>No TSM data</span></p>
+      </div>
+      <div class="cwrap"><svg id="days" class="chart" role="img" aria-label="Daily activity around the exercise. Drag to move through the days."></svg></div>
+      <div class="scrub">
+        <button type="button" class="btn solid play" id="play">Play</button>
+        <input type="range" id="day" min="-7" max="7" step="1" aria-label="Day relative to the first exercise day">
+        <output id="day-out" class="num"></output>
+      </div>
+    </div>
+    <div class="card pad compare-only">
+      <div class="cardh">
+        <p class="eyebrow">PLA aircraft, aligned on the first exercise day</p>
+        <div class="choices two" id="norm" role="group" aria-label="Scale">
+          <button type="button" data-n="0">Raw count</button>
+          <button type="button" data-n="1">× usual level</button>
+        </div>
+      </div>
+      <div class="cwrap"><svg id="compare" class="chart" role="img" aria-label="Daily PLA aircraft for the selected exercises, aligned on day 0"></svg></div>
+      <p class="tip" id="ctip" aria-live="polite">Hover the chart to compare days.</p>
+      <div class="tablewrap"><table><thead><tr><th>Exercise</th><th>Days</th><th class="num">Peak in window</th><th class="num">Usual level</th><th>TSM coverage</th></tr></thead><tbody id="ctable"></tbody></table></div>
+    </div>
+    <aside class="question card pad">
+      <p class="eyebrow">A question to hold</p>
+      <p>Are these exercises rehearsals for using force, or performances staged for audiences in Taipei, Washington and at home? TSM's working paper <i>Exercises as Theater</i> (research in progress) argues they work mainly as theatrical signaling. Look at the timing of announcements, how quickly activity returns to normal and how each exercise is named and framed, and judge for yourself.</p>
+    </aside>
+  </div>
+  <aside class="panel" aria-label="Exercise details">
+    <section class="sec replay-only">
+      <p class="eyebrow" id="day-eyebrow">Day</p>
+      <div id="dayread"></div>
+    </section>
+    <section class="sec replay-only">
+      <p class="eyebrow">Metric</p>
+      <div class="choices metric" id="metric" role="group" aria-label="Metric"></div>
+    </section>
+    <section class="sec replay-only">
+      <p class="eyebrow">Announcements and statements</p>
+      <ol class="tl" id="timeline"></ol>
+    </section>
+    <section class="sec replay-only">
+      <p class="eyebrow">The exercise</p>
+      <div id="facts"></div>
+    </section>
+    <section class="sec compare-only">
+      <p class="eyebrow">How to compare</p>
+      <p class="fine">Pick two or more exercises above. Day 0 is each exercise's first day in the event list. "× usual level" divides each day by the average of the 30 days before the window, so a busy baseline year and a quiet one line up.</p>
+      <p class="fine">TSM daily aircraft data start Aug. 6, 2022. The 2020 and 2021 events have no TSM daily data, and August 2022 is only partly covered.</p>
+      <div id="cread"></div>
+    </section>
+  </aside>
+</main>
+
+<section class="below">
+  <div>
+    <h2>How to read this</h2>
+    <p>Pick an exercise, then drag the slider or the chart to move day by day from a week before the first exercise day to a week after the last. The map shows any exercise zones whose coordinates were officially published, and marks each one as in force, announced or expired on the day you are looking at. The panel lists what was announced or said that day, with links to the reporting.</p>
+    <p>Bars are Taiwan Security Monitor daily counts, which come from Taiwan's Ministry of National Defense. The TSM daily record starts Aug. 6, 2022 for aircraft, Aug. 7, 2022 for ADIZ entries (with some missing days) and Aug. 13, 2024 for ships, so earlier days show as "no TSM data". The panel also lists the peak figures reported at the time, with their sources.</p>
+    <p><b>Compare</b> lines up exercises on their first day so you can see how fast each one rose and fell.</p>
+    <h2 class="mt">Method and limits</h2>
+    <ul class="src">
+      <li>Event list, dates, triggers, forces and reported peaks: TSM's <i>Exercises as Theater</i> event list, where every field is backed by the linked sources below. Exercise names and wording are paraphrased from those sources.</li>
+      <li>Zones are drawn only where officially published coordinates were found in the announcing body's notice or in reliable reporting of it. The source is named under the map. Otherwise the map draws no zone and the announced areas are described in text.</li>
+      <li>Taiwan MND reports cover roughly 06:00 to 06:00 local time. TSM files each report under the day the window starts, so a day's count can include activity from early the next morning.</li>
+      <li>"Usual level" is the mean of the 30 days before the window (days −37 to −8), computed only when at least 10 of those days have data.</li>
+      <li>Counts are descriptive. They show how much activity Taiwan reported, not intent.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Sources</h2>
+    <ul class="src" id="sources"></ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Anatomy of an Exercise', sub: 'Replay major PLA exercises around Taiwan day by day, with activity counts, announcements and published zones.', category: 'Crises & exercises' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

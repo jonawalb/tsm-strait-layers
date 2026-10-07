@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strait 4D | Taiwan Security Monitor</title>
+<meta name="description" content="A time-scrubbable 3D view of the Taiwan Strait that joins PLA daily activity, exercise zones, coast guard incidents, gray-zone vessel data, cable incidents and PRC rhetoric, day by day since August 2022.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="strait-4d.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="bar">
+  <div class="presetwrap">
+    <p class="eyebrow">Replay a crisis</p>
+    <div class="presets" id="presets" role="group" aria-label="Replay a crisis"></div>
+  </div>
+  <div class="acts">
+    <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="card scenecard">
+      <div class="stagebox" id="stagebox">
+        <canvas id="scene" tabindex="0" role="img" aria-label="Tilted 3D map of the Taiwan Strait showing the selected day's recorded activity. Drag to pan, Shift-drag to tilt and rotate, scroll to zoom; with the map focused, arrow keys tilt and rotate and plus or minus zoom."></canvas>
+        <div class="hud" aria-live="polite">
+          <p class="hud-date" id="hud-date"></p>
+          <div class="hud-counts" id="hud-counts"></div>
+          <div class="hud-tags" id="hud-tags"></div>
+        </div>
+        <div class="camctl" role="group" aria-label="Camera">
+          <button type="button" class="btn" id="cam-reset" title="Reset view">Reset</button>
+          <button type="button" class="btn" id="cam-top" title="Look straight down">2D</button>
+          <button type="button" class="btn" id="cam-tilt" title="Change tilt">Tilt</button>
+          <button type="button" class="btn" id="cam-turn" title="Rotate 30 degrees">Turn</button>
+        </div>
+        <div class="tooltip" id="tip" hidden></div>
+      </div>
+      <div class="legend" aria-label="Legend">
+        <span><i class="sw s-sec"></i>ADIZ sectors MND named</span>
+        <span><i class="sw s-zone"></i>Exercise zone in force</span>
+        <span><i class="sw s-zpend"></i>Zone announced</span>
+        <span><i class="sw s-ccg"></i>Coast guard incident</span>
+        <span><i class="sw s-cgd"></i>Coast guard / <i class="sw s-mil"></i>militia vessel-days</span>
+        <span><i class="sw s-ring"></i>Patrol or long-range flight day</span>
+        <span><i class="sw s-us"></i>Allied transit</span>
+        <span><i class="sw s-cable"></i>Cable incident</span>
+        <span><i class="sw s-ais"></i>AIS zone entries</span>
+      </div>
+    </div>
+
+    <div class="card pad tlcard">
+      <div class="tlhead">
+        <p class="eyebrow">Timeline <span class="muted">Aug. 1, 2022 to <span id="asof"></span></span></p>
+        <div class="choices tiny" id="tlview" role="group" aria-label="Timeline range">
+          <button type="button" data-v="full">Full record</button>
+          <button type="button" data-v="zoom">Zoom in</button>
+        </div>
+      </div>
+      <canvas id="timeline" aria-hidden="true"></canvas>
+      <div class="scrub">
+        <button type="button" class="btn solid play" id="play" aria-pressed="false">Play</button>
+        <button type="button" class="btn" id="prev" aria-label="Previous day">‹</button>
+        <input type="range" id="day" min="0" step="1" aria-label="Day">
+        <button type="button" class="btn" id="next" aria-label="Next day">›</button>
+        <output id="day-out" class="num" for="day"></output>
+      </div>
+      <div class="scrub2">
+        <div class="choices tiny" id="speed" role="group" aria-label="Playback speed">
+          <button type="button" data-s="1">1 day/s</button>
+          <button type="button" data-s="3">3 days/s</button>
+          <button type="button" data-s="10">10 days/s</button>
+          <button type="button" data-s="30">30 days/s</button>
+        </div>
+        <div class="anomnav">
+          <button type="button" class="btn" id="anom-prev">‹ Previous anomaly</button>
+          <button type="button" class="btn" id="anom-next">Next anomaly ›</button>
+        </div>
+      </div>
+      <p class="fine tlkey"><span class="k k-air"></span>All aircraft <span class="k k-adiz"></span>ADIZ / median <span class="k k-plan"></span>PLAN <span class="k k-off"></span>Official ships <span class="k k-ex"></span>Exercise <span class="k k-an"></span>Anomaly · Events row: coast guard, transits, cables · Bottom lanes: weekly PRC rhetoric (darker = higher; boxed = |z| ≥ 3)</p>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Selected day">
+    <section class="sec">
+      <p class="eyebrow">The day</p>
+      <div id="dayread"></div>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">Against the baseline</p>
+      <div id="anomread"></div>
+      <div class="slider"><div class="sl-h"><label for="aw">Baseline window <span class="notional">assumption</span></label><output id="aw-out"></output></div>
+        <input type="range" id="aw" min="30" max="180" step="15"><small>Trailing days used for the median (the day itself excluded).</small></div>
+      <div class="slider"><div class="sl-h"><label for="at">Flag threshold <span class="notional">assumption</span></label><output id="at-out"></output></div>
+        <input type="range" id="at" min="2" max="6" step="0.5"><small>Robust z at or above which a day is flagged. <span id="anom-count"></span> days flagged across all four series.</small></div>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">On this day</p>
+      <div id="events" class="events"></div>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">What Beijing said</p>
+      <div class="choices tiny three" id="rmetric" role="group" aria-label="Rhetoric measure"></div>
+      <div id="rhetoric"></div>
+    </section>
+    <section class="sec" id="layers">
+      <p class="eyebrow">Layers</p>
+      <label class="tg"><input type="checkbox" data-l="sectors"><span class="sw"></span><span class="t">ADIZ sectors<small>Sectors MND named that day; height follows the ADIZ count</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="zones"><span class="sw"></span><span class="t">Exercise zones<small>Only officially published coordinates</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="flags"><span class="sw"></span><span class="t">Patrol and long-range flight days<small>Ring around Taiwan; a symbol, not a location</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="ccg"><span class="sw"></span><span class="t">Coast guard incidents<small>CGA-sourced TSM tracker, June 2024 on</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="trail"><span class="sw"></span><span class="t">Two-week trail<small>Fading dots for incidents in the previous 13 days</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="gray"><span class="sw"></span><span class="t">Gray-zone vessel-days<small>Monthly, watchlist ships, Jan. 2024 to Sept. 2026</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="ais"><span class="sw"></span><span class="t">AIS zone entries<small>TSM AIS database, Sept. 4 to Oct. 1, 2026 only</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="transits"><span class="sw"></span><span class="t">Allied Strait transits<small>Schematic route on the transit date</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="cables"><span class="sw"></span><span class="t">Cable incidents<small>Area markers, shown for 30 days</small></span></label>
+      <label class="tg"><input type="checkbox" data-l="labels"><span class="sw"></span><span class="t">Place names</span></label>
+    </section>
+  </aside>
+</main>
+
+<section class="below">
+  <div>
+    <h2>How to read this</h2>
+    <p>Each frame is one Taiwan Ministry of National Defense reporting day. Pick a crisis above to replay it, or drag along the timeline. The map shows what TSM recorded for that day where the data say where it happened: the ADIZ sectors MND named, officially published exercise zones, coast guard incidents, allied transits and cable incidents. Counts that have no location, such as the number of PLA aircraft, appear in the box at the top left and on the timeline.</p>
+    <p>Terms: the <b>ADIZ</b> is Taiwan's air defense identification zone, the area where it asks aircraft to identify themselves. The <b>median line</b> is the informal center line of the Strait. <b>PLAN</b> is the PLA Navy; <b>official ships</b> are other PRC government vessels, such as coast guard. <b>AIS</b> is the radio beacon ships broadcast their position on, and an <b>MMSI</b> is a ship's AIS ID number.</p>
+    <p>A red dot on the timeline marks a day whose count is far above its recent norm. The tool compares each day with the median of the days before it and flags it when the gap is large. That gap, in units of typical day-to-day spread, is the <b>robust z</b> shown in the box and the panel; +3 means three spreads above normal. You can change both the window and the threshold; they are judgment calls, not facts.</p>
+    <p>The bottom lanes of the timeline and the "What Beijing said" panel come from TSM's rhetoric corpus. They show how much PRC Foreign Ministry, Defense Ministry, Taiwan Affairs Office and state-media output mentions Taiwan each week, and how hostile the Taiwan sentences score. Official sentences are quoted; state media appears as headline and link only.</p>
+
+    <h2 class="mt" id="method">Method &amp; sources</h2>
+    <details open><summary>What each layer is</summary><ul class="src">
+      <li><b>Daily counts</b> (aircraft, ADIZ entries or median-line crossings, PLAN ships, official ships) and joint combat readiness patrol and long-range flight days: TSM's shared PLA series, rebuilt from Taiwan MND daily reports and press releases. Each row is one 06:00 to 06:00 MND window, filed under the day it starts. Aircraft start Aug. 6, 2022; ADIZ/median Aug. 7, 2022 with some missing days; ships Aug. 13, 2024. Flags are rebuilt from MND press releases, Dec. 2022 on.</li>
+      <li><b>ADIZ sectors</b>: the sectors MND's English report text names for each window, as parsed for TSM's PLA Flight-Path Atlas. Sector outlines are that tool's schematic shapes. MND does not give counts per sector, so every lit sector gets the same height, set by the day's total.</li>
+      <li><b>Exercise zones</b>: drawn only where the announcing body published vertex coordinates (Aug. 2022, Joint Sword-2023 maritime notices, Justice Mission-2025), from TSM's <i>Exercises as Theater</i> event list as checked for Anatomy of an Exercise. Other exercises appear as a label and in the panel.</li>
+      <li><b>China Coast Guard incidents</b>: TSM's CGA_CCG incident tracker (complete file, rows to Sept. 2026), compiled from Taiwan Coast Guard Administration releases; CGA releases are linked where checked by hand. Pins sit at a reference point for the named area, not at the reported position.</li>
+      <li><b>Gray-zone vessel-days</b>: TSM's AIS watchlist of coast guard and maritime militia ships, with one position per vessel per day taken from Global Fishing Watch events (loitering, port visits, fishing, encounters), counted in half-degree squares by month. Port visits at home ports are included. Global Fishing Watch data are CC BY-NC 4.0.</li>
+      <li><b>AIS zone entries</b>: entries by PRC-flag and watchlist MMSIs into approximate zones, from TSM's own AIS collector, Sept. 4 to Oct. 1, 2026. Coverage is thin mid-Strait and east of Taiwan, and most PRC-flag traffic is civilian.</li>
+      <li><b>Allied transits</b>: TSM's Taiwan Strait transit tracker, 2017 to 2026 (the timeline shows Aug. 2022 on). The route line is schematic.</li>
+      <li><b>Cable incidents</b>: the sourced incidents in TSM's Undersea Cables tool. Markers show the area named in reporting, not the fault position.</li>
+      <li><b>Rhetoric</b>: TSM's rhetoric corpus, one stream per lane so nothing is counted twice: MFA press conferences (English, 2018 on), MND (English, 2022 on), TAO (English, April 2026 on), state-media headlines in Chinese and English (Jan. 2025 to June 2026). Salience is the share of records that mention Taiwan. Hostility and escalation balance are model scores averaged over sentences that mention Taiwan. The corpus z compares a week with the stream's previous 12 weeks and is blank when volume is too low. Scores come from a sentence classifier checked against a larger model, not against human coders.</li>
+    </ul></details>
+    <details><summary>How anomalies are computed</summary>
+      <p class="fine">For each series and day, the baseline is the trailing window of days with data (default 60, the day itself excluded; at least half the window must have data). The tool takes the median M and the median absolute deviation, and sets the spread s to the largest of 1.4826 × MAD, √M and 1. The √M floor treats counts as roughly Poisson so that a quiet stretch does not turn a small rise into an alarm. The day is flagged when (count − M) / s reaches the threshold (default 3). Both settings are adjustable assumptions. A flag says a day was unusual for its recent past; it says nothing about intent.</p>
+    </details>
+    <details><summary>Coverage gaps and limits</summary><ul class="src">
+      <li>No ship counts before Aug. 13, 2024, and no coast guard incident rows before June 2024.</li>
+      <li>TSM holds no carrier or individual ship positions, so none are drawn. MND's daily reports give counts, not tracks.</li>
+      <li>The rhetoric lanes cover different periods: TAO starts April 2026 and the state-media headline streams end in June 2026.</li>
+      <li>Taiwan MND's website blocks automated collectors, and the old TSM tracker site no longer serves data. This tool uses only data TSM already holds.</li>
+      <li>Global Fishing Watch vessel-days end Sept. 7, 2026, so September 2026 is partial.</li>
+      <li>The exercise list starts with events TSM has verified; exercises after Justice Mission-2025 will appear when added to that list.</li>
+    </ul></details>
+    <details><summary>How to cite</summary>
+      <p class="fine">Taiwan Security Monitor, "Strait 4D," TSM Interactive, Schar School of Policy and Government, George Mason University, data as of <span class="asof2"></span>. Cite the underlying MND, CGA or PRC source linked in the panel for any single figure.</p>
+    </details>
+  </div>
+  <div>
+    <h2>Sources</h2>
+    <ul class="src">
+      <li>Taiwan Ministry of National Defense, PLA activity reports and press releases: <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">mnd.gov.tw/en/news/plaactlist</a> (each day links to its report).</li>
+      <li>Taiwan Coast Guard Administration releases: <a href="https://www.cga.gov.tw/" target="_blank" rel="noopener">cga.gov.tw</a> (linked per incident where checked).</li>
+      <li>Global Fishing Watch API, accessed Sept. 2026, <a href="https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits" target="_blank" rel="noopener">CC BY-NC 4.0</a>.</li>
+      <li>PRC exercise notices: PRC Ministry of National Defense and China Maritime Safety Administration, linked per zone in the panel.</li>
+      <li>PRC Ministry of Foreign Affairs (<a href="https://www.fmprc.gov.cn/eng/" target="_blank" rel="noopener">fmprc.gov.cn</a>), Ministry of National Defense (<a href="http://eng.mod.gov.cn/" target="_blank" rel="noopener">eng.mod.gov.cn</a>) and Taiwan Affairs Office (<a href="https://www.gwytb.gov.cn/" target="_blank" rel="noopener">gwytb.gov.cn</a>), via TSM's rhetoric corpus.</li>
+      <li>Coastlines: Natural Earth 10m (public domain). ADIZ outline: TSM GIS layer.</li>
+      <li>Companion tools with the full datasets: <a href="../flight-atlas/">PLA Flight-Path Atlas</a>, <a href="../joint-sword/">Anatomy of an Exercise</a>, <a href="../ccg-grayzone/">CCG Gray-Zone Map</a>, <a href="../dark-fleet/">Dark Fleet Viewer</a>, <a href="../undersea-cables/">Undersea Cables</a>, <a href="../transit-response/">Transit Response Explorer</a>.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Strait 4D', sub: 'Scrub through every day since August 2022: PLA activity, exercise zones, coast guard pressure, gray-zone ships and what Beijing said, on one tilted map.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

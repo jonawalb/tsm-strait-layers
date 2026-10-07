@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kinmen Close-Up | Taiwan Security Monitor</title>
+<meta name="description" content="China Coast Guard incursions into Kinmen's restricted waters, June 2024 to September 2026, on a close-up map with Taiwan's officially published boundary, a time slider, monthly counts, the CCG hulls that return most often, clock times and AIS fixes.">
+<meta property="og:title" content="Kinmen Close-Up | Taiwan Security Monitor">
+<meta property="og:description" content="Every China Coast Guard incursion at Kinmen that TSM recorded, 2024 to 2026, inside Taiwan's published boundary.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="kinmen-closeup.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="timebar card">
+  <div class="tb-date">
+    <p class="eyebrow">Showing incidents through</p>
+    <p class="big-date" id="date" aria-live="polite"></p>
+    <p class="fine" id="from"></p>
+  </div>
+  <div class="tb-stats">
+    <p><b class="num" id="count">0</b> incidents</p>
+    <p><b class="num" id="last30">0</b> in the last 30 days</p>
+    <p class="fine" id="since"></p>
+    <p class="fine" id="aisn"></p>
+  </div>
+  <div class="tb-controls">
+    <div class="tb-years" role="group" aria-label="Year" id="years"></div>
+    <div class="tb-buttons">
+      <button type="button" class="btn" id="to-start" aria-label="Go to the start">|◀</button>
+      <button type="button" class="btn solid" id="play" aria-pressed="false"><span aria-hidden="true">▶</span> Play</button>
+      <button type="button" class="btn" id="to-end" aria-label="Go to the latest date">▶|</button>
+      <button type="button" class="btn" id="start-tour">Walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link</button>
+    </div>
+    <label class="slider tb-slider"><span class="sr">Date</span>
+      <input type="range" id="slider" min="0" max="100" step="1" value="100">
+      <span class="ticks" id="ticks" aria-hidden="true"></span>
+    </label>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of Kinmen and the Xiamen coast with Kinmen's restricted and prohibited waters, China Coast Guard incidents grouped by the area each record names, and AIS fixes of PRC-flag vessels"></svg>
+      <div class="tooltip" id="map-tip" hidden></div>
+      <p class="maphint">Pins sit in the <b>area</b> each record names, spread so they don't stack. The tracker gives no coordinates.</p>
+    </div>
+    <div class="twin">
+      <div class="card chart-card">
+        <p class="eyebrow">Incidents per month, up to the slider date</p>
+        <div class="chartwrap"><svg id="mchart" role="img" aria-label="Bar chart of Kinmen incidents per month"></svg><div class="tooltip" id="mchart-tip" hidden></div></div>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-h"><p class="eyebrow">Time of day</p>
+          <span class="mode" role="group" aria-label="Which time to count">
+            <button type="button" class="btn sm" data-mode="entry" aria-pressed="true">Entered the waters</button>
+            <button type="button" class="btn sm" data-mode="first" aria-pressed="false">First time recorded</button>
+          </span></div>
+        <div class="chartwrap"><svg id="hchart" role="img" aria-label="Bar chart of incidents by hour of day"></svg><div class="tooltip" id="hchart-tip" hidden></div></div>
+        <p class="fine" id="hnote"></p>
+      </div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Layers, filters, hull numbers and incident detail">
+    <div class="sec">
+      <p class="eyebrow">Layers</p>
+      <label class="tg"><input type="checkbox" id="waters" checked><span class="sw"></span><span class="t">Restricted and prohibited waters<small>Taiwan's 2004 boundary, from the officially printed vertices</small></span></label>
+      <label class="tg"><input type="checkbox" id="ais" checked><span class="sw"></span><span class="t">AIS fixes, PRC-flag vessels<small>TSM live AIS, September 4 to October 7, 2026 only</small></span></label>
+    </div>
+    <div class="sec"><p class="eyebrow">Areas named in the record</p><div class="sectors" id="sectors"></div></div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+    <div class="sec"><p class="eyebrow">CCG hulls, by incidents joined</p><div id="hulls"></div>
+      <p class="fine">Counts incidents up to the slider date. Click a hull to fade the incidents it did not join.</p></div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Kinmen sits a few kilometers off Xiamen. Taiwan's Defense Ministry has drawn restricted waters (blue line) and prohibited waters (red line) around it, and under Taiwan's cross-strait relations act mainland Chinese ships may not enter them without permission. The China Coast Guard sends formations, usually of four ships, into these waters several times a month: the Coast Guard Administration counted 46 passages in 2025 and 35 in 2026 through September 29 (<a href="https://www.cga.gov.tw/GipOpen/wSite/ct?xItem=169091&amp;ctNode=650&amp;mp=999" target="_blank" rel="noopener">CGA release</a>, Chinese). Each pin is one incursion in the Taiwan Security Monitor's CCG incident tracker, which starts at Kinmen in June 2024.</p>
+    <p>Drag the slider or press play to watch the record build up. Pins from the last 14 days pulse. The tracker gives a description <span id="area-ex"></span>, not coordinates, so pins are grouped in the area the description names first and spread in a fixed pattern. Where a pin sits inside its group means nothing. The month chart counts incidents; the clock chart counts the hour the ships entered the waters, or the first time the record gives. The hull list counts how many incidents each CCG hull number joined.</p>
+    <p>Grey squares are AIS position reports from PRC-flag vessels in the map area, from TSM's own AIS collector. They cover only September 4 to October 7, 2026, and appear once the slider reaches their date.</p>
+    <h2 class="mt">Kinmen incidents</h2>
+    <p class="fine" id="table-note"></p>
+    <div class="tablewrap tall"><table>
+      <thead><tr><th>Date</th><th>Description</th><th>Event timeline</th><th>Vessels as recorded</th><th>Release</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+  <div class="col">
+    <h2>Sources and method</h2>
+    <ul class="src">
+      <li><b>Boundary:</b> Mainland Affairs Council, <a href="https://ws.mac.gov.tw/001/Upload/OldFile/public/Attachment/0411459536.pdf" target="_blank" rel="noopener">金門地區限制（禁止）水域圖</a> (map of Kinmen's restricted and prohibited waters), drawn from Ministry of National Defense announcement (93)猛獅字第0930001493號 of June 7, 2004, in force June 15, 2004. The map prints latitude and longitude for its numbered vertices (numbered up to 27, with primed points 6′, 13′ and 24′); they are transcribed here and joined with straight lines. Vertex 2 is cut off at the map edge (N24°28′1_″, E118°31′4_″) and is placed at the middle of the legible range, within about 300 m. The announcement text is reprinted in the Ocean Affairs Council's <a href="https://www.oac.gov.tw/ebook/Regulations_112.pdf" target="_blank" rel="noopener">海洋法令彙編 (2023)</a>, p. 3-9. The Interior Ministry's boundary shapefile is not open data (<a href="https://web.archive.org/web/2025/https://ocean.moi.gov.tw/Map/Achievement/LayerInfo/905" target="_blank" rel="noopener">MOI Ocean platform, layer 905</a>), which also states the entry rule. The Wuqiu and Dongding waters are separate and not drawn.</li>
+      <li><b>Incidents:</b> Taiwan Security Monitor, CGA/CCG incident tracker (version of September 24, 2026), Kinmen rows only: 85 incidents from June 25, 2024 to September 11, 2026, compiled from <a href="https://www.cga.gov.tw/" target="_blank" rel="noopener">Coast Guard Administration</a> releases. The tracker holds 36 Kinmen rows for 2025, against the CGA's count of 46 passages, so its 2025 record is incomplete; its 35 CCG rows for 2026 match the CGA's count. Text is as recorded. Data notes and hand-checked CGA links come from TSM's <a href="../ccg-grayzone/">CCG Gray-Zone Map</a>.</li>
+      <li><b>Areas:</b> <span id="area-note"></span></li>
+      <li><b>Hull numbers:</b> five-digit CCG hulls (145xx and 146xx) as the tracker writes them. Tokens that do not fit (14060, 4603) and the MSA ship Haixun 1630 are shown as recorded but not counted. One 2026 incident (July 21) has no hull numbers: the CGA release for it names none. For four others (August 13, 19 and 29, and September 8 morning) the September 16 public tracker said the hulls were not released, but the CGA releases name them, and they are counted.</li>
+      <li><b>Clock times:</b> the tracker's event timeline, Taiwan time. "Entered" uses the first time labeled as entering the waters; "first time recorded" uses the first time given, usually detection. Times on a following day are left out.</li>
+      <li><b>AIS:</b> TSM AIS database (terrestrial AIS via AISStream.io), PRC-flag MMSIs (MID 412, 413, 414) and TSM's sourced watchlist only, thinned to one fix per vessel per 10 minutes, from TSM's <a href="../dark-fleet/">Dark Fleet Viewer</a> build. In this map area there are only 30 fixes from 20 vessels, none attributed to the CCG and none inside the restricted waters. Reception near Kinmen is sparse, so an empty map does not mean an empty sea.</li>
+      <li><b>Left out on purpose:</b> Taiwanese military positions on Kinmen. Place names appear only as the incident records use them.</li>
+      <li>Basemap: Natural Earth 10m land and minor islands, which is coarse at this scale; small islets may be missing or simplified.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Kinmen Close-Up', sub: 'China Coast Guard incursions into Kinmen\'s restricted waters, June 2024 to September 2026, inside Taiwan\'s published boundary.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

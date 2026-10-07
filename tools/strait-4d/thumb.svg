@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <polygon points="80,300 400,345 600,190 300,150" fill="#97a197"/>
+  <polygon points="80,285 400,330 600,175 300,135" fill="#d6e1e1"/>
+  <path d="M80,285 L300,135 L250,140 Q190,190 120,230 Q95,260 80,285 Z" fill="#e9e4d4"/>
+  <path d="M352,222 Q372,186 398,190 Q412,214 392,262 Q378,292 362,280 Q346,252 352,222 Z" fill="#e9e4d4" stroke="#97a197"/>
+  <g fill="#b3261e" fill-opacity=".35" stroke="#b3261e" stroke-width="2">
+    <polygon points="300,180 340,170 340,140 300,150"/>
+    <polygon points="420,240 460,232 460,200 420,208"/>
+    <polygon points="330,300 380,292 380,262 330,270"/>
+  </g>
+  <g stroke="#b0306e" stroke-width="4"><line x1="250" y1="250" x2="250" y2="195"/><line x1="470" y1="185" x2="470" y2="140"/></g>
+  <circle cx="250" cy="190" r="9" fill="#b0306e"/><circle cx="470" cy="135" r="9" fill="#b0306e"/>
+  <rect x="200" y="175" width="16" height="50" fill="#a88000"/>
+  <ellipse cx="380" cy="235" rx="120" ry="60" fill="none" stroke="#e8753a" stroke-width="3" stroke-dasharray="10 8"/>
+  <g fill="#14201a"><rect x="40" y="368" width="6" height="14"/><rect x="50" y="360" width="6" height="22"/><rect x="60" y="372" width="6" height="10"/></g>
+  <g fill="#b3261e"><rect x="70" y="340" width="6" height="42"/><rect x="80" y="364" width="6" height="18"/></g>
+  <line x1="40" y1="384" x2="600" y2="384" stroke="#d3d6cd" stroke-width="2"/>
+  <line x1="75" y1="330" x2="75" y2="392" stroke="#033303" stroke-width="3"/>
+  <text x="40" y="58" font-family="Georgia, serif" font-weight="700" font-size="40" fill="#033303">Strait 4D</text>
+</svg>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Energy Blockade Clock | Taiwan Security Monitor</title>
+<meta name="description" content="Set a quarantine or blockade of Taiwan and watch its LNG, coal and oil stocks run down, the grid fall short, and which sectors lose power first.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="energy-blockade.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="card clock">
+      <div class="clock-h">
+        <div>
+          <p class="eyebrow">Blockade clock</p>
+          <p class="daylabel"><b id="day-n" class="num">Day 0</b> <span id="day-s"></span></p>
+        </div>
+        <div class="clock-btns">
+          <button type="button" class="btn solid play" id="play">Play</button>
+          <button type="button" class="btn" id="tour-btn">Guided briefing</button>
+          <button type="button" class="btn" id="copy">Copy link</button>
+        </div>
+      </div>
+      <input type="range" id="day" min="0" max="179" value="0" aria-label="Day of the blockade">
+      <div class="gauges" id="gauges"></div>
+    </div>
+
+    <div class="card chartcard">
+      <div class="chart-h">
+        <p class="eyebrow">Grid supply against demand, share of normal output</p>
+        <ul class="legend" id="legend"></ul>
+      </div>
+      <svg id="supply" class="chart" role="img" aria-label="Electricity supply by fuel and demand over 180 days. Click or drag to move the day."></svg>
+    </div>
+
+    <div class="card chartcard">
+      <div class="chart-h">
+        <p class="eyebrow">Who has power</p>
+        <ul class="legend">
+          <li><i class="sw s-ok"></i>Full supply</li><li><i class="sw s-cut"></i>Rationed</li><li><i class="sw s-dark"></i>Dark (under 50%)</li>
+        </ul>
+      </div>
+      <svg id="sectors" class="chart" role="img" aria-label="Which sectors keep power each day. Click or drag to move the day."></svg>
+      <ol class="darklist" id="darklist" aria-label="Order in which sectors go dark"></ol>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Scenario controls">
+    <div class="sec">
+      <div class="status" id="status"><b></b><span></span></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">1 · Blockade severity</p>
+      <div class="choices" id="sev-choices"></div>
+      <div class="slider">
+        <div class="sl-h"><label for="sev">Inbound energy cargo stopped</label><output id="sev-out"></output></div>
+        <input type="range" id="sev" min="0" max="100" step="5">
+      </div>
+      <div class="slider">
+        <div class="sl-h"><label for="dur">Blockade lasts</label><output id="dur-out"></output></div>
+        <input type="range" id="dur" min="7" max="180" step="1">
+      </div>
+      <p class="fine" id="cargo"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">2 · Starting stockpiles</p>
+      <div class="choices" id="stock-choices"></div>
+      <div id="stock-sliders"></div>
+      <p class="fine" id="stock-note"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">3 · Who gets power first <span class="notional">notional</span></p>
+      <div class="choices one" id="policy-choices"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">4 · Demand reduction <span class="notional">notional</span></p>
+      <div class="toggles" id="measures"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">Run summary</p>
+      <dl class="readout" id="summary"></dl>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Taiwan imports about 97 percent of its energy by sea. A blockade does not switch the lights off on day one. It starts a set of clocks, one per fuel, and each clock runs at a different speed. Liquefied natural gas, which generated almost half of Taiwan's electricity in 2025, is stored in tanks that hold about eleven days of normal use. Coal yards hold roughly six weeks. Oil stocks last months, but almost none of that oil makes electricity.</p>
+    <p>Set how much inbound cargo the blockade stops and how long it lasts, then press Play or drag the day slider. The four tanks show what is left of each fuel and how much of normal demand the grid can meet. The chart shows where the power comes from each day. The strip below it shows which parts of the economy keep power, are rationed or go dark, in the order your rationing policy sets.</p>
+    <p>Three things usually decide the outcome: the LNG cliff in the second week, the coal cliff around week six or seven, and how much demand Taiwan is willing to shed before either one arrives. Try a full blockade with and without demand reduction and compare the day the grid falls below half.</p>
+    <h2 class="mt">How the model works</h2>
+    <p>Each fuel is a stock measured in days of normal consumption. Every day, arrivals equal normal supply times the share of cargo that gets through, and the grid burns fuel to meet demand. Renewables run at their normal share. Coal is dispatched first to stretch LNG, then gas, then oil. Power stations get fuel before other users once a stock is empty, as in the CSIS wargame model. When supply falls short, power goes to sectors in the priority order you pick. After the blockade lifts, imports return with some spare capacity to refill stocks.</p>
+    <p>Stock levels, the generation mix and the fuel shares used for power are sourced. The blockade percentages, sector shares of demand, the priority orders, the size of each demand-reduction measure, the restock rate and the backup-generation figure are <span class="notional">notional</span> round numbers chosen to show structure. The model ignores weather, LNG boil-off, grid stability limits, strikes on terminals or plants, ship-by-ship arrival timing, restart delays at power plants after the blockade lifts, and emergency imports by air. Use it to reason about which clock runs out first and what buys time, not to predict a date.</p>
+  </div>
+  <div class="col">
+    <h2>Baseline</h2>
+    <div class="tablewrap"><table id="baseline">
+      <thead><tr><th>Item</th><th>Figure</th><th>Source</th></tr></thead>
+      <tbody id="basetable"></tbody>
+    </table></div>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>U.S. Energy Information Administration, <a href="https://www.eia.gov/international/content/analysis/countries_short/Taiwan/Taiwan.pdf" target="_blank" rel="noopener">Taiwan Analysis Brief</a>, April 2026. Import share, 2024 generation mix, fuel use for power, oil and gas stock estimates, LNG terminals.</li>
+      <li>Eco-Business, <a href="https://www.eco-business.com/news/taiwan-misses-2025-renewable-target-as-coal-power-remains-above-goal/" target="_blank" rel="noopener">Taiwan misses 2025 renewable target as coal power remains above goal</a>, 18 March 2026, reporting the Ministry of Economic Affairs monthly energy report. 2025 generation mix.</li>
+      <li>World Nuclear News, <a href="https://www.world-nuclear-news.org/articles/reactor-closure-marks-taiwans-nuclear-exit" target="_blank" rel="noopener">Reactor closure marks Taiwan's nuclear exit</a>, 19 May 2025.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/afe/202609240313.aspx" target="_blank" rel="noopener">核安會核定核三再運轉計畫 台電後續須提交執行結果報告</a> (Nuclear Safety Commission approves the Maanshan restart plan), 24 September 2026.</li>
+      <li>Energy Administration, Ministry of Economic Affairs: <a href="https://www.moeaea.gov.tw/ECW/english/content/Content.aspx?menu_id=8675" target="_blank" rel="noopener">Management of oil security stockpile</a> and <a href="https://www.moeaea.gov.tw/ECW/english/content/Content.aspx?menu_id=8677" target="_blank" rel="noopener">Stable supply of natural gas</a> (statutory LNG stockpile by year).</li>
+      <li>Taipei Times, <a href="https://www.taipeitimes.com/News/front/archives/2023/01/23/2003793032" target="_blank" rel="noopener">Taipower aims to increase coal storage</a>, 23 January 2023; <a href="https://www.taipeitimes.com/News/biz/archives/2026/03/06/2003853325" target="_blank" rel="noopener">Taiwan crude oil and gas reserves above minimum</a>, 6 March 2026.</li>
+      <li>Atlantic Council, <a href="https://www.atlanticcouncil.org/blogs/new-atlanticist/does-taiwans-massive-reliance-on-energy-imports-put-its-security-at-risk/" target="_blank" rel="noopener">Does Taiwan's massive reliance on energy imports put its security at risk?</a>, 7 July 2023 (about 97 percent by sea).</li>
+      <li>Mark F. Cancian, Matthew F. Cancian and Eric Heginbotham, <a href="https://csis-website-prod.s3.amazonaws.com/s3fs-public/2025-07/250730_Cancian_Taiwan_Blockade.pdf" target="_blank" rel="noopener">Lights Out? Wargaming a Chinese Blockade of Taiwan</a>, CSIS, July 2025. Fuel run-out times, default inventories (oil 146 days, gas 12 days, coal 45 days), the 1 percent of oil used for power, and the six-sector electricity priorities.</li>
+      <li>Taiwan Security Monitor analysis: Jonathan Walberg, <i>What Hormuz Should Teach Taiwan About Mine Warfare</i> (September 2026) and <i>Taiwan's NT$607.6 Billion Supplementary Budget</i> (September 2026), unpublished drafts used for background framing only. No figure on this page comes from them.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Energy Blockade Clock', sub: 'Set a quarantine or blockade and watch Taiwan\'s fuel stocks and power grid run down, day by day.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

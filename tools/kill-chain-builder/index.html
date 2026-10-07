@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kill Chain Builder | Taiwan Security Monitor</title>
+<meta name="description" content="Wire sensors, command nodes and shooters into a kill chain, test whether it closes against a moving target, and strike nodes to see where it breaks.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="kill-chain-builder.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="kc-stage">
+    <div class="kc-bar">
+      <div class="palette" id="kc-palette" aria-label="Add a node: click, or drag onto the board"></div>
+      <div class="kc-actions">
+        <button type="button" class="btn" id="kc-copy">Copy link</button>
+      </div>
+    </div>
+    <div class="boardbox card">
+      <div class="boardscroll">
+        <svg id="kc-board" role="group" aria-label="Kill chain board. Each node is a button: Tab to it, Enter selects, arrow keys move, Delete removes."></svg>
+      </div>
+      <p class="boardhint"><span class="narrow-only">Scroll the board sideways to see every column. </span>Drag nodes to arrange them. Drag from a round port to another node to link it. All values <span class="notional">notional</span> except the two anti-ship ballistic missile reaches, which follow CSIS and DoD.</p>
+    </div>
+    <div class="card under">
+      <p class="eyebrow">Fastest path · timeline and position error</p>
+      <div class="boardscroll"><svg id="kc-timeline" class="timeline" role="img" aria-label="Time from the target's appearance to impact, split by step, with the aim point's position error against the weapon's seeker basket."></svg></div>
+      <div class="legend"><span class="lg wait"></span>waiting for a look <span class="lg proc"></span>sensor report <span class="lg decide"></span>decision <span class="lg relay"></span>relay <span class="lg launch"></span>launch <span class="lg flight"></span>flight</div>
+    </div>
+    <div class="tablewrap">
+      <table><caption class="sr">Per-node range and coverage checks</caption>
+        <thead><tr><th>Node</th><th>Role</th><th>To target</th><th>Range or timing</th><th>Status</th></tr></thead>
+        <tbody id="kc-checks"></tbody></table>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Scenario, chain status and node inspector"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>A kill chain is the sequence a military runs to strike a target: <b>find</b> it, <b>fix</b> its position, <b>track</b> it as it moves, <b>target</b> it by assigning a weapon and clearing the shot, <b>engage</b>, and <b>assess</b> the result. U.S. military shorthand for this is F2T2EA. Each step is done by some node, and the chain is only as fast and as sturdy as the path that connects them.</p>
+    <p>On the board, sensors sit on the left, command nodes and datalinks in the middle, and shooters on the right. A path runs from one sensor, through any command nodes, to one shooter. The tool checks every path and highlights the fastest one that closes. The six bars in the panel show how far the best path gets.</p>
+    <p>Three things break chains. <b>Reach</b>: a sensor that cannot see the target, or a weapon that cannot reach it. <b>Time</b>: every report, decision and flight minute lets the target move, and once the target has moved farther than the weapon's seeker can search, the shot misses. <b>Structure</b>: if every path runs through one node, one strike ends the chain. The panel counts independent paths and flags single points of failure; the Strike buttons test them.</p>
+    <p>Presets show three archetypes: a long-range anti-ship ballistic missile chain of the kind the PLA has built, a short coastal defense chain like Taiwan's, and a many-to-many mesh of the kind JADC2, the U.S. plan to link every sensor to every shooter, aims at. Their structure is the lesson. The numbers are round, notional values chosen for teaching.</p>
+  </div>
+  <div class="col">
+    <h2>Method</h2>
+    <ul class="src method">
+      <li><b>Detection.</b> Each sensor has a reach on each channel it uses (radar, infrared, emissions, acoustic) against a reference target. Active radar reach scales with the fourth root of the target's signature, from the radar range equation; passive sensing scales with the square root. A sensor sees the target if its best channel reaches the target's distance. Over-the-horizon radar has a skip zone inside 800 km <span class="notional">notional</span>.</li>
+      <li><b>Geometry.</b> Land-based nodes sit on the home coast, the set distance from the target. Aircraft, drones and submarines operate forward, at a distance you set per node. Satellites are treated as always in reach when overhead, and their revisit interval sets how long you wait for a look.</li>
+      <li><b>Fix and track.</b> A path must start with a sensor precise enough to fix the target (location error 5 km or better). The aim point's error at impact is the sensor's own error plus target speed times the age of the data. For the fixing sensor that age is its report time, every relay and decision on the path, launch preparation and flight time. If any live sensor that updates at least every 5 minutes is linked to the shooter, its track can supply the aim point instead; its age is half its update interval, its report time and relay times, plus launch and flight for weapons without in-flight updates. The path tracks if the best error fits inside the weapon's seeker basket and, for a mobile launcher, the whole sequence fits inside the time it stays located.</li>
+      <li><b>Target and engage.</b> The first command node with firing authority on the path adds its decision time; datalinks only relay. Strike aircraft and submarines can decide on scene. The weapon must reach the target, and ship-only weapons cannot engage a launcher. Assess needs a live damage-capable sensor that sees the target and is linked to the deciding node or the shooter.</li>
+      <li><b>Independent paths.</b> The count is the largest set of closing paths that share no node. It is computed as a maximum flow in which every node is split in two with capacity one (Menger's theorem), using only links that lie on some closing path; each route the flow finds is checked, and if one does not close by itself the tool falls back to an exact search over closing paths. A single point of failure is a node whose loss alone leaves no closing path, found by re-running the whole evaluation without it, so it also catches a tracking radar that other paths depend on.</li>
+      <li><b>What is left out.</b> Deception, decoys, weather, jamming short of destruction, reloads, weapon reliability, defenses and the adversary's own reaction. The model tests the structure and timing of a chain. It does not predict outcomes.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Anti-ship ballistic missile reach: CSIS Missile Defense Project, <a href="https://missilethreat.csis.org/missile/df-21/" target="_blank" rel="noopener">DF-21 (CSS-5)</a> (DF-21D range reported at 1,450 to 1,550 km) and <a href="https://missilethreat.csis.org/missile/dong-feng-26-df-26/" target="_blank" rel="noopener">Dong Feng-26 (DF-26)</a> (4,000 km; anti-ship variant likely has an active terminal seeker). Overview: <a href="https://missilethreat.csis.org/country/china/" target="_blank" rel="noopener">Missile Threat: China</a>. Cross-check: U.S. Department of Defense, <a href="https://web.archive.org/web/2025/https://media.defense.gov/2024/Dec/18/2003615520/-1/-1/0/MILITARY-AND-SECURITY-DEVELOPMENTS-INVOLVING-THE-PEOPLES-REPUBLIC-OF-CHINA-2024.PDF" target="_blank" rel="noopener"><i>Military and Security Developments Involving the People's Republic of China 2024</i></a>, pp. 64&ndash;65 (DF-21D range exceeding 1,500 km; DF-26 3,000 to 4,000 km and capable of anti-ship strikes; archived copy).</li>
+      <li>F2T2EA: John A. Tirpak, <a href="https://www.airandspaceforces.com/article/0700find/" target="_blank" rel="noopener">"Find, Fix, Track, Target, Engage, Assess"</a>, <i>Air Force Magazine</i>, July 2000. Mike Benitez, <a href="https://warontherocks.com/its-about-time-the-pressing-need-to-evolve-the-kill-chain/" target="_blank" rel="noopener">"It's About Time: The Pressing Need to Evolve the Kill Chain"</a>, War on the Rocks, May 2017.</li>
+      <li>JADC2: John R. Hoehn, <a href="https://www.everycrsreport.com/reports/IF11493.html" target="_blank" rel="noopener">Joint All-Domain Command and Control (JADC2)</a>, Congressional Research Service IF11493, updated January 2022 (mirror of the CRS In Focus).</li>
+      <li>Framing: the find, fix, track, target, engage and assess sequence in the Tirpak and Benitez pieces above, and the sensor-to-shooter networking described in the CRS JADC2 report. All other ranges, speeds, latencies, accuracies, seeker baskets and signatures are notional round numbers and do not describe specific systems or units.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Kill Chain Builder', sub: 'Wire sensors, command nodes and shooters into a kill chain, then find where it breaks.', category: 'Force & wargame models' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

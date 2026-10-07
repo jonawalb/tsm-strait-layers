@@ -1,0 +1,99 @@
+/* Dark Fleet Viewer. Built on shared/css/tsm.css tokens only. */
+body { overflow-x: hidden; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.eyebrow.sm { font-size: 12px; }
+.banner { max-width: 1400px; margin: 12px auto 0; padding: 9px 12px; border: 1px solid var(--warn); border-left-width: 4px; border-radius: 4px; background: color-mix(in srgb, var(--warn) 9%, var(--panel)); font-size: 13px; }
+.banner b { color: var(--warn); }
+.actions { max-width: 1400px; margin: 12px auto 0; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+.actions .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.modes { display: flex; gap: 6px; flex-wrap: wrap; }
+.modes button { text-align: left; background: var(--panel); border: 1px solid var(--rule); border-bottom-width: 3px; border-radius: 4px; padding: 7px 12px; cursor: pointer; display: flex; flex-direction: column; min-width: 170px; }
+.modes button b { font-family: var(--display); font-size: 17px; }
+.modes button span { font-size: 12px; color: var(--muted); }
+.modes button:hover { border-color: var(--muted); }
+.modes button[aria-selected="true"] { border-color: var(--brand-ink); border-bottom-color: var(--accent); background: color-mix(in srgb, var(--brand-ink) 7%, var(--panel)); }
+body[data-mode="live"] .archive-only, body[data-mode="archive"] .live-only { display: none !important; }
+
+/* Map */
+.mapbox { position: relative; }
+#tracks { position: absolute; left: 0; top: 0; cursor: crosshair; touch-action: manipulation; }
+.toolbar { position: absolute; top: 8px; left: 8px; display: flex; gap: 4px; }
+.toolbar button { font-size: 12px; padding: 5px 9px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); cursor: pointer; }
+.toolbar button[aria-pressed="true"] { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 14%, var(--panel)); }
+.maplegend { position: absolute; left: 8px; bottom: 8px; right: 8px; display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 11px; color: var(--muted); pointer-events: none; }
+.maplegend span { display: inline-flex; align-items: center; gap: 5px; background: color-mix(in srgb, var(--panel) 82%, transparent); padding: 1px 5px; border-radius: 3px; }
+.maplegend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.maplegend .dot.hollow { border: 1.5px solid var(--ink); }
+.maplegend .dash { width: 18px; border-top: 2px dotted color-mix(in srgb, var(--ink) 55%, transparent); }
+.maplegend .sqk { display: inline-block; width: 7px; height: 7px; background: var(--ink); border: 1px solid var(--panel); }
+.maplegend .ring { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--accent); }
+.maplegend .diamond { width: 8px; height: 8px; transform: rotate(45deg); border: 1.5px solid var(--blue); }
+.maplegend .sq { width: 10px; height: 10px; display: inline-block; }
+.adiz { fill: none; stroke: var(--roc); stroke-width: 1.4; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+.median { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+.zone { fill: color-mix(in srgb, var(--c6) 7%, transparent); stroke: var(--c6); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.zone.box { fill: none; }
+.t-ref { font: 11px var(--mono); fill: var(--muted); paint-order: stroke; stroke: var(--sea); stroke-width: 3px; }
+.t-place { paint-order: stroke; stroke: var(--land); stroke-width: 3px; }
+.t-gap { font: 600 11px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--sea); stroke-width: 3px; }
+.t-gap .t-gap-sub { font: 500 10px var(--mono); fill: var(--muted); }
+.t-sel { font: 600 12px var(--body); fill: var(--ink); paint-order: stroke; stroke: var(--sea); stroke-width: 3.5px; }
+.coloc { fill: none; stroke: var(--blue); stroke-width: 1.2; opacity: .45; vector-effect: non-scaling-stroke; }
+.coloc.on { opacity: 1; stroke-width: 2; fill: var(--blue-soft); }
+.cell-sel { fill: none; stroke: var(--ink); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+
+/* Scrubber */
+.card { padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.scrub { display: flex; align-items: center; gap: 10px; }
+.scrub input { flex: 1; min-width: 0; accent-color: var(--brand-ink); }
+.scrub output { font-size: 12.5px; min-width: 13ch; text-align: right; }
+.play { font-family: var(--display); font-weight: 700; letter-spacing: .04em; font-size: 13px; padding: 6px 12px; border-radius: 3px; border: 1px solid var(--brand); background: var(--brand); color: #f2f2ee; cursor: pointer; min-width: 70px; }
+.scrub-opts { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 20px; align-items: end; }
+.spd { font-size: 12.5px; display: flex; gap: 8px; align-items: center; }
+.spd select, .panel select { font: inherit; font-size: 12.5px; padding: 3px 6px; border: 1px solid var(--rule); border-radius: 3px; background: var(--panel); color: var(--ink); }
+.months { width: 100%; height: auto; display: block; cursor: pointer; touch-action: none; user-select: none; }
+.months text, .vtl text { font: 10.5px var(--mono); fill: var(--muted); }
+.grid { stroke: var(--rule); }
+.mbar-sel { fill: var(--blue-soft); }
+@media (max-width: 560px) { .scrub-opts { grid-template-columns: minmax(0, 1fr); } .modes button { min-width: 0; flex: 1; } }
+
+/* Panel */
+.sec-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.status b { font-size: 19px; }
+.list ol { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 8px; font-size: 12.5px; }
+.list li small { grid-column: 1 / 3; color: var(--muted); font-size: 11px; }
+.list li .num { font-size: 12px; }
+.linkish { border: 0; background: none; padding: 0; color: var(--blue); cursor: pointer; text-align: left; font-size: 12.5px; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--blue) 35%, transparent); overflow-wrap: anywhere; }
+.zbars { display: flex; flex-direction: column; gap: 4px; }
+.zb { display: grid; grid-template-columns: 120px minmax(0, 1fr) 44px; gap: 2px 8px; align-items: center; font-size: 12px; }
+.zb i { height: 8px; background: var(--c7); border-radius: 1px; display: block; }
+.zb small { grid-column: 2 / 4; color: var(--muted); font-size: 10.5px; margin-top: -3px; }
+.zb b { font-weight: 500; text-align: right; }
+.swatch { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+#card { background: color-mix(in srgb, var(--blue) 4%, var(--panel)); }
+#card[hidden] { display: none; }
+#card .card-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.vname { margin: 0; font-size: 20px; line-height: 1.15; overflow-wrap: anywhere; }
+.x-card { padding: 4px 9px; font-size: 12px; }
+.flag { margin: 0; font-size: 12.5px; border-left: 3px solid var(--warn); padding: 3px 0 3px 9px; }
+.rule { font-size: 12px; border: 1px solid var(--rule); border-radius: 4px; padding: 6px 9px; }
+.rule summary { cursor: pointer; font-weight: 600; }
+.vtl { width: 100%; height: auto; display: block; cursor: pointer; }
+.vtl-gap { fill: var(--ink); opacity: .14; }
+.vtl-loiter { fill: var(--accent); }
+.vtl-line { fill: none; stroke: var(--blue); stroke-width: 1.4; }
+.vtl-now { stroke: var(--accent); stroke-width: 1.5; }
+
+/* Tour */
+.tour { position: absolute; z-index: 8; right: 10px; top: 46px; width: min(350px, calc(100% - 20px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .2); }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); font-family: var(--mono); }
+.tour .x { border: 0; background: transparent; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 6px 0 4px; font-size: 20px; }
+.tour p { margin: 0 0 10px; font-size: 13px; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; }
+@media (max-width: 600px) { .tour { position: fixed; left: 10px; right: 10px; bottom: 10px; top: auto; width: auto; } .maplegend { display: none; } }
+
+.below h2.mt { margin-top: 22px; }
+@media (max-width: 480px) { body { padding-inline: 12px; } }

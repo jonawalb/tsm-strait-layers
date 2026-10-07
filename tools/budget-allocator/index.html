@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Defense Budget Allocator | Taiwan Security Monitor</title>
+<meta name="description" content="Spend a defense budget across capability categories, see what it buys and how long it takes to arrive, and explore a notional model as ranges, not predictions.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="budget-allocator.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="stage">
+    <section class="card pad">
+      <div class="card-h"><p class="eyebrow" id="alloc-title">Your allocation</p><span class="fine">Drag a boundary in the bar, or use the sliders</span></div>
+      <div class="dragbar" id="dragbar" aria-hidden="true"></div>
+      <div class="reference" id="reference"></div>
+      <div class="sliders" id="sliders"></div>
+      <p class="fine" id="alloc-note">Moving one slider rescales the unlocked categories so the total stays fixed. Lock a category to hold its amount. Unit counts use the unit costs in the spending menu, marked cited or notional.</p>
+    </section>
+
+    <section class="card pad">
+      <div class="modes" role="tablist" aria-label="View">
+        <button type="button" role="tab" data-m="buys" id="tab-buys" aria-controls="m-buys">What it buys</button>
+        <button type="button" role="tab" data-m="range" id="tab-range" aria-controls="m-range">Range model <span class="notional">notional</span></button>
+      </div>
+      <div id="m-buys" role="tabpanel" aria-labelledby="tab-buys">
+        <div id="buys"></div>
+        <p class="eyebrow sm mt8">Trade-off</p>
+        <div id="trade" class="trade"></div>
+        <p class="fine" id="buys-note">Unit costs are program costs, including support, training and spares, so they are not flyaway prices. Counts give a sense of scale only. Nothing here says how a plan would do in a war.</p>
+      </div>
+      <div id="m-range" role="tabpanel" aria-labelledby="tab-range" hidden>
+        <p class="fine">The notional model is run 200 times, each time with six assumptions drawn from wide ranges. The dark band holds the middle 80% of runs and the light line the full spread. There is no single answer and no verdict: if two plans' bands overlap, the model cannot tell them apart.</p>
+        <div class="ranges" id="ranges"></div>
+        <p class="eyebrow sm mt8">What drives the spread</p>
+        <p class="fine">How far each assumption alone, moved across its range, shifts the share of the force engaged under your plan.</p>
+        <ul class="drivers" id="drivers"></ul>
+        <p class="fine" id="drv-note"></p>
+        <details class="params" id="params">
+          <summary>Edit the notional parameters</summary>
+          <div id="params-body"></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="card pad">
+      <p class="eyebrow" id="cmp-title">Compare</p>
+      <div class="tablewrap" id="compare"></div>
+      <p class="fine" id="cmp-note"></p>
+    </section>
+  </div>
+
+  <aside class="panel" aria-label="Country, budget and starting mix">
+    <div class="sec">
+      <p class="eyebrow">Country</p>
+      <div id="countries" role="group" aria-label="Country"></div>
+      <p class="fine" id="country-sub"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">1 · Pick the money</p>
+      <div class="choices one" id="budgets"></div>
+      <p class="fine" id="budget-note"></p>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">2 · Start from a mix</p>
+      <div class="choices" id="presets"></div>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">3 · Look at it two ways</p>
+      <p class="fine"><b>What it buys</b> prices the plan and shows what moving money trades away. <b>Range model</b> shows how much a simple notional model's results move when the things nobody knows change.</p>
+    </div>
+    <div class="sec row-btns">
+      <button type="button" class="btn" id="copy-link">Copy link</button>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+   <div id="cx-left" hidden></div>
+   <div id="tw-left">
+    <h2>How to read it</h2>
+    <p>Pick a budget, then divide it across eight kinds of capability. The tool does not say whether a plan would win a fight. It shows two things: what the money pays for, and how much a simple, notional model's results move when assumptions nobody can pin down change.</p>
+    <p><b>What it buys</b> prices each line at the unit costs in the spending menu. Five of Taiwan's unit costs come from real programs: four U.S. arms sales notified to Congress (the Harpoon Coastal Defense System, HIMARS, NASAMS and the F-16 Block 70) and Taiwan's own uncrewed-systems line. They are program costs that include support, training and spares. Mines, C4ISR and ammunition stay <span class="notional">notional</span>. The last column shows how long a matching U.S. sale has taken to reach Taiwan, from the Taiwan Security Monitor's <a href="https://tsm.schar.gmu.edu/taiwan-arms-sale-backlog-september-2026-update/" target="_blank" rel="noopener">Taiwan Arms Sale Backlog</a>: money approved now is not capability soon. The trade-off box shows what moving money from one line to another gives up and what it gets.</p>
+    <p><b>Range model</b> runs the notional model 200 times with six assumptions drawn from wide ranges and shows only the spread of results. It never shows one number, a verdict or a chance of victory. Where two plans' bands overlap, the model cannot separate them. "What drives the spread" shows which assumption matters most for your plan.</p>
+    <p>The comparison table puts your plan beside three or four mixes at the same budget. The <b>porcupine</b> mix buys many small, mobile, cheap systems. The <b>legacy platforms</b> mix buys fighters, submarines and large ships. For the NT$145.7bn line, the <b>cabinet mix</b> maps the cabinet's actual September 3, 2026 request onto the tool's categories.</p>
+    <h2 class="mt">How the range model works</h2>
+    <p>Every number in the model is <span class="notional">notional</span>. It is a teaching model built to show the structure of the argument over Taiwan's defense spending. It does not predict what any real program would do, and other factors it leaves out can outweigh everything in it.</p>
+    <ol class="method">
+      <li><b>Diminishing returns.</b> Each category starts from a notional baseline <i>b</i> that Taiwan already has. Spending <i>x</i> raises capability to <code>E = 1 − (1 − b)·e<sup>−x/k</sup></code>, so the first billions buy the most. The scale <i>k</i> is small for cheap systems (mines 18, C4ISR 35, drones 45) and large for expensive ones (air defense 140, platforms 450), in NT$bn.</li>
+      <li><b>Suppression.</b> The PLA opens with missile and air strikes of strength <i>s</i>. Mobile launchers survive at <code>1 − s·(1 − 0.55·E<sub>C4ISR</sub>)·(1 − 0.35·E<sub>air</sub>)</code>. Large platforms are few and sit at known bases, so they survive at <code>1 − 1.1·s·(1 − 0.35·E<sub>air</sub>)</code>.</li>
+      <li><b>Tracking and sustainment.</b> Shooters need a track: <code>0.55 + 0.45·E<sub>C4ISR</sub>·(1 − 0.4·s)</code>. They need ammunition to keep firing: <code>0.6 + 0.4·E<sub>ammo</sub></code>. Drones carry some of their own sensing and depend on tracking half as much.</li>
+      <li><b>Mines</b> need no track, but only the share <code>1 − e<sup>−days/3.5</sup></code> is laid before the assault.</li>
+      <li><b>Layer strength</b> is capability × survival × tracking × sustainment. Each layer can engage at most a notional share of the force (coastal missiles 60%, drones 50%, mines and platforms 45%, strike 30%). The share engaged is <code>1 − Π(1 − p)</code> across layers.</li>
+      <li><b>Approach under fire</b> is the share of a 160 km crossing at 12 knots where the strengths of all layers that reach it add up to at least 0.3. Notional reaches from Taiwan's coast: mines 15 km, drones 60 km, coastal missiles 150 km, strike and platforms the whole crossing.</li>
+      <li><b>Resilience</b> is <code>100 × (0.3·E<sub>C4ISR</sub> + 0.25·E<sub>ammo</sub> + 0.2·E<sub>air</sub> + 0.25·mobile survival)</code>.</li>
+      <li><b>The ranges.</b> Each run draws, uniformly and independently: strike strength <i>s</i> from 20% to 80%; warning from 2 to 10 days; every scale <i>k</i> multiplied by 0.5 to 2; every baseline by 0.6 to 1.4; every maximum share by 0.6 to 1.4; and attacker speed by 0.75 to 1.5. The same 200 draws are used for every plan. The bands show the 10th to 90th percentile of runs, and the thin line the lowest and highest.</li>
+    </ol>
+    <p>What the model leaves out matters: U.S. and allied forces, the PLA's own mine clearance and air defense, weather, deception, training, maintenance, deterrence in peacetime and the gray-zone missions that large ships and fighters perform every day. A platform that does poorly here can still be the right buy for those jobs.</p>
+   </div>
+  </div>
+  <div class="col">
+   <div id="cx-right" hidden></div>
+   <div id="tw-right">
+    <h2>The real budgets</h2>
+    <div class="tablewrap"><table id="real">
+      <thead><tr><th>Line in the NT$145.7bn request</th><th>NT$bn</th><th>Model category</th></tr></thead>
+      <tbody id="realtable"></tbody>
+    </table></div>
+    <p class="fine mt8">Mapping: the NT$13.0bn line covers seven programs led by the mid-tier anti-tactical ballistic missile system (Strong Bow); the model treats all of it as air defense. The uncrewed line buys more than 40,000 coastal attack drones, 600 coastal reconnaissance drones and 100 small one-way uncrewed boats. The classified programs and the personnel lines cannot be scored and go to "Not modeled".</p>
+    <h2 class="mt">Related budget lines</h2>
+    <p class="fine">Figures the model does not use, for context on the FY2026 and FY2027 fight.</p>
+    <ul class="src">
+      <li><b>FY2026 special budget, NT$8.81bn.</b> The first appropriation under the NT$780bn act, passed by the Legislative Yuan on May 29, 2026 with a cut of NT$2 million. <a href="https://www.cna.com.tw/news/aipl/202605290081.aspx" target="_blank" rel="noopener">CNA, May 29, 2026</a></li>
+      <li><b>Uncrewed systems split across two years.</b> Of the NT$55.9bn uncrewed line in the supplementary request, NT$13.8bn is for 2026 and NT$42.1bn for 2027, with initial capability targeted for 2027. <a href="https://udn.com/news/story/124984/9733451" target="_blank" rel="noopener">United Daily News, Sept. 4, 2026</a></li>
+      <li><b>Strong Bow in the FY2027 general budget.</b> MND's FY2027 budget book lists the Strong Bow missile system as a regular line of about NT$36.0bn through 2032, with deliveries from 2028. <a href="https://def.ltn.com.tw/article/breakingnews/5561756" target="_blank" rel="noopener">Liberty Times, Sept. 3, 2026</a></li>
+      <li><b>FY2027 general budget.</b> The cabinet approved it on Aug. 20, 2026, with total defense spending of NT$1.1225 trillion, above 3% of GDP. <a href="https://www.cna.com.tw/news/aipl/202608200111.aspx" target="_blank" rel="noopener">CNA, Aug. 20, 2026</a></li>
+      <li><b>FY2026 general budget, enacted Aug. 14, 2026.</b> As proposed: MND NT$561.4bn, within a NT$949.5bn defense total that also counts the coast guard and veterans' pensions (3.32% of GDP). <a href="https://www.dgbas.gov.tw/News_Content.aspx?n=3602&amp;s=235226" target="_blank" rel="noopener">DGBAS, Aug. 21, 2025</a>. The legislature passed it on Aug. 14, 2026, cutting NT$48bn overall and military equipment and facilities by 2.5% across the board; an enacted MND total could not be found, so the MND figure shown is the proposal. <a href="https://www.cna.com.tw/news/aipl/202608140278.aspx" target="_blank" rel="noopener">CNA, Aug. 14, 2026</a></li>
+      <li><b>Drone industry act.</b> The legislature's act directing NT$240bn over six years (NT$40bn a year) through annual budgets, passed Aug. 27, was promulgated on Sept. 11, 2026. <a href="https://udn.com/news/story/10930/9748144" target="_blank" rel="noopener">CNA via UDN, Sept. 11, 2026</a></li>
+      <li><b>FY2027 defense ministry budget.</b> The general budget lists NT$690.1bn for the defense ministry's agencies: NT$204.2bn for military pay and allowances, NT$183.0bn for logistics, ammunition and transport, nearly NT$134.2bn for general weapons and equipment, and nearly NT$112.1bn in classified spending. Defense as a spending function is NT$683.6bn, up NT$134.7bn. <a href="https://www.cna.com.tw/news/aipl/202610015002.aspx" target="_blank" rel="noopener">CNA, Oct. 1, 2026</a></li>
+      <li><b>Next step.</b> The Legislative Yuan referred the supplementary request and the FY2027 general budget to committee on Oct. 2, 2026, after first reading. <a href="https://www.cna.com.tw/news/aipl/202610020225.aspx" target="_blank" rel="noopener">CNA, Oct. 2, 2026</a>. Premier Cho Jung-tai asked for a third reading of the supplementary by the end of November; opposition legislators said they would review it strictly. <a href="https://udn.com/news/story/6656/9789469" target="_blank" rel="noopener">UDN, Oct. 2, 2026</a>. The defense ministry said on Sept. 30 that procurement would speed up once the legislature passes the budget. <a href="https://newtalk.tw/news/view/2026-09-30/1062668" target="_blank" rel="noopener">Newtalk, Sept. 30, 2026</a></li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Taiwan Security Monitor analysis: J. Walberg, "Taiwan's NT$607.6 Billion Supplementary Budget and the Fight Over Who Controls the Purse," September 7, 2026. Context for all three budgets and the legislative fight over them.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202609030184.aspx" target="_blank" rel="noopener">政院通過追加預算含國防1457億</a>, September 3, 2026. Line-by-line breakdown of the NT$145.7bn defense request from the budget directorate (DGBAS).</li>
+      <li>Focus Taiwan (CNA), <a href="https://focustaiwan.tw/politics/202609030018" target="_blank" rel="noopener">Cabinet proposes US$19.12 billion supplementary budget</a>, September 3, 2026. NT$607.6bn total; NT$145.7bn defense; drone and uncrewed-boat quantities.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202605080239.aspx" target="_blank" rel="noopener">國防特別條例三讀通過預算上限7800億</a>, May 8, 2026. The NT$780bn special act and the items it names.</li>
+      <li>Central News Agency, <a href="https://www.cna.com.tw/news/aipl/202605110212.aspx" target="_blank" rel="noopener">總統令公布7800億國防特別條例</a>, May 11, 2026. The presidential order promulgating the act.</li>
+      <li>Taiwan FactCheck Center, <a href="https://tfc-taiwan.org.tw/fact-check-reports/taiwan-1point25-trillion-defense-budget-us-arms-sales/" target="_blank" rel="noopener">NT$1.25 trillion special defense budget</a>, December 3, 2025. The eight-year 2026–2033 plan and its categories.</li>
+      <li>Unit costs for coastal anti-ship missiles, HIMARS, air defense and platforms: U.S. arms sale notifications to Congress for Taiwan (DSCA 20-68, 26-01, 24-48 and 19-50), program value divided by quantity, as compiled in the Taiwan Security Monitor's <a href="https://tsm.schar.gmu.edu/taiwan-arms-sale-backlog-september-2026-update/" target="_blank" rel="noopener">Taiwan Arms Sale Backlog</a>; converted at NT$31.78 per US$, the rate implied by Focus Taiwan's NT$607.6bn = US$19.12bn (Sept. 3, 2026). Drone unit cost: the NT$55.9bn uncrewed line averaged over its 40,700 vehicles (Focus Taiwan, same date).</li>
+      <li>Delivery times: TSM, <a href="https://tsm.schar.gmu.edu/taiwan-arms-sale-backlog-september-2026-update/" target="_blank" rel="noopener">Taiwan Arms Sale Backlog, September 2026 update</a>, and the milestone sources linked in each row. The F-16 first delivery (Oct. 2, 2026) is from <a href="https://focustaiwan.tw/politics/202610020006" target="_blank" rel="noopener">Focus Taiwan</a>.</li>
+      <li>Model structure adapted from the PLA crossing mode of TSM's <a href="../strait-layers/">Strait Layers</a>. Baselines, reaches, weights, the assumption ranges and all coefficients are notional; so are the unit costs for mines, C4ISR and ammunition.</li>
+    </ul>
+   </div>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  import { SITE } from '../../shared/js/site.js';
+  mountChrome({ title: 'Defense Budget Allocator', category: 'Force & wargame models', sub: SITE === 'tsm'
+    ? 'Spend Taiwan\'s special or supplementary defense budget, see what it buys and how long U.S. sales take to arrive, and explore a notional model as ranges.'
+    : 'Spend a real defense budget from Taiwan or one of twelve other Indo-Pacific and European countries, see what it buys, and explore a notional model as ranges.' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

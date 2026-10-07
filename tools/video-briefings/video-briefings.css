@@ -1,0 +1,74 @@
+/* Video Briefings. Tokens from shared/css/tsm.css only. */
+.vb { max-width: 1400px; margin: 16px auto 0; display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 16px; align-items: start; }
+@media (max-width: 1000px) { .vb { grid-template-columns: minmax(0, 1fr); } }
+.vb-player { overflow: hidden; }
+.vb-frame { position: relative; background: #0b120e; aspect-ratio: 16 / 9; }
+.vb-frame video { display: block; width: 100%; height: 100%; background: #0b120e; }
+.vb-status { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; padding: 8px 14px; border-radius: 4px; background: rgba(11, 18, 14, .85); color: #e6ece7; font-size: 14px; text-align: center; max-width: 90%; }
+.vb-info { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-end; padding: 12px 16px 14px; }
+.vb-title { margin: 2px 0 2px; font-size: clamp(24px, 3vw, 34px); line-height: 1.05; }
+.vb-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.vb-actions a.btn { text-decoration: none; color: var(--ink); }
+.vb-actions a.btn:not([href]) { opacity: .4; pointer-events: none; }
+
+.vb-transcript { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; max-height: 720px; }
+@media (max-width: 1000px) { .vb-transcript { max-height: none; } .tr-list { max-height: 460px; } }
+.tr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.tr-head h3 { margin: 0; font-size: 20px; }
+.tr-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; position: relative; }
+.tr-list > li { border-left: 3px solid transparent; padding: 4px 6px 6px 8px; border-radius: 2px; }
+.tr-list > li.on { border-left-color: var(--accent); background: var(--chip); }
+.tr-line { display: flex; gap: 10px; align-items: baseline; text-align: left; border: 0; background: none; padding: 0; cursor: pointer; width: 100%; }
+.tr-line:hover .tr-x { text-decoration: underline; text-decoration-color: var(--faint); }
+.tr-t { font-size: 11.5px; color: var(--muted); min-width: 34px; }
+.tr-x { font-size: 14px; line-height: 1.45; }
+.refs { list-style: none; margin: 4px 0 0 44px; padding: 0; display: flex; flex-direction: column; gap: 1px; font-size: 12px; color: var(--muted); }
+.refs li span { color: var(--muted); }
+.refs li b { color: var(--ink); font-weight: 500; }
+.refs li i { font-style: normal; font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--rule); border-radius: 8px; padding: 0 5px; margin-left: 2px; white-space: nowrap; }
+.hide-refs .refs { display: none; }
+
+.vb-data, .vb-archive { max-width: 1400px; margin: 26px auto 0; }
+.vb-data h2, .vb-archive h2 { font-size: 24px; margin: 0 0 10px; }
+.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 1100px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } }
+.tile { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 11px 13px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.t-l { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); line-height: 1.2; }
+.t-b { font-size: 30px; font-weight: 500; line-height: 1.1; }
+.t-s { font-size: 12px; color: var(--muted); line-height: 1.3; }
+.t-d { display: flex; flex-direction: column; gap: 1px; margin-top: 4px; }
+.d { font: 11.5px var(--mono); color: var(--ink); }
+.d i { font-style: normal; font-size: 9px; }
+.d.up i { color: var(--red); } .d.down i { color: var(--blue); } .d.na { color: var(--muted); }
+
+.vb-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 12px; }
+@media (max-width: 900px) { .vb-grid { grid-template-columns: minmax(0, 1fr); } }
+.pad { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pad h3 { margin: 0; font-size: 19px; }
+.pad h3.mt, h2.mt { margin-top: 12px; }
+.pad p { margin: 0; }
+.pad .eyebrow { margin-top: 4px; }
+.tablewrap th[scope="row"] { font-family: var(--body); font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 500; }
+.tablewrap th[scope="row"] small { display: block; color: var(--muted); font-weight: 400; font-size: 11px; }
+.tablewrap td.num { text-align: right; white-space: nowrap; }
+.tablewrap tr.sum th, .tablewrap tr.sum td { font-weight: 600; }
+.tablewrap tr.ref th, .tablewrap tr.ref td { color: var(--muted); }
+.tablewrap tr.top th { color: var(--accent); }
+.tablewrap tr.out td { font-weight: 600; color: var(--red); }
+.flag { color: var(--warn); }
+.muted { color: var(--muted); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+blockquote.q { margin: 4px 0 0; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--chip); border-radius: 0 4px 4px 0; }
+blockquote.q p { margin: 0 0 4px; font: 500 15px/1.45 var(--display); }
+blockquote.q footer { font-size: 12px; color: var(--muted); }
+
+.arch { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.arch-item { width: 100%; text-align: left; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 10px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; }
+.arch-item:hover { border-color: var(--muted); }
+.arch-item[aria-current="true"] { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.arch-item b { font-family: var(--display); font-size: 17px; }
+.below code { font-family: var(--mono); font-size: 12px; background: var(--chip); padding: 1px 4px; border-radius: 3px; overflow-wrap: anywhere; }
+@media (max-width: 900px) { .below { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .tr-list { scroll-behavior: auto; } }
+@media (max-width: 600px) { .tablewrap table { min-width: 460px; } }

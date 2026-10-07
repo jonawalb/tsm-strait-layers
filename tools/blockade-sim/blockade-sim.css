@@ -1,0 +1,127 @@
+/* Blockade & Quarantine Simulator. Tokens only; dark mode comes from shared/css/tsm.css. */
+.caveat { max-width: 1400px; margin: 12px auto 0; font-size: 13px; color: var(--muted); border-left: 3px solid var(--warn); padding: 4px 10px; }
+.caveat b { color: var(--ink); }
+.pad { padding: 0 14px 12px; }
+.sub { margin: 2px 0 -2px; font-size: 12px; font-weight: 600; color: var(--muted); }
+
+/* Map card */
+.mapcard { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; }
+.map-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 8px; padding: 0 14px; }
+.daylabel { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.daylabel b { font-family: var(--display); font-size: 22px; color: var(--ink); margin-right: 6px; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+#day { margin: 0 14px; width: calc(100% - 28px); accent-color: var(--brand-ink); }
+.mapcard .mapbox { margin: 0 14px; }
+
+.zone ellipse { fill: none; stroke: none; }
+.zone .zone-q.on { fill: var(--ccg); fill-opacity: .07; stroke: var(--ccg); stroke-width: 1.4; stroke-dasharray: 6 4; vector-effect: non-scaling-stroke; }
+.zone .zone-b.on { fill: var(--prc); fill-opacity: .08; stroke: var(--prc); stroke-width: 1.6; stroke-dasharray: 8 4; vector-effect: non-scaling-stroke; }
+.cable path { fill: none; stroke: var(--c6); stroke-width: 1.4; opacity: .65; vector-effect: non-scaling-stroke; }
+.cable:hover path { stroke-width: 3; opacity: 1; }
+.cable.cut path { stroke: var(--bad); stroke-dasharray: 3 3; opacity: 1; stroke-width: 2; }
+.cable.fixed path { stroke: var(--good); opacity: .9; }
+.landing { fill: var(--panel); stroke: var(--c6); stroke-width: 1.2; }
+.flow { fill: none; stroke-linecap: round; stroke-dasharray: 2 9; transition: stroke-width .25s, opacity .25s; }
+.flow.through { stroke: var(--c3); opacity: .9; }
+.flow.divert { stroke: var(--c5); stroke-dasharray: 5 7; }
+.flow.spur { stroke: var(--c1); }
+.port { fill: var(--c1); stroke: var(--panel); stroke-width: 1.5; cursor: pointer; transition: opacity .2s; }
+.port.lng { fill: var(--c2); }
+.port.dim { opacity: .45; }
+.repair .track { fill: none; stroke: none; }
+.repair .track.on { stroke: var(--c5); stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+.ship .hull { fill: var(--c5); stroke: var(--ink); stroke-width: .6; }
+.maplegend { padding: 0 14px; }
+
+/* Legends */
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; padding: 0 14px; font-size: 12px; color: var(--muted); }
+.legend li { display: flex; align-items: center; gap: 6px; }
+.legend .sw { width: 16px; height: 0; border-top: 3px solid var(--c); display: inline-block; }
+.legend .sw.dash { border-top-style: dashed; }
+.legend .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c1); display: inline-block; }
+
+/* Gauges */
+.gauges { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 1240px) { .gauges { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .gauges { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.gauge { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.gauge figcaption { font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.gauge b { font-size: 20px; line-height: 1.1; }
+.gauge .u { font-size: 11px; color: var(--faint); }
+.gauge .bar { height: 5px; background: var(--chip); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.gauge .bar i { display: block; height: 100%; background: var(--good); transition: width .2s; }
+.gauge[data-tone="warn"] .bar i { background: var(--warn); }
+.gauge[data-tone="bad"] .bar i { background: var(--bad); }
+.gauge[data-tone="bad"] b { color: var(--bad); }
+
+/* Timeline */
+.chartcard { padding-top: 6px; display: flex; flex-direction: column; gap: 6px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 0 10px; border-bottom: 1px solid var(--rule); }
+.tabs [role="tab"] { border: 0; background: none; padding: 8px 10px; font-weight: 600; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+.tabs [role="tab"][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.chart { display: block; width: 100%; touch-action: none; }
+.chartcard .chart { padding: 0 6px; }
+.chart .ln { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.chart .ln.dash { stroke-dasharray: 5 4; }
+.chart .area { opacity: .12; }
+.chart .grid { stroke: var(--rule); }
+.chart .band { fill: var(--red-soft); }
+.chart .mark line { stroke: var(--muted); stroke-dasharray: 2 3; }
+.chart .mark text { font: 10.5px var(--mono); fill: var(--muted); }
+.chart .cursor line { stroke: var(--ink); stroke-width: 1.2; }
+.gantt .g-down { fill: var(--bad); opacity: .75; }
+.gantt .g-sail { fill: var(--c5); opacity: .8; }
+.gantt .g-work { fill: var(--c1); }
+.gantt .g-up { fill: var(--good); opacity: .5; }
+.gantt .g-lab { font: 10.5px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+
+/* Compare and evidence */
+.compare, .evidence { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.cmp-h { display: flex; justify-content: space-between; align-items: center; }
+.ev-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 760px) { .ev-grid { grid-template-columns: minmax(0, 1fr); } }
+.evidence h3 { margin: 0 0 4px; font-size: 17px; }
+.evidence .legend { padding: 0; }
+.drills th small, .drills td small { display: block; color: var(--muted); font-size: 11px; font-weight: 400; letter-spacing: 0; text-transform: none; font-family: var(--mono); }
+.drills tbody th { font-family: var(--body); font-size: 12.5px; text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 600; }
+
+/* Panel extras */
+.choices button small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+.choices.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.choices.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 400px) { .choices.three { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.toggles { display: flex; flex-direction: column; gap: 0; }
+.partners { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.partners li { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.partners i { height: 8px; width: var(--w); background: var(--c2); border-radius: 2px; min-width: 1px; }
+.assume summary { cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+.assume h4 { font-family: var(--display); font-size: 14px; margin: 14px 0 4px; }
+.assume .as { padding: 6px 0; border-bottom: 1px dashed var(--rule); }
+.assume .as.changed label { color: var(--blue); }
+.assume .as small a { color: var(--blue); }
+.pill.sourced { color: var(--good); }
+.assume #as-reset { margin-top: 10px; }
+
+/* Below */
+.below h3 { font-size: 18px; margin: 18px 0 6px; }
+.below .mt { margin-top: 22px; }
+.below table td, .below table th { font-size: 12px; }
+.below .tablewrap { margin: 6px 0 10px; }
+.cite { font-size: 12.5px; background: var(--chip); padding: 8px 10px; border-radius: 4px; }
+.compare[hidden] { display: none; }
+.cable path { opacity: .45; }
+/* Narrow screens: controls come right after the map and gauges. */
+@media (max-width: 1020px) {
+  .layout > .stage { display: contents; }
+  .mapcard { order: 1; } .gauges { order: 2; } .layout > .panel { order: 3; }
+  .chartcard { order: 4; } .compare { order: 5; } .evidence { order: 6; }
+}
+/* Tour card (pattern from strait-layers) */
+.tour { background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; order: 0; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13.5px; max-width: 80ch; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.mapcard .mapbox svg { max-height: min(72vh, 680px); }

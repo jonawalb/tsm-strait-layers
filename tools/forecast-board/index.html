@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crowd Forecast Board | Taiwan Security Monitor</title>
+<meta name="description" content="Live Polymarket prices on a Chinese invasion or blockade of Taiwan and other conflicts, next to the evidence on how well these crowds have forecast.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="forecast-board.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="actions">
+  <p class="fine" id="asof">Loading the archive…</p>
+  <div class="btns">
+    <button type="button" class="btn solid" id="start-tour">Walk me through it</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<nav class="tabbar">
+  <div class="tabs" role="tablist" aria-label="Views">
+      <button type="button" role="tab" id="tab-board" aria-controls="view-board" data-v="board">Live board</button>
+      <button type="button" role="tab" id="tab-market" aria-controls="view-market" data-v="market">Price path</button>
+      <button type="button" role="tab" id="tab-calib" aria-controls="view-calib" data-v="calib">Calibration</button>
+      <button type="button" role="tab" id="tab-lambda" aria-controls="view-lambda" data-v="lambda">Informed trading (λ)</button>
+      <button type="button" role="tab" id="tab-method" aria-controls="view-method" data-v="method">Method</button>
+    </div>
+</nav>
+
+<main class="layout">
+  <div class="stage" id="stage">
+
+    <section class="card view" id="view-board" role="tabpanel" aria-labelledby="tab-board">
+      <div class="card-h"><div><p class="eyebrow">Price of a $1 “Yes” share, latest archived trade</p>
+        <p class="fine">Each row is one open Polymarket contract. The line is its daily price over the last 60 days; the last column is the change over seven days, in cents. Select a row to see its full price path.</p></div></div>
+      <div id="board"></div>
+    </section>
+
+    <section class="card view" id="view-market" role="tabpanel" aria-labelledby="tab-market" hidden>
+      <div class="card-h">
+        <div class="mk-head"><p class="eyebrow">Daily price, with dated events</p><p class="q-title" id="mk-title"></p></div>
+        <label class="pick"><span class="fine">Contract</span><select id="mk-pick"></select></label>
+      </div>
+      <div class="chartwrap" id="mk-wrap">
+        <svg id="mk-chart" class="chart" tabindex="0" role="img" aria-label="Daily price chart. Hover, or focus and use the arrow keys, to read daily prices and the events near each day."></svg>
+        <div class="tooltip" id="mk-tip" hidden></div>
+      </div>
+      <div class="legend" aria-hidden="true"><span><i class="lg-line"></i>Daily price</span><span><i class="lg-dl"></i>Deadline</span>
+        <span><i class="lg-ev"></i>Dated event</span><span><i class="lg-fc"></i>Price 1, 7, 30 days before the outcome</span><span><i class="lg-res"></i>Outcome</span></div>
+      <h3 class="sub-h">Events on this chart</h3>
+      <ul class="evlist" id="mk-events"></ul>
+    </section>
+
+    <section class="card view" id="view-calib" role="tabpanel" aria-labelledby="tab-calib" hidden>
+      <div class="card-h"><div><p class="eyebrow">How well did the prices forecast?</p>
+        <p class="fine">Every resolved contract, placed at its price a fixed number of days before its outcome was decided. Circles group contracts in 10¢ bins: a well-calibrated market puts them on the diagonal. Small dots are single contracts, Yes along the top and No along the bottom.</p></div></div>
+      <div class="calib-grid">
+        <div class="chartwrap" id="cal-wrap">
+          <svg id="cal-chart" class="chart" role="group" aria-label="Reliability diagram"></svg>
+          <div class="tooltip" id="cal-tip" hidden></div>
+        </div>
+        <div><p class="reading" id="cal-reading" aria-live="polite"></p></div>
+      </div>
+      <div class="tablewrap brier" id="cal-table"></div>
+    </section>
+
+    <section class="card view" id="view-lambda" role="tabpanel" aria-labelledby="tab-lambda" hidden>
+      <div class="card-h"><div><p class="eyebrow"><span class="nt">λ</span>: the share of price moves around news that came from informed traders</p>
+        <p class="fine">Reproduced from Walberg’s “Estimating the Deception Parameter” (Table 2, primary sample) by re-running his estimator on his data. Choose a theater in the panel.</p></div></div>
+      <div class="status" id="lam-status"><b id="lam-head"></b><span id="lam-text"></span></div>
+      <div class="lam-grid">
+        <figure><figcaption><b>Against a market with no informed traders</b> Each dot is λ̂ from one of 100 simulated public-news markets with this theater’s real trade times. Shaded: their middle 90%. Bar: the 95% profile interval.</figcaption>
+          <svg id="lam-null" class="chart" role="img" aria-label="Benchmark distribution of lambda-hat"></svg></figure>
+        <figure><figcaption><b>Profile likelihood</b> How much worse the best fit gets when λ is held at each value. Values under the dashed line form the 95% interval.</figcaption>
+          <svg id="lam-prof" class="chart" role="img" aria-label="Profile likelihood of lambda"></svg></figure>
+      </div>
+      <figure class="mix"><figcaption><b>The movements and the fitted mixture</b> Bars: price moves around dated events, in units of each contract’s own quiet-day noise. Dashed: the noise component; dotted: the informed component (both for contracts that resolved No); solid: their sum, at the λ chosen with the slider, in black for No contracts and orange for Yes contracts.</figcaption>
+        <div class="chartwrap" id="lam-wrap"><svg id="lam-mix" class="chart" role="group" aria-label="Histogram of standardized movements with the fitted mixture"></svg><div class="tooltip" id="lam-tip" hidden></div></div>
+        <div class="legend" aria-hidden="true"><span><i class="lg-hl"></i>Resolved No</span><span><i class="lg-hh"></i>Resolved Yes</span><span><i class="lg-noise"></i>Noise</span><span><i class="lg-inf"></i>Informed</span><span><i class="lg-all"></i>Mixture, No</span><span><i class="lg-all h"></i>Mixture, Yes</span></div>
+      </figure>
+    </section>
+
+    <section class="card view prose" id="view-method" role="tabpanel" aria-labelledby="tab-method" hidden>
+      <h2>Method &amp; sources</h2>
+      <h3>What the data are</h3>
+      <p>Prices and trades come from Jonathan Walberg’s conflict-market-data collector (<a href="https://github.com/jonawalb/conflict-market-data" target="_blank" rel="noopener">github.com/jonawalb/conflict-market-data</a>), which archives Polymarket’s geopolitical contracts from GitHub Actions: hourly price bars back to each contract’s start, the trade tape, and order books. Polymarket stops serving a contract’s price history once it resolves, so the archive is the only record for many closed contracts. Eight older Taiwan contracts that closed before the collector started come from trade tapes recovered for the Betting on War paper, and two more (the March and June 2026 invasion contracts) from Walberg’s local collector. The board shows contracts about the use of force: strikes, invasions, clashes, blockades, missile and nuclear tests, troop movements and the ceasefires that end them. Theaters are assigned by keywords in the question.</p>
+      <h3>How the numbers are computed</h3>
+      <ul class="src">
+        <li><b>Daily price:</b> the last hourly bar of the UTC day; on days without bars, the size-weighted median of that day’s fills, with a “No” fill at q counted as a “Yes” price of 1 − q. Days with neither stay empty. The board’s current price is the latest archived bar.</li>
+        <li><b>Outcome:</b> Polymarket’s official resolution from its public market API (outcome prices 1/0 and a “resolved” status). Contracts that paid 50-50 or are disputed are left out.</li>
+        <li><b>Decision day:</b> for a Yes, the first day from which the price stays at 95¢ or more (else the official close date); for a No, the earlier of the deadline and the close date. The forecast at a lead of L days is the last daily price on or before that day minus L, if it is at most seven days old.</li>
+        <li><b>Brier score:</b> the mean of (price − outcome)², price as a share of $1, outcome 1 or 0. Quoting 50¢ every time scores 0.25. The decomposition splits it into calibration error (reliability), discrimination (resolution) and the variance of outcomes. Intervals come from a bootstrap that resamples whole questions, since contracts on one question share their news.</li>
+        <li><b>Events:</b> Middle East and Russia charts show the tier-1 events of Walberg’s Betting on War v5 lists, as corrected by the site’s September 2026 fact-checks. Taiwan charts show the 13 PLA exercises in Walberg’s Exercises as Theater dataset and every joint combat readiness patrol that Taiwan’s Ministry of National Defense announced (TSM daily data, one MND press release each). The grey bars are TSM’s daily count of PLA aircraft from MND reports, keyed to the start of MND’s 06:00–06:00 reporting window. Only one-line descriptions and source links are shown.</li>
+        <li><b>λ̂:</b> the unit is a contract-event, the change in a contract’s volume-weighted price from the 24 hours before a dated news event to the 24 hours after it, divided by the standard deviation of the same change in windows without news. Movements are modelled as a two-cell normal mixture: in contracts that resolved No, (1 − λ)·N(0, 1) + λ·N(ν<sub>L</sub>, τ²); in those that resolved Yes, (1 − λ)·N(β<sub>H</sub>, 1) + λ·N(ν<sub>H</sub>, τ²). λ is the share of movements drawn from the informed component. It is estimated by maximum likelihood with τ ≥ 0.5 and the sign restrictions ν<sub>L</sub> ≤ 0 ≤ ν<sub>H</sub>, β<sub>H</sub> ≥ 0. The build script runs Walberg’s own estimator on his primary sample and stops if its result differs from the paper’s; bootstrap intervals and the 100-replication benchmark are taken from his result files.</li>
+      </ul>
+      <h3>Coverage gaps and limits</h3>
+      <ul class="src">
+        <li>The collector started on 5 August 2026. Contracts that closed earlier survive only where their tapes were recovered, and Polymarket’s trade endpoint caps history near 10,000 trades, so some heavy contracts start late. Dollar volumes count only the archived tape.</li>
+        <li>Resolved contracts are not independent: daily contracts (“on 20 September?”) and deadline ladders on one question share their news. The effective sample is closer to the number of questions, shown in the reading.</li>
+        <li>Taiwan and China: twelve resolved contracts, one Yes (the China–Philippines clash contract, which Polymarket resolved Yes on 20 July 2026). A Brier score cannot separate skill from a correct expectation that nothing would happen, and the λ estimate fails its own premise there (see the λ tab).</li>
+        <li>Market prices are not probabilities. They carry fees, the cost of locking money until the deadline, and the views of whoever chose to trade; in thin contracts one trade moves them.</li>
+        <li>Theater labels for the board and calibration come from keywords and are broader than the paper’s theaters (for example, Saudi–Houthi contracts count as Middle East here but are not in the paper’s Iran/Israel theater).</li>
+        <li><b>Analyst forecasts:</b> none are shown. This build found no published, sourced expert probabilities on the same events and deadlines that could be scored beside these contracts, so the comparison is left out rather than filled with invented numbers. Published expert estimates that match a contract can be added with their citation.</li>
+        <li><b>Metaculus:</b> not included. Metaculus’s terms of use (archived 27 August 2026) bar copying or republishing material from the service without written permission, so its community forecasts are not reproduced here.</li>
+      </ul>
+      <h3>How to cite</h3>
+      <p class="cite">Taiwan Security Monitor, “Crowd Forecast Board,” TSM Interactive, Schar School of Policy and Government, George Mason University, data built <span id="cite-date"></span>. λ estimates: Jonathan Walberg, “Estimating the Deception Parameter: A Finite-Mixture Approach to Source Attribution in Thin Prediction Markets,” qualifying paper draft, University of Virginia, September 2026, Table 2.</p>
+    </section>
+  </div>
+  <aside class="panel" id="panel" aria-label="Filters and readouts"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <ul class="howto">
+      <li><b>Prices are in cents.</b> A share pays $1 if the event happens by the deadline, so 12¢ is often read as a 12% chance. Treat it as what traders were willing to pay, not as an official estimate.</li>
+      <li><b>The live board</b> lists every open contract the archive tracks, grouped by question. Daily contracts (“on 5 October?”) show only the next five days.</li>
+      <li><b>The price path</b> puts a contract’s daily price beside dated events from sourced lists: PLA exercises for Taiwan, and tier-1 events from the Betting on War lists for the Middle East and Russia. Each event links its source.</li>
+      <li><b>Calibration</b> asks whether contracts priced at 20¢ resolved Yes about 20% of the time. Change the lead time in the panel to see how far ahead the prices carried information.</li>
+      <li><b>Informed trading (λ)</b> asks a different question: how much of the movement around news came from traders who knew the outcome. Walberg’s estimates are weak evidence for Iran/Israel, none for Russia, and uninformative for Taiwan.</li>
+    </ul>
+    <p class="fine">For research and teaching. Not trading advice, and no prediction about any open contract.</p>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src">
+      <li>Polymarket prices and trades via <a href="https://github.com/jonawalb/conflict-market-data" target="_blank" rel="noopener">jonawalb/conflict-market-data</a>, rebuilt from the repository’s increments.</li>
+      <li>Official resolutions: Polymarket public market API, <code>gamma-api.polymarket.com/markets</code>.</li>
+      <li>Jonathan Walberg, “Estimating the Deception Parameter: A Finite-Mixture Approach to Source Attribution in Thin Prediction Markets,” qualifying paper draft, University of Virginia, September 2026: estimator code, primary sample and benchmark files (replication folder v5).</li>
+      <li>Middle East and Russia events: Walberg, Betting on War v5 event lists (tier 1), with the site’s September 2026 fact-check corrections.</li>
+      <li>Taiwan events: the 13 URL-sourced PLA exercise events in Walberg’s Exercises as Theater dataset; joint combat readiness patrols and daily PLA aircraft counts from TSM’s tracker data (Taiwan MND press releases).</li>
+      <li>Metaculus terms of use, <a href="https://web.archive.org/web/20260827212217/https://www.metaculus.com/terms-of-use/" target="_blank" rel="noopener">archived 27 August 2026</a>.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Crowd Forecast Board', sub: 'Live prediction-market prices on Taiwan and other conflicts, and how well these crowds have forecast.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

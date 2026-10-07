@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M560 0 L640 0 L640 400 L600 400 C590 330 575 260 590 190 C600 120 575 60 560 0 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M215 175 C240 150 280 160 300 150 C320 145 330 170 318 188 C305 205 330 215 312 232 C290 250 255 240 238 226 C222 214 196 196 215 175 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M250 90 C265 80 285 95 280 115 C276 132 258 138 250 124 C244 112 240 98 250 90 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M150 150 C160 140 176 146 172 160 C168 178 160 196 150 200 C140 204 136 186 142 172 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <circle cx="270" cy="200" r="130" fill="none" stroke="#b3261e" stroke-width="3" stroke-dasharray="10 8" opacity=".55"/>
+  <path d="M430 200 L336 200" stroke="#b3261e" stroke-width="7" stroke-linecap="round"/>
+  <path d="M336 200 L262 200" stroke="#b3261e" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 14"/>
+  <circle cx="345" cy="200" r="22" fill="#b3261e"/>
+  <circle cx="262" cy="200" r="11" fill="#fbfbf8" stroke="#14201a" stroke-width="4"/>
+  <g fill="#b3261e">
+    <path d="M430 176 l6 -8 h18 l6 8 l-6 6 h-18 z"/><path d="M460 200 l6 -8 h18 l6 8 l-6 6 h-18 z"/><path d="M430 224 l6 -8 h18 l6 8 l-6 6 h-18 z"/>
+  </g>
+  <g fill="#0c8474">
+    <circle cx="378" cy="172" r="6"/><circle cx="386" cy="200" r="6"/><circle cx="378" cy="228" r="6"/>
+  </g>
+  <rect x="24" y="286" width="200" height="90" rx="8" fill="#fbfbf8" stroke="#0c8474" stroke-width="2" stroke-dasharray="8 5"/>
+  <path d="M56 306 L70 330 H42 Z" fill="#0c8474"/><path d="M96 306 L110 330 H82 Z" fill="#0c8474"/>
+  <circle cx="136" cy="318" r="12" fill="#0c8474"/><circle cx="176" cy="318" r="12" fill="none" stroke="#97a197" stroke-width="3" stroke-dasharray="4 3"/>
+  <path d="M166 308 L186 328 M186 308 L166 328" stroke="#b3261e" stroke-width="3"/>
+  <g font-family="Georgia, serif" font-weight="700" fill="#14201a">
+    <text x="24" y="52" font-size="34">Penghu Gambit</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" fill="#14201a">
+    <text x="42" y="362" font-size="18">d6 · 1,000 runs</text>
+  </g>
+</svg>

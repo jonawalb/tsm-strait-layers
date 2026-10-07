@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Japan's View: PLA Near Japan | Taiwan Security Monitor</title>
+<meta name="description" content="Every PLA Navy strait crossing that Japan's Joint Staff Office reported from January 2025 to September 2026, mapped by strait and direction, with ship hull numbers, carrier deployments and Taiwan MND's daily PLAN counts for comparison.">
+<meta property="og:title" content="Japan's View: PLA Near Japan | Taiwan Security Monitor">
+<meta property="og:description" content="PLA Navy ships crossing Japan's straits, 2025 to 2026, from Japan's own releases.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="japan-view.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="timebar card">
+  <div class="tb-date">
+    <p class="eyebrow">Showing crossings in</p>
+    <p class="big-date" id="win" aria-live="polite">All months</p>
+    <p class="fine" id="asof"></p>
+  </div>
+  <div class="tb-stats">
+    <p><b class="num" id="count">0</b> strait crossings</p>
+    <p><b class="num" id="ships">0</b> ship passages</p>
+    <p><b class="num" id="hulls">0</b> different ships</p>
+  </div>
+  <div class="tb-controls">
+    <div class="tb-buttons">
+      <span class="span" role="group" aria-label="Window length">
+        <button type="button" class="btn sm" data-span="1" aria-pressed="false">1 month</button>
+        <button type="button" class="btn sm" data-span="3" aria-pressed="false">3 months</button>
+        <button type="button" class="btn sm" data-span="12" aria-pressed="false">12 months</button>
+        <button type="button" class="btn sm" data-span="99" aria-pressed="true">Everything</button>
+      </span>
+      <button type="button" class="btn solid" id="play" aria-pressed="false"><span aria-hidden="true">▶</span> Play</button>
+      <button type="button" class="btn" id="start-tour">Walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link</button>
+    </div>
+    <label class="slider tb-slider"><span class="sr">Last month of the window</span>
+      <input type="range" id="slider" min="0" max="20" step="1" value="20">
+      <span class="ticks" id="ticks" aria-hidden="true"></span>
+    </label>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of Japan's island chain from Taiwan to Hokkaido, with arrows at each strait showing how many PLA Navy crossings Japan reported in each direction"></svg>
+      <div class="tooltip" id="map-tip" hidden></div>
+      <p class="maphint">Arrows sit at each strait and point the way ships went. Thickness and the number show crossings in the window. Arrow positions are schematic.</p>
+    </div>
+    <div class="card chart-card">
+      <div class="chart-h">
+        <p class="eyebrow">Crossings Japan reported per month, set against Taiwan MND's PLAN count</p>
+        <ul class="legend">
+          <li><i class="lg-bar"></i>JSO crossings (left axis, colored by strait)</li>
+          <li><i class="lg-line"></i>MND: PLA Navy ships near Taiwan, mean per day (right axis)</li>
+          <li><i class="lg-ex"></i>PLA exercise</li>
+          <li><i class="lg-j"></i>Joint combat readiness patrol day</li>
+        </ul>
+      </div>
+      <div class="chartwrap"><div class="chartscroll"><svg id="chart" role="img" aria-label="Monthly bar chart of strait crossings reported by Japan, with a line for Taiwan MND's mean daily PLA Navy ship count"></svg></div><div class="tooltip" id="chart-tip" hidden></div></div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Filters, crossing detail and ship tracker">
+    <div class="sec" id="filters"></div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+    <div class="sec" id="hullbox"></div>
+    <div class="sec">
+      <label class="tg"><input type="checkbox" id="ep-toggle"><span class="sw"></span><span class="t">Carrier deployments and joint sailings<small>Positions Japan reported away from the straits (diamonds)</small></span></label>
+      <div id="eps" class="eps"></div>
+    </div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Japan's Ministry of Defense Joint Staff Office (JSO) publishes a short release when its forces see Chinese navy ships pass through the straits and channels of Japan's island chain. Each release names the ships by class and hull number, says where they were first seen, and says which way they crossed. This tool turns every such release from January 2025 to September 2026 into one row per crossing.</p>
+    <p>On the map, each strait has two arrows, one for each direction. "Toward the Pacific" means ships leaving the East China Sea or the Sea of Japan; the opposite arrow means ships coming back. The number beside an arrow counts crossings in the window you picked. Click an arrow to open its latest crossing. Pick a ship in the panel and numbered circles trace every crossing Japan reported for that hull. Diamonds show carrier groups and a China-Russia joint sailing at the positions Japan gave, turned into map points from "about N km south of an island".</p>
+    <p>The timeline counts crossings per month, colored by strait. The dark line is Taiwan's Ministry of National Defense count of PLA Navy ships around Taiwan, averaged over each month's reporting days. Shaded bands mark PLA exercises around Taiwan; ticks under the axis mark joint combat readiness patrol days announced by MND. Click a month to show it. Shift-click a strait in the panel to show only that strait.</p>
+    <h2 class="mt">All crossings</h2>
+    <p class="fine" id="table-note"></p>
+    <div class="tablewrap tall"><table>
+      <thead><tr><th>Date</th><th>Strait</th><th>Heading</th><th>Ships (class, hull)</th><th>Note</th><th>JSO release</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+  <div class="col">
+    <h2>Sources and method</h2>
+    <ul class="src">
+      <li><b>Crossings:</b> Japan Ministry of Defense, Joint Staff Office press releases "中国海軍艦艇の動向について" (Movements of Chinese Navy vessels) and "中国及びロシア海軍艦艇の動向について", January 2025 to September 16, 2026. Each row links its PDF on <a href="https://www.mod.go.jp/js/" target="_blank" rel="noopener">mod.go.jp/js</a>. The JSO press index blocks scripted access, so the list of releases came from Wayback Machine copies of <a href="https://web.archive.org/web/20260928130049/https://www.mod.go.jp/js/press/index.html" target="_blank" rel="noopener">September 28, 2026</a> and <a href="https://web.archive.org/web/20261002160111/https://www.mod.go.jp/js/press/index.html" target="_blank" rel="noopener">October 2, 2026</a> (no Chinese navy release after September 16); the PDFs themselves were downloaded from mod.go.jp. A probe of unlisted release numbers for every date found one more release, dated July 20, 2026, on the China-Russia group's July 19 position and gunnery drill. Its text is identical to the listed July 21 release (p20260721_01) apart from the date; the tool cites the July 20 copy.</li>
+      <li><b>Coding:</b> a draft parser read the Japanese text; every row was then checked by hand, and a build script confirms each hull number and date appears in its release. One row is one crossing of one strait by one group of ships as the release describes it. Where a release says a ship is "the same one" that crossed earlier, the earlier crossing is not counted again. The date is the day the release gives for the crossing, or the first day of a range. Class names are JSO's NATO reporting names (Luyang III, Jiangkai II and so on).</li>
+      <li><b>Directions</b> are JSO's (for example "南東進", heading southeast). "Toward the Pacific" and similar labels group them by the side of the strait the ships headed for.</li>
+      <li><b>Arrow and diamond positions</b> are drawing aids. Arrows sit at a fixed point in each strait. Diamonds are computed from the release's "about N km [direction] of [island]" using approximate island centers, so they can be off by tens of kilometers. Points that fall off the map are listed in the panel.</li>
+      <li><b>Not counted:</b> carrier operations away from the straits (shown as episodes), June 2025 dual-carrier movements that JSO gave only in release annexes, Russian ships, and PLA aircraft. Carriers Liaoning (16) and Shandong (17) are listed by name.</li>
+      <li><b>Taiwan MND counts:</b> TSM daily data, Taiwan Ministry of National Defense reports, PLA Navy ships per 06:00 to 06:00 window, through October 1, 2026. Joint combat readiness patrol days are rebuilt from MND press releases. See TSM's <a href="https://tsm.schar.gmu.edu/strait-snapshot/" target="_blank" rel="noopener">Strait Snapshot</a>.</li>
+      <li><b>Exercises:</b> TSM "Exercises as Theater" verified event list: <a href="https://www.rfa.org/english/southchinasea/2025/02/26/china-navy-taiwan-live-fire-exercise-kaohsiung/" target="_blank" rel="noopener">February 26, 2025 drill</a> (RFA), <a href="https://globaltaiwan.org/2025/04/the-plas-strait-thunder-exercise/" target="_blank" rel="noopener">Strait Thunder-2025A</a> and <a href="https://globaltaiwan.org/2026/01/pla-justice-mission-2025/" target="_blank" rel="noopener">Justice Mission-2025</a> (Global Taiwan Institute).</li>
+      <li><b>Coverage limits:</b> the counts show what Japan detected and chose to publish. JSO released no crossings between January 28 and March 29, 2026, and only five between Yonaguni and Taiwan. PLA Navy ships that operate east of Taiwan without passing through Japan's straits do not appear, and no submarine crossings appear in these releases. Treat every number here as a floor, not a total.</li>
+      <li>Basemap: Natural Earth.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: "Japan's View: PLA Near Japan", sub: 'Every PLA Navy strait crossing Japan reported from January 2025 to September 2026, by strait, direction and hull number.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

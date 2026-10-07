@@ -1,0 +1,99 @@
+/* Deterrence Lab. Built on shared/css/tsm.css tokens only. */
+.toolbar-top { max-width: 1400px; margin: 16px auto 0; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: stretch; }
+.tabs { flex: 1 1 640px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tabs button { text-align: left; padding: 10px 12px; border: 1px solid var(--rule); border-bottom: 3px solid transparent; background: var(--panel); border-radius: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.tabs button b { font-family: var(--display); font-size: 17px; font-weight: 600; }
+.tabs button span { font-size: 12px; color: var(--muted); }
+.tabs button:hover { border-color: var(--muted); }
+.tabs button[aria-selected="true"] { border-color: var(--brand-ink); border-bottom-color: var(--accent); background: var(--chip); }
+.learn-slot { max-width: 1400px; margin: 16px auto 0; }
+.learn-slot .learn-banner { margin: 0; }
+@media (max-width: 700px) { .tabs { grid-template-columns: minmax(0, 1fr); } .tabs button span { display: none; } }
+
+.fig { padding: 12px 14px 10px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fig-h { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: space-between; align-items: baseline; }
+.fig svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+.fig svg.region, .fig svg.lines { cursor: crosshair; }
+.treewrap { overflow-x: auto; }
+.fine.swipe { display: none; }
+@media (max-width: 700px) { .fine.swipe { display: block; } }
+.strip li[tabindex] { cursor: pointer; }
+.strip li[tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.treewrap svg.tree { min-width: 660px; touch-action: auto; }
+.row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--blue-soft); color: var(--ink); font-weight: 600; }
+
+/* Tree */
+.tree .edge { stroke: var(--rule); fill: none; }
+.tree .edge.on { stroke: var(--accent); }
+.tree .el { font: 12px var(--body); fill: var(--muted); }
+.tree .ep { font: 11px var(--mono); fill: var(--faint); }
+.tree .ep.on { fill: var(--accent); font-weight: 500; }
+.tree .nd { fill: var(--panel); stroke: var(--ink); stroke-width: 1.4; }
+.tree .nd.nat { fill: var(--chip); }
+.tree .nd.r { stroke: var(--prc); }
+.tree .nl { font: 600 12px var(--body); fill: var(--ink); }
+.tree .lf { font: 12px var(--mono); fill: var(--faint); }
+.tree .lf.on { fill: var(--ink); font-weight: 500; }
+.tree .lf-n { font: 11px var(--body); fill: var(--faint); }
+.tree .lf-n.on { fill: var(--muted); }
+.tree .lf-p { font: 500 11px var(--mono); fill: var(--accent); }
+.tree .infoset { fill: none; stroke: var(--prc); stroke-dasharray: 4 4; stroke-width: 1.2; }
+
+/* Plots */
+.axis line { stroke: var(--muted); stroke-width: 1; }
+.axis text { font: var(--axis-font); fill: var(--axis-ink); }
+.axis .ax-t { font: 12px var(--body); fill: var(--muted); }
+.bound { stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 5 4; opacity: .7; }
+.bl { font: 11px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.now { stroke: var(--ink); stroke-width: 1.6; }
+.mark { fill: var(--panel); stroke: var(--ink); stroke-width: 2.5; }
+.ln { fill: none; stroke-width: 2.2; stroke-linejoin: round; }
+.thr { fill: var(--c3); }
+.ev { stroke: var(--panel); stroke-width: 1.5; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.lg { display: inline-flex; align-items: center; gap: 6px; }
+.lg i { width: 12px; height: 12px; border-radius: 2px; opacity: .75; display: inline-block; }
+
+/* Panel */
+.panel .choices button b { display: block; font-weight: 600; }
+.panel .choices button span { display: block; color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+.why { margin: 0; font-size: 13px; line-height: 1.45; }
+.why em { color: var(--muted); }
+.bayes { border: 1px solid var(--rule); border-radius: 4px; padding: 8px 10px; background: var(--bg); overflow-x: auto; }
+.bayes .katex-display { margin: 6px 0 2px; font-size: .92em; }
+.slider .sym { font-family: var(--mono); color: var(--muted); font-size: 11.5px; }
+table.mini { font-size: 12px; }
+table.mini td.num { font-family: var(--mono); }
+.panel .btn { align-self: flex-start; }
+
+/* Salami strip */
+.strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
+.strip li { border: 1px solid var(--rule); border-radius: 4px; padding: 6px 8px; display: flex; flex-direction: column; gap: 2px; min-height: 48px; }
+.strip .n { font: 11px var(--mono); color: var(--muted); }
+.strip .w { font-size: 12.5px; font-weight: 600; }
+.strip .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.strip li.out { border-color: var(--c3); }
+.strip li.out .w { color: var(--c3); }
+.strip li.res { border-color: var(--c2); background: color-mix(in srgb, var(--c2) 10%, transparent); }
+.strip li.res .w { color: var(--c2); }
+.strip li.acc { border-color: var(--bad); background: var(--red-soft); }
+.strip li.acc .w { color: var(--bad); }
+.strip li.hid { opacity: .45; }
+
+/* Below */
+.below .col { min-width: 0; }
+.below .mt, .mt { margin-top: 18px; }
+.howto { font-size: 13.5px; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; max-width: 68ch; }
+.method { grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); padding-top: 22px; }
+@media (max-width: 1200px) { .method { grid-template-columns: minmax(0, 1fr); } }
+.method p { font-size: 13.5px; }
+.method .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.katex { font-size: 1.05em; }
+
+/* Walkthrough card */
+@media (max-width: 600px) { body { padding-inline: 12px; } }

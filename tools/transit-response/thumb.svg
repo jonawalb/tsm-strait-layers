@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="6" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <rect x="300" y="44" width="150" height="300" fill="#1b4fd4" opacity=".07"/>
+  <rect x="60" y="150" width="540" height="56" fill="#e7e9e1"/>
+  <g fill="#b3261e" opacity=".62">
+    <rect x="72" y="170" width="20" height="60"/><rect x="104" y="180" width="20" height="50"/><rect x="136" y="160" width="20" height="70"/>
+    <rect x="168" y="175" width="20" height="55"/><rect x="200" y="150" width="20" height="80"/><rect x="232" y="185" width="20" height="45"/>
+    <rect x="264" y="168" width="20" height="62"/><rect x="328" y="130" width="20" height="100"/><rect x="360" y="115" width="20" height="115"/>
+    <rect x="392" y="150" width="20" height="80"/><rect x="424" y="165" width="20" height="65"/><rect x="456" y="178" width="20" height="52"/>
+    <rect x="488" y="172" width="20" height="58"/><rect x="520" y="182" width="20" height="48"/><rect x="552" y="176" width="20" height="54"/>
+  </g>
+  <rect x="296" y="95" width="20" height="135" fill="#b3261e"/>
+  <line x1="60" y1="178" x2="600" y2="178" stroke="#14201a" stroke-width="3" stroke-dasharray="10 7"/>
+  <line x1="60" y1="230" x2="600" y2="230" stroke="#56625b" stroke-width="2"/>
+  <line x1="306" y1="44" x2="306" y2="344" stroke="#14201a" stroke-width="2" stroke-dasharray="3 5"/>
+  <g>
+    <rect x="72" y="280" width="20" height="8" fill="#0c8474"/><rect x="136" y="272" width="20" height="16" fill="#e8753a"/>
+    <rect x="200" y="262" width="20" height="26" fill="#e8753a"/><rect x="232" y="288" width="20" height="14" fill="#0c8474"/>
+    <rect x="296" y="236" width="20" height="52" fill="#e8753a"/><rect x="328" y="252" width="20" height="36" fill="#e8753a"/>
+    <rect x="360" y="246" width="20" height="42" fill="#e8753a"/><rect x="424" y="288" width="20" height="10" fill="#0c8474"/>
+    <rect x="520" y="288" width="20" height="16" fill="#0c8474"/>
+  </g>
+  <line x1="60" y1="288" x2="600" y2="288" stroke="#56625b" stroke-width="2"/>
+  <circle cx="306" cy="330" r="12" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <text x="330" y="338" font-family="Georgia, serif" font-weight="700" font-size="24" fill="#14201a">Day 0</text>
+</svg>

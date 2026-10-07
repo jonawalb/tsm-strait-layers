@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beijing Decoder | Taiwan Security Monitor</title>
+<meta name="description" content="Paste a PRC statement on Taiwan, in Chinese or English, and see which recurring formulas it uses, what they have signalled, and how often Beijing's spokespeople have used them.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="beijing-decoder.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="toolbar-row">
+      <p class="eyebrow">Pick a real statement or paste your own</p>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <div class="choices seg" id="samples" role="group" aria-label="Sample statements"></div>
+    <div class="card input-card">
+      <label for="input" class="sr">Statement to decode</label>
+      <textarea id="input" rows="6" spellcheck="false" placeholder="Paste a PRC statement on Taiwan, in Chinese or English"></textarea>
+      <div class="input-foot"><p class="fine" id="sample-meta"></p><button type="button" class="btn" id="clear">Clear</button></div>
+    </div>
+    <div class="card decode-card" id="decode-card">
+      <p class="eyebrow">Decoded</p>
+      <div class="decoded" id="decoded" aria-live="polite"></div>
+      <div class="tooltip" id="tip" role="tooltip" hidden></div>
+    </div>
+    <div class="card temp-card">
+      <p class="eyebrow">Temperature <span class="notional">heuristic</span></p>
+      <div id="temp"></div>
+    </div>
+    <div class="card dict">
+      <div class="dict-head">
+        <p class="eyebrow">Dictionary</p>
+        <input id="filter" type="search" placeholder="Filter: 台独, fire, Japan…" aria-label="Filter the dictionary">
+      </div>
+      <div class="choices seg" id="tiers" role="group" aria-label="Filter by tier"></div>
+      <div class="list" id="list"></div>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Formulation detail">
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Beijing's spokespeople speak in set formulas. The same phrases recur across the Foreign Ministry, the Defense Ministry and the Taiwan Affairs Office, and analysts read changes in the mix as signals. This page is a reading aid for that mix. It is a heuristic, not a forecast. A formula's meaning depends on who says it, about whom, and what else happens that week.</p>
+    <p>Pick one of the sample statements or paste any text. The decoder highlights every formula in its dictionary, in Chinese or English, shaded by tier. Hover or tab to a highlight for a gloss; click it to see what the formula has signalled, how often TSM has recorded it, and dated examples that link to the official transcripts.</p>
+    <h2 class="mt">Tiers and temperature</h2>
+    <div class="tablewrap"><table><thead><tr><th>Tier</th><th>What it means</th></tr></thead><tbody id="tier-table"></tbody></table></div>
+    <p class="mt">The tiers are TSM's own ordering <span class="notional">notional</span>, not an official scale. The temperature is the highest tier found, plus 0.5 for each additional distinct formula at tier 3 or above, capped at +1.0 and at 5. Cool is up to 1.5, Mild up to 2.5, Warm up to 3.5, Hot up to 4.5, and Very hot above that. A statement with no dictionary formula shows no temperature; the dictionary does not cover every threat.</p>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li><b>Dictionary.</b> 43 formulations chosen and glossed by TSM. Glosses and "what it has signalled" notes are TSM's reading of how the phrases are used in the corpus; external facts carry their own source links in the panel.</li>
+      <li><b>Matching.</b> Each formulation has a Chinese pattern and an English pattern (shown under "Matching rule"). English translations vary, so the English patterns cover common renderings, not every one. Matching runs entirely in your browser.</li>
+      <li><b>Counts and examples.</b> TSM's PRC official-statement corpus: 1,565 Taiwan-related Q&amp;A items from Foreign Ministry, Defense Ministry and Taiwan Affairs Office briefings and releases, 4 July 2022 to 30 September 2026 (736 MFA, 260 MND, 569 TAO). Taiwan Affairs Office releases that repeat an answer from the same day's press-conference transcript, and Defense Ministry answers held twice, are counted once. A statement counts when the English pattern matches its English answer or the Chinese pattern matches its Chinese answer. Chinese text is held mainly for 2026 items, and TSM widened collection in 2026 (every MFA Q&amp;A, all three MND channels, TAO from April), so rates before and after 2026 are not strictly comparable. The 2026 H2 bar covers July to September only.</li>
+      <li><b>Translations.</b> Examples are labeled by provenance: official English, TSM translation of the Chinese transcript, machine translation by Google (Taiwan Affairs Office, May and June 2026 and some of July to September), machine translation by Claude (Anthropic; most Taiwan Affairs Office items from July to September 2026, where Google refused requests), or Chinese only. Machine translations have not been checked by a person; the Chinese original is shown with them. Most Foreign Ministry examples are TSM translations of the Chinese transcript; the Ministry's own English on the linked page is worded differently. The two Foreign Ministry sample statements use the official English. Chinese-only items are Defense Ministry briefings for which the Ministry had published no official English by 30 September 2026 (16 and 25 June, 4 September, and the 20 May statement). The 24 September press conference now carries the official English. They can match only the Chinese patterns.</li>
+      <li><b>Transcript sources.</b> <a href="https://www.fmprc.gov.cn/eng/xw/fyrbt/lxjzh/" target="_blank" rel="noopener">fmprc.gov.cn</a>, <a href="https://www.mfa.gov.cn/web/fyrbt_673021/jzhsl_673025/" target="_blank" rel="noopener">mfa.gov.cn</a>, <a href="http://eng.mod.gov.cn/2025xb/P/D_251802/index.html" target="_blank" rel="noopener">eng.mod.gov.cn</a>, <a href="http://www.mod.gov.cn/gfbw/xwfyr/lxjzh_246940/" target="_blank" rel="noopener">mod.gov.cn</a>, <a href="https://www.gwytb.gov.cn/xwdt/xwfb/xwfbh/" target="_blank" rel="noopener">gwytb.gov.cn</a>. Most Defense Ministry items before May 2026 were stored without their URL and link to the Ministry's spokesperson page.</li>
+      <li><b>External references.</b> <a href="https://documents.un.org/doc/resolution/gen/nr0/327/74/pdf/nr032774.pdf" target="_blank" rel="noopener">UNGA Resolution 2758 (XXVI)</a>; <a href="http://www.npc.gov.cn/zgrdw/englishnpc/Law/2007-12/13/content_1384099.htm" target="_blank" rel="noopener">Anti-Secession Law</a>; <a href="https://www.gov.cn/xinwen/2021-07/01/content_5621847.htm" target="_blank" rel="noopener">Xi Jinping's July 2021 centenary speech</a>; U.S. Office of the Historian on the <a href="https://history.state.gov/milestones/1969-1976/rapprochement-china" target="_blank" rel="noopener">Shanghai Communiqué</a> and <a href="https://history.state.gov/milestones/1977-1980/china-policy" target="_blank" rel="noopener">normalization</a>; CSIS ChinaPower on <a href="https://chinapower.csis.org/china-respond-inauguration-taiwan-william-lai-joint-sword-2024a-military-exercise/" target="_blank" rel="noopener">Joint Sword-2024A</a>.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Beijing Decoder', sub: 'Paste a PRC statement on Taiwan and see which set formulas it uses, what they have signalled, and how often Beijing\'s spokespeople use them.', category: 'Narrative & rhetoric' });
+</script>
+<script type="module">
+  import { TIERS } from './data/formulations.js';
+  document.getElementById('tier-table').innerHTML = Object.entries(TIERS).map(([k, v]) => `<tr><td><span class="tier t${k}">${k} · ${v.name}</span></td><td>${v.desc}</td></tr>`).join('');
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

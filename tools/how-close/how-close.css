@@ -1,0 +1,98 @@
+/* How Close Is China? Tool styles on top of shared/css/tsm.css. Tokens only. */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+code { font-family: var(--mono); font-size: .92em; }
+.below h2.mt { margin-top: 22px; }
+
+/* Search */
+.hc-searchrow { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.hc-combo { position: relative; }
+.hc-combo input { width: 100%; font: 500 18px/1.2 var(--body); color: var(--ink); background: var(--bg); border: 1.5px solid var(--rule); border-radius: 4px; padding: 11px 12px; }
+.hc-combo input:focus { border-color: var(--brand-ink); outline: none; }
+.hc-combo input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#hc-list { position: absolute; z-index: 10; left: 0; right: 0; top: calc(100% + 4px); margin: 0; padding: 4px; list-style: none; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; box-shadow: 0 10px 28px rgba(0, 0, 0, .18); max-height: 320px; overflow-y: auto; }
+#hc-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border-radius: 3px; cursor: pointer; font-size: 14px; }
+#hc-list li span { color: var(--muted); font-size: 12.5px; text-align: right; }
+#hc-list li[aria-selected="true"], #hc-list li:hover { background: var(--chip); }
+#hc-list li.none { color: var(--muted); cursor: default; }
+.hc-quick { display: flex; flex-wrap: wrap; gap: 6px; }
+.hc-quick button { border: 1px solid var(--rule); background: transparent; border-radius: 14px; padding: 4px 11px; font-size: 12.5px; cursor: pointer; }
+.hc-quick button:hover { border-color: var(--muted); }
+.hc-quick button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+/* Map */
+#hc-map { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 391; cursor: crosshair; --z: 1; }
+.hc-sea { fill: var(--sea); }
+.hc-grat line { stroke: var(--grat); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.hc-land { fill: var(--land); stroke: var(--coast); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.hc-prc { fill: var(--prc); fill-opacity: .16; stroke: var(--prc); stroke-opacity: .6; stroke-width: .8; vector-effect: non-scaling-stroke; }
+.hc-roc { fill: var(--roc); stroke: var(--roc); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hc-ring { fill: none; stroke: var(--roc); stroke-opacity: .45; stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.hc-ring-t { font: calc(9px / var(--z)) var(--mono); fill: var(--roc); opacity: .85; paint-order: stroke; stroke: var(--sea); stroke-width: calc(3px / var(--z)); }
+.hc-route-halo { fill: none; stroke: var(--panel); stroke-width: 6; stroke-linecap: round; opacity: .8; vector-effect: non-scaling-stroke; }
+.hc-route { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hc-route2 { fill: none; stroke: var(--prc); stroke-width: 1.2; stroke-dasharray: 2 4; opacity: .8; vector-effect: non-scaling-stroke; }
+.hc-you, .hc-taipei, .hc-pingtan, .hc-you-halo { vector-effect: non-scaling-stroke; }
+.hc-you { fill: var(--accent); stroke: var(--panel); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; scale: calc(1 / var(--z)); }
+.hc-you-halo { fill: var(--accent); opacity: .2; transform-box: fill-box; transform-origin: center; scale: calc(1 / var(--z)); animation: hc-pulse 2.2s ease-out infinite; }
+.hc-taipei { fill: var(--roc); stroke: var(--panel); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; scale: calc(1 / var(--z)); }
+.hc-pingtan { fill: var(--prc); transform-box: fill-box; transform-origin: center; scale: calc(1 / var(--z)); }
+@keyframes hc-pulse { from { opacity: .35; scale: calc(.6 / var(--z)); } to { opacity: 0; scale: calc(2 / var(--z)); } }
+.hc-s { transform: scale(calc(1 / var(--z))); }
+.hc-label { font: 600 12.5px var(--body); paint-order: stroke; stroke: var(--sea); stroke-width: 3.5px; stroke-linejoin: round; }
+.hc-label-you { fill: var(--ink); }
+.hc-label-tw { fill: var(--roc); }
+.hc-views { position: absolute; top: 8px; left: 8px; display: flex; gap: 4px; flex-wrap: wrap; }
+.hc-views button { background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--rule); border-radius: 3px; padding: 4px 9px; font-size: 12px; cursor: pointer; }
+.hc-views button:hover { border-color: var(--muted); }
+.hc-legend { margin: 0; position: absolute; right: 8px; bottom: 6px; font: 11px var(--mono); color: var(--muted); background: color-mix(in srgb, var(--panel) 88%, transparent); padding: 3px 7px; border-radius: 3px; display: flex; gap: 5px; align-items: center; flex-wrap: wrap; pointer-events: none; }
+.k { display: inline-block; width: 12px; height: 8px; border-radius: 1px; margin-left: 4px; }
+.k-prc { background: color-mix(in srgb, var(--prc) 30%, transparent); border: 1px solid var(--prc); }
+.k-roc { background: var(--roc); }
+.k-route { height: 0; border-top: 2.5px solid var(--accent); }
+.k-route2 { height: 0; border-top: 1.5px dashed var(--prc); }
+@media (max-width: 600px) { .hc-legend { position: static; margin: 0; border-radius: 0; } .hc-views { position: static; padding: 6px 8px 0; } .hc-views button { padding: 3px 7px; font-size: 11.5px; } }
+
+/* Result card */
+.hc-card { gap: 8px; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, var(--panel)), var(--panel)); border-top: 4px solid var(--accent); border-radius: 4px 4px 0 0; }
+.hc-place { margin: 0; font-size: 26px; line-height: 1.1; }
+.hc-big { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.hc-big .num { font-variant-numeric: lining-nums proportional-nums; font-family: var(--display); font-weight: 700; font-size: clamp(56px, 9vw, 76px); line-height: .95; color: var(--brand-ink); letter-spacing: -.01em; }
+.hc-big small { font-size: 17px; color: var(--muted); font-weight: 500; }
+.hc-sub { margin: 0; font-size: 11.5px; color: var(--muted); }
+.hc-line { margin: 0; font-size: 14px; line-height: 1.45; }
+.hc-line b { font-weight: 600; }
+.hc-share { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Scale strip */
+.hc-scale { width: 100%; height: auto; display: block; }
+.hc-band { fill: var(--prc); }
+.hc-band-0 { fill-opacity: .20; } .hc-band-1 { fill-opacity: .14; } .hc-band-2 { fill-opacity: .09; } .hc-band-3 { fill-opacity: .05; }
+.hc-band-t { font: 600 10px var(--mono); fill: var(--muted); }
+.hc-tick { stroke: var(--faint); }
+.hc-tick-t { font: 9.5px var(--mono); fill: var(--faint); }
+.hc-mark { stroke-width: 2; }
+.hc-mark-t { font: 600 10.5px var(--body); }
+.m-strait { stroke: var(--roc); fill: var(--roc); }
+.m-you { stroke: var(--accent); fill: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .hc-you-halo { animation: none; opacity: .2; } }
+
+/* Comparison bars */
+.hc-compare { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.hc-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.hc-bars li { display: grid; grid-template-columns: 130px minmax(0, 1fr) 80px; gap: 10px; align-items: center; font-size: 12.5px; cursor: pointer; border-radius: 3px; padding: 2px 4px; }
+.hc-bars li:hover { background: var(--chip); }
+.hc-bars li:focus-visible { outline: 2px solid var(--accent); }
+.hc-bars .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc-bars .bar { height: 9px; background: var(--rule); border-radius: 1px; position: relative; }
+.hc-bars .bar span { position: absolute; inset: 0 auto 0 0; background: var(--muted); border-radius: 1px; transition: width .4s; }
+.hc-bars .v { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; font-size: 11.5px; color: var(--muted); }
+.hc-bars li.cur .nm { font-weight: 700; } .hc-bars li.cur .bar span { background: var(--accent); } .hc-bars li.cur .v { color: var(--ink); }
+.hc-bars li.strait .bar span { background: var(--roc); } .hc-bars li.strait { cursor: default; }
+@media (max-width: 500px) { .hc-bars li { grid-template-columns: 92px minmax(0, 1fr) 76px; } }
+
+/* Small screens: search, map, result card, then the comparison */
+@media (max-width: 1020px) {
+  .layout { display: flex; flex-direction: column; }
+  .stage { display: contents; }
+  .hc-searchrow { order: 1; } .stage > .mapbox, .stage > .tsm-export { order: 2; } .layout > .panel { order: 3; } .hc-compare { order: 4; }
+}

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quarantine, Blockade, Invasion | Taiwan Security Monitor</title>
+<meta name="description" content="Beijing's coercive options toward Taiwan side by side: what each looks like, its legal status, warning signs, costs, U.S. and Japanese triggers and Taiwan's options.">
+<meta property="og:title" content="Quarantine, Blockade, Invasion | Taiwan Security Monitor">
+<meta property="og:description" content="Compare gray-zone pressure, quarantine, blockade, island seizure and invasion, and change the assumptions that shape them.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="coercion-options.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="layout">
+  <div class="stage">
+    <nav class="spectrum" id="spectrum" aria-label="Choose an option, from least to most escalatory"></nav>
+    <div class="card viz">
+      <div class="mapcol">
+        <div class="mapbox">
+          <svg id="map" role="img" aria-label="Map of the Taiwan Strait with a schematic footprint of the selected option">
+            <defs><marker id="co-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path id="co-arrow-path" d="M0 0L10 5L0 10z"/></marker></defs>
+          </svg>
+        </div>
+        <p class="fine map-cap" id="map-cap"></p>
+      </div>
+      <div class="chartcol">
+        <p class="eyebrow">Profile <span class="notional">notional scores</span></p>
+        <svg id="radar" class="radar" role="img" aria-label="Radar chart of the selected option's notional scores on six dimensions. Click an axis label to compare all options on it."></svg>
+        <p class="fine legend"><span class="lsw sel"></span>Selected option <span class="lsw base"></span>Baseline assumptions <span class="lsw oth"></span>Other options, in their own colors</p>
+        <p class="eyebrow" id="bars-h"></p>
+        <svg id="bars" class="bars" role="img" aria-label="Bar chart comparing all five options on the chosen dimension"></svg>
+        <p class="fine">Click an axis label on the radar to change the comparison. The tick on each bar marks the baseline.</p>
+      </div>
+    </div>
+    <article class="card optcard" id="optcard" aria-live="polite"></article>
+  </div>
+
+  <aside class="panel" aria-label="Assumptions and readout">
+    <div class="sec">
+      <p class="eyebrow">Assumptions</p>
+      <div class="field">
+        <span class="lab">U.S. posture</span>
+        <div class="choices tri" id="us" role="group" aria-label="U.S. posture"></div>
+        <small class="fine" id="us-help"></small>
+      </div>
+      <label class="tg"><input type="checkbox" id="jp"><span class="sw"></span><span class="t">Japan supports U.S. operations<small>Bases open for combat operations and rear-area support.</small></span></label>
+      <label class="tg"><input type="checkbox" id="g7"><span class="sw"></span><span class="t">G7 coordinates sanctions<small>Allied economic measures announced in advance.</small></span></label>
+      <div class="slider">
+        <div class="sl-h"><label for="ei">Economic interdependence</label><output id="ei-out"></output></div>
+        <input type="range" id="ei" min="0" max="100" step="5">
+        <small>How much China's economy depends on trade and finance that a crisis would cut.</small>
+      </div>
+      <button type="button" class="btn" id="reset">Reset to baseline</button>
+    </div>
+    <div class="sec">
+      <p class="eyebrow">What moved</p>
+      <p class="moved" id="moved" aria-live="polite"></p>
+      <dl class="readout" id="readout"></dl>
+      <label class="tg"><input type="checkbox" id="all" checked><span class="sw"></span><span class="t">Show other options on the radar</span></label>
+    </div>
+    <div class="sec">
+      <button type="button" class="btn solid" id="copy">Copy link to this view</button>
+      <p class="fine">Keys 1–5 select an option. The link keeps the option, the assumptions and the comparison axis.</p>
+    </div>
+  </aside>
+</main>
+
+<section class="matrix-sec">
+  <div class="mx-h">
+    <h2>Side by side</h2>
+    <div class="rowf" id="rowf" role="group" aria-label="Filter rows"></div>
+  </div>
+  <div class="tablewrap" id="matrix"></div>
+  <p class="fine">Superscript numbers refer to the sources below. Click a column heading to select that option.</p>
+</section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>The five options run from least to most escalatory. Gray-zone pressure is happening now. A quarantine uses coast guard and customs language to control what reaches Taiwan without calling it war. A blockade uses military force to cut Taiwan off, which in the law of naval warfare is an act of war. Seizing a small outlying island is a limited use of force. An invasion is full-scale war.</p>
+    <p>The legal line matters because it shapes other governments' choices. The Taiwan Relations Act does not require the United States to defend Taiwan; it leaves the response to the President and Congress. The U.S.–Japan Security Treaty's Article V covers territory Japan administers, which does not include Taiwan, though attacks on U.S. bases in Japan would fall under it. A quarantine is designed to stay below those lines.</p>
+    <p>The radar and bar chart give each option notional scores from 0 to 10 on six dimensions. Change the assumptions in the side panel and watch them move: a committed U.S. posture raises the chance of U.S. involvement and the military risk to Beijing most for a blockade or invasion, and least for gray-zone pressure. That asymmetry is one reason analysts expect Beijing to favor options below the act-of-war line.</p>
+    <p>Selecting an option also draws its footprint on the map. The footprints are schematic zones to show the shape of each option. They are not real exercise boxes, patrol areas or landing sites.</p>
+  </div>
+  <div class="col">
+    <h2>Method and limits</h2>
+    <ul class="src">
+      <li>The matrix text paraphrases the sources below, with citation numbers on each cell. The two cost judgments without a number (gray-zone pressure and island seizure) are this tool's own assessment. The legal rows summarize treaty and statute text; they are not legal advice, and the application of international law to Taiwan is itself contested.</li>
+      <li>All scores are <span class="notional">notional</span>. Each option has a hand-set baseline score on each dimension under default assumptions (ambiguous U.S. posture, no allied commitments, medium interdependence). Each assumption then shifts the scores by a hand-set sensitivity: for example, a committed U.S. posture adds 2.5 to the chance of U.S. involvement in a blockade and 0.5 in gray-zone pressure. Scores are clamped to 0–10. The full table is in <code>data/options.js</code>.</li>
+      <li>"Warning time" means how much notice defenders are likely to get, not how likely the option is. Invasion scores high because it requires months of visible preparation; island seizure scores low because it can be quick.</li>
+      <li>Island and port positions are approximate public locations used only for labels and schematic shapes.</li>
+    </ul>
+    <h2 class="mt">Sources</h2>
+    <ol class="src" id="srclist"></ol>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Quarantine, Blockade, Invasion', sub: 'Beijing\'s coercive options side by side: what each looks like, its legal status, warning signs, costs and the triggers it would test.', category: 'Crises & exercises' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

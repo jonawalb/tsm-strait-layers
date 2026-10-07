@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Briefing Packet Builder | Taiwan Security Monitor</title>
+<meta name="description" content="Build a printable Taiwan Security Monitor briefing packet for any date range: PLA activity, coast guard incidents, transits, exercises, PRC statements and sources.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="packet-builder.css">
+</head>
+<body class="loading">
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="bar">
+  <p class="bar-t" id="bar-status" aria-live="polite">Building the packet…</p>
+  <div class="acts">
+    <button type="button" class="btn solid" id="start-tour">Start the walkthrough</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="preview" id="preview" aria-label="Packet preview, one sheet per printed page"></div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Packet settings">
+    <section class="sec" id="sec-range">
+      <p class="eyebrow">1 · Date range</p>
+      <div class="choices preset" id="preset" role="group" aria-label="Range preset">
+        <button type="button" data-k="7d"><b>Last 7 days</b><span>Latest TSM week</span></button>
+        <button type="button" data-k="m"><b>A month</b><span>Any month since Aug. 2022</span></button>
+        <button type="button" data-k="ex"><b>An exercise</b><span>A listed PLA exercise</span></button>
+        <button type="button" data-k="c"><b>Custom</b><span>Up to a year</span></button>
+      </div>
+      <div id="range-detail" class="rdetail">
+        <label class="fld" data-for="m">Month<select id="month"></select></label>
+        <div data-for="ex" class="exf">
+          <label class="fld">Exercise<select id="exercise"></select></label>
+          <div class="choices pads" id="pad" role="group" aria-label="Days added each side">
+            <button type="button" data-p="0">Listed dates</button>
+            <button type="button" data-p="3">± 3 days</button>
+            <button type="button" data-p="7">± 7 days</button>
+          </div>
+        </div>
+        <div data-for="c" class="cf">
+          <label class="fld">From<input type="date" id="from"></label>
+          <label class="fld">To<input type="date" id="to"></label>
+        </div>
+      </div>
+      <dl class="readout" id="range-read"></dl>
+    </section>
+    <section class="sec" id="sec-secs">
+      <p class="eyebrow">2 · Sections</p>
+      <div id="sections"></div>
+      <p class="fine">The cover and the sources and method page are always included.</p>
+    </section>
+    <section class="sec" id="sec-opts">
+      <p class="eyebrow">3 · Details</p>
+      <div class="slider">
+        <div class="sl-h"><label for="cap">Statements to quote</label><output id="cap-out" for="cap"></output></div>
+        <input type="range" id="cap" min="3" max="20" step="1">
+        <small>The highest-scoring answers in range, by the rule on the sources page.</small>
+      </div>
+      <label class="fld">Prepared for <small>(optional, printed on the cover)</small>
+        <input type="text" id="for" maxlength="80" placeholder="e.g. GOVT 444, week 6" autocomplete="off"></label>
+    </section>
+    <section class="sec" id="sec-out">
+      <p class="eyebrow">4 · Print or download</p>
+      <div class="outbtns">
+        <button type="button" class="btn solid" id="pdf">Download PDF</button>
+        <button type="button" class="btn" id="print">Print or save as PDF</button>
+      </div>
+      <p class="fine" id="pdf-status" aria-live="polite">The download builds a PDF in your browser, one image per page with working links. Printing gives sharper, searchable text: in the print dialog choose "Save as PDF".</p>
+    </section>
+  </aside>
+</main>
+
+<section class="below">
+  <div>
+    <h2>How to use it</h2>
+    <p>Pick a date range: the last seven days of TSM data, a calendar month, a listed PLA exercise (with a few days either side if you like), or any custom span up to a year. Then switch sections on or off. The preview on the left is the packet itself, laid out on US Letter pages exactly as it will print.</p>
+    <p><b>Download PDF</b> makes a file in one click. <b>Print or save as PDF</b> opens your browser's print dialog, where "Save as PDF" gives a sharper file with selectable text. The page settings (Letter, no margins) are set by the packet, so the defaults work.</p>
+    <p>The address bar keeps every setting. Copy the link to share a packet, or to rebuild the same one later with newer data.</p>
+    <h2 class="mt">Method notes</h2>
+    <ul class="src">
+      <li>Every figure is computed in your browser from the data modules that power the other TSM interactives. The packet adds no data of its own and contains no notional values.</li>
+      <li>Daily counts are Taiwan Ministry of National Defense reports as compiled and checked by TSM. Each day is MND's 06:00 to 06:00 reporting window, filed under its start date. Daily data start Aug. 6, 2022 (ships Aug. 13, 2024).</li>
+      <li>The comparison period is the same number of days ending the day before the range starts. Changes compare daily averages over days with data.</li>
+      <li>Statements are chosen by a fixed, published rule (theme matches, balanced across the three PRC bodies). Quotes are verbatim excerpts of the English text, with the translation source labeled.</li>
+      <li>The AIS section appears only for ranges that overlap TSM's live AIS window, Sept. 4–28, 2026.</li>
+      <li>Known gaps are printed in the packet where they apply: the transit tracker's thin coverage from September 2025 to January 2026 (one entry, November 5, 2025), the CCG tracker's June 2024 start, and days without TSM data.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Data sources</h2>
+    <ul class="src">
+      <li>Daily PLA activity, patrol and long-range flight flags, allied transits: <code>shared/data/tsm.js</code>, built from TSM trackers and <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">Taiwan MND daily reports</a>.</li>
+      <li>China Coast Guard incidents: <a href="../ccg-grayzone/">CCG Gray-Zone Map</a> data, TSM's CGA/CCG Incident Tracker compiled from <a href="https://www.cga.gov.tw/" target="_blank" rel="noopener">Coast Guard Administration</a> releases.</li>
+      <li>Exercises: <a href="../joint-sword/">Anatomy of an Exercise</a> data, from TSM's <i>Exercises as Theater</i> event list.</li>
+      <li>PRC statements: <a href="../rhetoric-heatmap/">PRC Rhetoric Heatmap</a> corpus of Foreign Ministry, Defense Ministry and Taiwan Affairs Office answers.</li>
+      <li>AIS: <a href="../dark-fleet/">Dark Fleet Viewer</a> data, TSM's AIS database fed by <a href="https://aisstream.io/" target="_blank" rel="noopener">AISStream.io</a>.</li>
+      <li>PDF export: <a href="https://github.com/niklasvh/html2canvas" target="_blank" rel="noopener">html2canvas</a> 1.4.1 and <a href="https://github.com/parallax/jsPDF" target="_blank" rel="noopener">jsPDF</a> 2.5.1, loaded from cdnjs only when you download.</li>
+    </ul>
+    <p class="fine mt">Each packet ends with a sources page listing every link behind the sections you chose.</p>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Briefing Packet Builder', sub: 'Pick a date range and sections, and get a printable TSM briefing packet with every source listed.', category: 'Classroom' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

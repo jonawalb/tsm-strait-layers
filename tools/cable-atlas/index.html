@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Undersea Cable Atlas | Taiwan Security Monitor</title>
+<meta name="description" content="Every submarine cable and landing site serving Taiwan, Japan's Nansei islands and the Philippines, with a sourced incident log, repair-ship capacity and a calculator for what survives when cables are cut.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="cable-atlas.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="bar">
+      <div class="views" role="group" aria-label="Map view">
+        <button type="button" class="btn" data-view="fic">First Island Chain</button>
+        <button type="button" class="btn" data-view="taiwan">Taiwan</button>
+        <button type="button" class="btn" data-view="outer">Outlying islands</button>
+        <button type="button" class="btn" data-view="matsu">Matsu</button>
+        <button type="button" class="btn" data-view="ryukyu">Nansei islands</button>
+        <button type="button" class="btn" data-view="philippines">Philippines</button>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of submarine cables and landing sites serving Taiwan, Japan's Nansei islands and the Philippines"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="toolbar" role="toolbar" aria-label="Map tools">
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" id="cut-mode" aria-pressed="false" title="When on, clicking a cable cuts or restores it">Cut mode</button>
+        <button type="button" data-layer="inc" aria-pressed="true" title="Show incident markers">Incidents</button>
+        <button type="button" data-layer="ships" aria-pressed="true" title="Show repair-ship home ports">Repair bases</button>
+        <button type="button" data-layer="ctx" aria-pressed="true" title="Show other regional cables">Other cables</button>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="lg tw"></i>Lands in Taiwan</span><span><i class="lg ry"></i>Lands in Nansei islands</span><span><i class="lg ph"></i>Lands in Philippines</span>
+        <span><i class="lg prc"></i>Taiwan to mainland China only</span><span><i class="lg dom"></i>Domestic (thinner; Taiwan's in teal)</span><span><i class="lg cut"></i>Cut</span>
+        <span><i class="lk lk-inc"></i>Incident</span><span><i class="lk lk-inc nat"></i>Incident, natural cause</span><span><i class="lk lk-ship"></i>Repair-ship home port</span>
+      </div>
+      <p class="maphint">Hover for details · click to open a dossier · drag to pan · pinch or ⌘-scroll to zoom</p>
+    </div>
+    <section class="card tl" id="timeline" aria-label="Incident log"></section>
+  </div>
+  <aside class="panel" id="panel" aria-label="Redundancy calculator and dossier"></aside>
+</main>
+
+<section class="below wide" id="repair" aria-label="Repair capacity"></section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this</h2>
+    <p>Almost all international internet and phone traffic to Taiwan, Okinawa and the Philippines crosses the sea on fiber-optic cables. The map shows every cable that TeleGeography's public Submarine Cable Map lists as landing in Taiwan (with Penghu, Kinmen and Matsu), in Japan's Nansei islands (Okinawa, Miyako, Yaeyama and the Daito islands), or in the Philippines, and the towns where each comes ashore.</p>
+    <p>Taiwan's count looks redundant: TeleGeography lists 14 international systems in service, and Taiwan's Control Yuan counted 15 international cables at five international landing stations in October 2025. The exposure sits on the beach. Most of those systems come ashore at three areas, Toucheng in Yilan, Tanshui and Pa Li in New Taipei, and Fangshan in Pingtung, so losing a landing area removes several systems at once. That gap between cable count and landing-site concentration is the argument of Jonathan Walberg's working paper "Landing Stations as Littoral Chokepoints", which this atlas draws on for framing.</p>
+    <p><b>The redundancy calculator</b> treats each island as a node. Landing towns on one island are joined over land. A cable that lands in more than one country can be cut town by town; a cable inside one country is cut segment by segment where its route allows, or as a whole. For each island the panel reports whether a cable route still reaches anywhere outside its region, whether the only route left ends in mainland China, and how many more cuts would isolate it. It also sums the published design capacity of the systems that still land.</p>
+    <p><b>The incident log</b> lists cable cuts and damage in these waters that rest on an official statement or on reliable reporting. Each card links its sources. The <b>dossiers</b> collect everything the atlas knows about one landing site, island, cable or incident.</p>
+    <h2 class="mt" id="method">Method &amp; sources</h2>
+    <ul class="src">
+      <li><b>Cables and landing points.</b> TeleGeography, <a href="https://www.submarinecablemap.com/" target="_blank" rel="noopener">Submarine Cable Map</a>, fetched <span data-fetched></span> from the public JSON behind the map (routes, landing points, owners, suppliers, ready-for-service dates, lengths). TeleGeography publishes its maps under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> and asks to be credited (<a href="https://www2.telegeography.com/cite-telegeography-map" target="_blank" rel="noopener">citation terms</a>); the cable data in this tool is a derivative shared under the same licence. TeleGeography sells a separate geocoded dataset; this atlas uses only what the free public map shows.</li>
+      <li><b>Routes are schematic.</b> TeleGeography draws cables to show which places they join, not where they lie on the seabed. The Luzon Strait scenario selects cables by their drawn route, so it is an approximation.</li>
+      <li><b>Landing points are town level</b>, as TeleGeography publishes them. The atlas shows no cable-station address, building or other facility detail.</li>
+      <li><b>Islands and segments are our derivation.</b> Landings are assigned to islands by hand. Single-country cables are split into landing-to-landing segments from TeleGeography's route geometry when the segments join every landing; otherwise the cable is cut as a whole. Matsu's islands are separate nodes; Greater and Lesser Kinmen, and Penghu's main islands, are joined by bridges.</li>
+      <li><b>Routes to isolate</b> is the number of edge-disjoint cable routes from an island to any place outside its region (a max-flow count with every cable branch or segment worth one). Foreign landings and other regions are endpoints, never transit. For Taiwan, routes that end only in mainland China (CSCN, TSE-1) are shown separately and do not count as connected.</li>
+      <li><b>Capacity.</b> Design capacities come from operator, supplier or trade-press statements, each linked in the cable's dossier and in <code>data/SOURCES.md</code>. They are whole-system figures shared by every country on a cable, in different vintages: older systems list their original design and have been upgraded since without a published total. Read them as an order of magnitude, not Taiwan's own bandwidth. For scale, Taiwan's networks reported <span id="twnic"></span> of international IP bandwidth in TWNIC's July 2026 survey (<a href="https://map.twnic.tw/main02.php" target="_blank" rel="noopener">TWNIC</a>). Taiwan's government has a total available-bandwidth figure, but it is masked in the public version of the Control Yuan's 2025 report (<a href="https://cybsbox.cy.gov.tw/CYBSBoxSSL/edoc/download/72432" target="_blank" rel="noopener">Control Yuan</a>). No official capacity per landing station is published, so the calculator cannot say what share of Taiwan's traffic a landing area carries.</li>
+      <li><b>What the calculator leaves out:</b> satellite links, microwave radio backups (Matsu has one), terrestrial backhaul, rerouting delays, retired cables (earlier years undercount), and repair time. "Cut off" means cut off by cable.</li>
+      <li><b>Incidents.</b> Each incident rests on an official statement (Ministry of Digital Affairs, Coast Guard Administration, courts, ministries) or on reliable reporting, opened and checked for this atlas; links were checked on 3 October 2026. Media text is summarised in our own words. Map markers sit at the reported area, never at a fault position. Attribution follows what officials and courts said; the atlas adds none of its own.</li>
+      <li><b>Repair ships.</b> Fleet, home ports and repair durations come from operator pages, official statements and reporting linked in the Repair section. Home ports are not live positions. Transit speed is an assumption you set.</li>
+      <li><b>Vessel tracks: not shown.</b> Taiwan Security Monitor's AIS database covers 4 September to early October 2026. None of the vessels named in cable incidents (Shunxing-39, Hong Tai 58, Min Lian Yu 60138, Hai Hong Gong 66) appears in it, and no incident in the log falls inside its window, so the atlas has no tracks of suspect ships to overlay. A corridor-loitering analysis of the AIS data is a possible next step.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>Gaps</h2>
+    <ul class="src">
+      <li>TeleGeography lists 3 domestic cables for Taiwan's outlying islands; the Ministry of Digital Affairs counted 10 domestic cables in February 2026 (<a href="https://moda.gov.tw/en/press/press-releases/19392" target="_blank" rel="noopener">MODA</a>). The model is missing the rest, so the outlying islands look more fragile than they are.</li>
+      <li>Capacity figures are missing for several systems, including FNAL/RNAL, AAG, AUG East, the Taiwan domestic cables and the Okinawa domestic cables.</li>
+      <li>The incident log is limited to events that named sources describe. Officials have given different counts of Matsu cable faults, and many faults were never individually reported.</li>
+      <li>No public source gives live repair-ship positions or schedules.</li>
+    </ul>
+    <h2 class="mt">How to cite</h2>
+    <p class="fine">Taiwan Security Monitor, "Undersea Cable Atlas," TSM Interactive, Schar School of Policy and Government, George Mason University, accessed [date]. Cable data: TeleGeography, Submarine Cable Map (CC BY-SA 4.0).</p>
+    <p class="fine mt">Data files: <code>data/cables.js</code> (TeleGeography derivative, CC BY-SA 4.0), <code>data/capacity.js</code>, <code>data/incidents.js</code>, <code>data/repair.js</code>, <code>data/land.js</code> (Natural Earth, public domain). Provenance for every file is in <code>data/SOURCES.md</code>; builders are in <code>scripts/</code>.</p>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Undersea Cable Atlas', sub: 'Every cable and landing site serving Taiwan, the Nansei islands and the Philippines: what has been cut, how long repairs take, and what survives when cables go.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Close Is China? | Taiwan Security Monitor</title>
+<meta name="description" content="Search any city to see its distance to Taiwan and to China, with the Taiwan Strait for scale.">
+<meta property="og:title" content="How Close Is China? | Taiwan Security Monitor">
+<meta property="og:description" content="Type a city and see how far it is from Taiwan and from China, with the 126 km Taiwan Strait for scale.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="how-close.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="hc-searchrow card">
+      <label for="hc-q" class="eyebrow">Search a city, or click the map</label>
+      <div class="hc-combo">
+        <input id="hc-q" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="hc-list"
+          autocomplete="off" spellcheck="false" placeholder="e.g. Tokyo, Sydney, Chicago">
+        <ul id="hc-list" role="listbox" aria-label="Matching cities" hidden></ul>
+      </div>
+      <div class="hc-quick" id="hc-quick" aria-label="Quick picks"></div>
+    </div>
+    <div class="mapbox">
+      <svg id="hc-map" role="img" aria-label="World map with the great-circle route from the chosen place to Taipei"></svg>
+      <div class="hc-views" role="toolbar" aria-label="Map view">
+        <button type="button" data-view="fit">Fit route</button>
+        <button type="button" data-view="asia">Asia-Pacific</button>
+        <button type="button" data-view="strait">Taiwan Strait</button>
+        <button type="button" data-view="world">World</button>
+      </div>
+      <p class="hc-legend"><span class="k k-prc"></span>PRC <span class="k k-roc"></span>Taiwan <span class="k k-route"></span>to Taipei <span class="k k-route2"></span>to Pingtan</p>
+    </div>
+    <div class="card hc-compare">
+      <p class="eyebrow">Distance to Taipei, compared</p>
+      <ol id="hc-bars" class="hc-bars"></ol>
+      <p class="fine">Great-circle kilometres. Click a row to switch to that city.</p>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Result">
+    <section class="sec hc-card" id="hc-card" aria-live="off"></section>
+    <section class="sec">
+      <div class="hc-share">
+        <button type="button" class="btn solid" id="hc-copy">Copy link</button>
+        <button type="button" class="btn" id="hc-png">Download card</button>
+        <button type="button" class="btn" id="hc-share" hidden>Share</button>
+        <button type="button" class="btn" id="hc-locate" hidden>Use my location</button>
+      </div>
+      <p class="fine" id="hc-flash" role="status" hidden></p>
+      <p class="sr-only" id="hc-live" aria-live="polite"></p>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">The numbers</p>
+      <dl class="readout" id="hc-details"></dl>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">For scale</p>
+      <svg id="hc-scale" class="hc-scale" role="img" aria-label="Distance scale with ballistic missile range classes"></svg>
+      <p class="fine">Shaded bands are the standard ballistic-missile range classes (short, medium, intermediate, intercontinental), shown only as a yardstick for distance. All of Taiwan's main island lies within 1,000 km of the Fujian coast, the short-range band. This tool measures distance; it says nothing about what any force aims at.</p>
+    </section>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Pick a city and the map draws the shortest path over the Earth's surface, the great circle, from that city to Taipei. The solid orange line goes to Taipei; the thin dashed line goes to Pingtan, the part of Fujian Province closest to Taiwan. On a flat map a great circle often looks curved. It is still the shortest route.</p>
+    <p>The card gives three distances: to Taipei, to the nearest point of the People's Republic of China, and the width of the Taiwan Strait for comparison. The comparison pair is two real cities from the same city list that sit about 126 km apart, chosen as close to your city as the list allows.</p>
+    <p>The link in your address bar keeps your city, so you can send the exact view to someone else. <b>Download card</b> saves a 1200 × 630 image for posts.</p>
+    <h2 class="mt">Why the distance matters</h2>
+    <p>The Taiwan Strait is narrow by the standards of oceans and wide by the standards of amphibious warfare. At about 126 km, it puts all of Taiwan's main island within the 600–900 km range that the CSIS Missile Defense Project gives for China's <a href="https://missilethreat.csis.org/missile/df-15-css-6/" target="_blank" rel="noopener">DF-15</a> short-range ballistic missile when launched from the Fujian coast. It is also wide enough that a ship making 10 knots needs about seven hours to cross open water. Both facts shape how Taiwan, China and the United States plan.</p>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li>Cities: Natural Earth, <a href="https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_populated_places_simple.geojson" target="_blank" rel="noopener">1:50m populated places</a> (public domain), 1,211 places with population and position. Map land and PRC/Taiwan outlines: Natural Earth 1:110m land and 1:50m admin-0 countries. The build script is in <code>scripts/build_data.py</code>.</li>
+      <li>Distances are great-circle distances on a sphere of radius 6,371 km, which is within about 0.5% of the true ellipsoidal distance. "Nearest PRC territory" measures to the Natural Earth 1:50m outline of the PRC, including Hong Kong and Macau, sampled about every 5 km, so it is approximate near the border.</li>
+      <li>Strait width: 126 km from Pingtan Island (Fujian) to the Hsinchu coast, measured on Natural Earth 1:10m land. This matches the narrowest width given by <a href="https://en.wikipedia.org/wiki/Taiwan_Strait" target="_blank" rel="noopener">Wikipedia's Taiwan Strait article</a>; the continental coast itself is about 135 km from Taiwan on the same data. The Pingtan point used for the dashed line is 119.78°E, 25.50°N.</li>
+      <li>Missile range classes: Arms Control Association, <a href="https://www.armscontrol.org/factsheets/worldwide-ballistic-missile-inventories" target="_blank" rel="noopener">Worldwide Ballistic Missile Inventories</a>: short-range under 1,000 km, medium-range 1,000–3,000 km, intermediate-range 3,000–5,500 km, intercontinental over 5,500 km.</li>
+      <li>Short-range missile range: CSIS Missile Defense Project, <a href="https://missilethreat.csis.org/missile/df-15-css-6/" target="_blank" rel="noopener">DF-15 (CSS-6)</a>, 600–900 km.</li>
+      <li>Travel times are illustrative. The airliner speed of 850 km/h and the ship speed of 14 knots are <span class="notional">notional</span> round numbers, applied to straight-line distance; real flights and voyages follow routes and take longer.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'How Close Is China?', sub: 'Search any city to see how far it is from Taiwan and from China, with the Taiwan Strait for scale.', category: 'Public explainers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dark Fleet Viewer | Taiwan Security Monitor</title>
+<meta name="description" content="Replay PRC-flag AIS tracks around Taiwan from TSM's AIS database, see when ships go dark, and browse two years of watchlist coast guard and militia activity.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="dark-fleet.css">
+</head>
+<body data-mode="live">
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<div class="banner" role="note"><b>Archive through <span id="banner-date">October 4, 2026</span>, not live.</b> Terrestrial AIS from TSM’s database. Coverage is thin mid-Strait, east of Taiwan and in the Spratlys, and PLA Navy ships rarely broadcast. A ship missing here may still be there.</div>
+
+<div class="actions">
+  <nav class="modes" role="tablist" aria-label="View">
+    <button type="button" role="tab" data-mode="live"><b>Live window</b><span data-live-short>Fixes, Sep 4–Oct 4, 2026</span></button>
+    <button type="button" role="tab" data-mode="archive"><b>Archive</b><span>Watchlist, 2024–2026</span></button>
+  </nav>
+  <div class="btns">
+    <button type="button" class="btn solid" id="start-tour">Walk me through it</button>
+    <button type="button" class="btn" id="copy-link">Copy link</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="Map of waters around Taiwan and the South China Sea"></svg>
+      <canvas id="tracks" aria-label="Vessel tracks. Click a vessel or square for details."></canvas>
+      <div class="toolbar" role="group" aria-label="Map extent">
+        <button type="button" data-ext="taiwan">Taiwan</button>
+        <button type="button" data-ext="region">South China Sea</button>
+      </div>
+      <div class="tooltip" id="maptip" hidden></div>
+      <div class="maplegend live-only">
+        <span><i class="dot" style="background:var(--c7)"></i>PRC-flag</span>
+        <span><i class="dot" style="background:var(--warn)"></i>Shared MMSI</span>
+        <span><i class="dot hollow"></i>Went dark</span>
+        <span><i class="sqk"></i>Reappeared</span>
+        <span><i class="dash"></i>Pairs them, path unknown</span>
+        <span><i class="ring"></i>Loitering</span>
+        <span><i class="diamond"></i>Close approach</span>
+      </div>
+      <div class="maplegend archive-only">
+        <span><i class="sq" style="background:var(--ccg)"></i>Mostly coast guard</span>
+        <span><i class="sq" style="background:var(--c5)"></i>Mostly militia</span>
+        <span>Darker = more vessel-days · outlined = both</span>
+      </div>
+    </div>
+    <div class="card scrubcard">
+      <div class="scrub">
+        <button type="button" class="play" id="play" aria-pressed="false">Play</button>
+        <label class="sr" for="scrub">Time</label>
+        <input type="range" id="scrub" min="0" max="100" step="1">
+        <output id="scrub-out" class="num"></output>
+      </div>
+      <div class="scrub-opts live-only">
+        <div class="slider"><div class="sl-h"><label for="trail">Trail length</label><output id="trail-out"></output></div>
+          <input type="range" id="trail" min="1" max="48" step="1" value="12"></div>
+        <label class="spd">Playback <select id="speed"><option value="20">2 h per second</option><option value="60" selected>6 h per second</option><option value="160">16 h per second</option></select></label>
+      </div>
+      <svg id="months" class="months archive-only" role="img" aria-label="Watchlist vessel-days per month. Click or drag to pick a month."></svg>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Filters and details"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Ships broadcast their identity, position, speed and course over AIS, the Automatic Identification System. TSM’s database records those messages from shore-based receivers for ships with a Chinese MMSI (the nine-digit ID; 412, 413 and 414 are China’s country codes) and for a watchlist of coast guard and militia vessels whose MMSIs have been matched to hulls in published sources.</p>
+    <p><b>Live window</b> replays every fix TSM received from <span data-live-range>September 4 to October 7, 2026</span>, thinned to one per ship every 10 minutes. Drag the slider to explore, or press Play. When a ship falls silent for longer than your threshold, a ring marks where it went dark, labelled with how long it stayed silent, and a small square marks where it reappeared. A faint dotted line pairs the two. It is not a track: the ship’s route in between is unknown, so the line is drawn beneath land and left out entirely when a straight line would cross land. The label then gives the distance and direction instead. <b>Archive</b> maps where watchlist vessels turned up in Global Fishing Watch events each month since January 2024.</p>
+    <h2 class="mt">Why so few coast guard ships?</h2>
+    <p>In the live window, only one watchlist vessel broadcast a valid, unique MMSI within reach of TSM’s receivers: China Coast Guard 2501, in a few fixes near the Senkaku Islands. No PLA Navy or militia watchlist vessel did. That is a finding about the data, not about the sea. Coast guard ships broadcast selectively, often under placeholder numbers like 412000000 that dozens of ships share. PLA Navy ships rarely broadcast at all. Shore receivers cover the coasts well and the middle of the Strait, the waters east of Taiwan and the Spratlys poorly, and TSM does not yet buy satellite AIS.</p>
+    <p>So a “dark” period on this map has three common causes: the ship left receiver range, the receiver missed it, or the crew switched the transponder off. The map cannot tell them apart. A ship that reappears far away after a silence probably sailed out of range; one that reappears where it vanished is more interesting.</p>
+    <h2 class="mt">Method</h2>
+    <ul class="src">
+      <li>Published vessels: only PRC-flag MMSIs (412/413/414) and watchlist MMSIs. No other ship’s track is shown or counted.</li>
+      <li>Force labels come only from TSM’s watchlist, where every MMSI has a source. A name that looks like a coast guard ship but is not on the watchlist is shown as an unreviewed candidate, off by default. Placeholder MMSIs (country code plus zeros) are flagged as shared.</li>
+      <li>Position jumps: consecutive fixes implying more than 40 knots over more than 5 km are treated as two ships sharing a number, and the track is broken there.</li>
+      <li>Land: tracks join consecutive fixes with straight lines, so the build script tests every such segment against <a href="https://www.naturalearthdata.com/downloads/10m-physical-vectors/" target="_blank" rel="noopener">Natural Earth 10m</a> land and minor islands, rasterized at 0.005° (about 550 m). Lakes, Natural Earth river centerlines (Yangtze, Xi, Min and others) and grid cells where at least two different PRC-flag ships reported a position count as water, which keeps river ports such as Guangzhou open. A segment that runs over more than 0.6 km of land in its interior, or more than 2 km next to a fix (berths sit inside the generalized coastline), is not drawn: the track breaks there. These tolerances are method settings chosen for this map.</li>
+      <li>Dark periods are computed in your browser from the fixes shown: any silence at or above the threshold (2 to 72 hours). TSM’s receivers sample PRC-flag ships outside its zones of interest once every 30 minutes, so silences under two hours are not meaningful.</li>
+      <li>Loitering: a run of fixes at or under the speed limit that stays inside the chosen radius of its first fix for at least the chosen time, with no silence over six hours inside it.</li>
+      <li>Close approaches and zone entries come from TSM’s database, read directly for this build. The database has derived close approaches for a single day only, from 00:57 UTC on September 10 to 00:00 UTC on September 11, 2026, and zone episodes for September 4 to October 6 except September 23. Zone polygons are approximate (centroid buffers and boxes, not legal baselines), so zone counts are indicative.</li>
+      <li>Archive: one position per watchlist vessel per day, taken from Global Fishing Watch loitering, port-visit, fishing and encounter events, counted in half-degree squares by month.</li>
+      <li>Nothing on this page is a notional value. There are no synthetic tracks, and gap connectors are not tracks.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ul class="src">
+      <li>Live positions: TSM AIS Tracking Database, fixes received through <a href="https://aisstream.io/" target="_blank" rel="noopener">AISStream.io</a> (terrestrial AIS), <span data-live-range>September 4 to October 7, 2026</span>, with the zone entry episodes the database had derived when the page was built (the Zone entries panel gives their dates).</li>
+      <li>Archive events: <a href="https://globalfishingwatch.org/our-apis/" target="_blank" rel="noopener">Global Fishing Watch API</a>, accessed September 2026, used under <a href="https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits" target="_blank" rel="noopener">CC BY-NC 4.0</a>. Global Fishing Watch 2026.</li>
+      <li>Watchlist MMSI pairings: CSIS Asia Maritime Transparency Initiative, <a href="https://amti.csis.org/behind-the-curtain-an-update-on-hainans-maritime-militia/" target="_blank" rel="noopener">Behind the Curtain: An Update on Hainan’s Maritime Militia</a>; Gregory Poling, Tabitha Mallory and Harrison Prétat, <a href="https://csis-website-prod.s3.amazonaws.com/s3fs-public/publication/211118_Poling_Maritime_Militia.pdf" target="_blank" rel="noopener">Pulling Back the Curtain on China’s Maritime Militia</a> (CSIS and C4ADS, November 2021); ship registry pages such as <a href="https://www.vesselfinder.com/vessels/details/9756016" target="_blank" rel="noopener">VesselFinder</a>. Each vessel card links its own source.</li>
+      <li>Shared placeholder MMSIs: SeaLight, <a href="https://www.sealight.live/posts/gray-zone-tactics-playbook-spoofing" target="_blank" rel="noopener">Gray-zone tactics playbook: spoofing</a>.</li>
+      <li>Coastline for the land test: <a href="https://www.naturalearthdata.com/downloads/10m-physical-vectors/" target="_blank" rel="noopener">Natural Earth 10m physical vectors</a> (public domain). Median line: Taiwan Ministry of National Defense coordinates as reported by <a href="https://www.taiwannews.com.tw/news/3755034" target="_blank" rel="noopener">Taiwan News, 30 July 2019</a>. Taiwan ADIZ: TSM GIS layer.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Dark Fleet Viewer', sub: 'Chinese-flag AIS tracks around Taiwan from TSM’s own database, the moments they go silent, and two years of coast guard and militia activity.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

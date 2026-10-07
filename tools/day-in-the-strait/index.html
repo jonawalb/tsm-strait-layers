@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Day in the Strait | Taiwan Security Monitor</title>
+<meta name="description" content="One real day of Chinese military and coast guard pressure around Taiwan, told from Taiwan Security Monitor data. Pick any day of 2026.">
+<meta property="og:title" content="A Day in the Strait | Taiwan Security Monitor">
+<meta property="og:description" content="Aircraft, warships, a readiness patrol and coast guard ships at Kinmen: one real day of gray-zone pressure around Taiwan.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="day-in-the-strait.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<main class="story">
+  <section class="hero" id="top">
+    <p class="eyebrow">One real day, from Taiwan Security Monitor data</p>
+    <h2 class="date" id="date" aria-live="polite">Wednesday, June 3, 2026</h2>
+    <div class="lede" id="lede"></div>
+    <div class="picker">
+      <button type="button" class="btn" id="prev" aria-label="Previous day">‹ Day before</button>
+      <label class="pick"><span class="sr">Pick a date in 2026</span><input type="date" id="pick"></label>
+      <button type="button" class="btn" id="next" aria-label="Next day">Day after ›</button>
+      <button type="button" class="btn solid" id="copy-link">Share this day</button>
+    </div>
+    <p class="fine">Or start with a day the data has a lot to say about:</p>
+    <div class="sugg" id="sugg"></div>
+  </section>
+
+  <section class="sec-block reveal" id="count-sec">
+    <p class="kicker">1 · The count</p>
+    <h3 class="sh">What Taiwan's military counted</h3>
+    <div class="counters" id="counters"></div>
+    <p class="note" id="window-note"></p>
+  </section>
+
+  <section class="sec-block reveal">
+    <p class="kicker">2 · The clock</p>
+    <h3 class="sh">What happened when</h3>
+    <p class="note">Only events with a recorded time appear here: the start of a joint combat readiness patrol as Taiwan's defense ministry announced it, and China Coast Guard movements as Taiwan's Coast Guard Administration reported them. The ring runs from 6 a.m. to 6 a.m., the same window as the counts above.</p>
+    <div class="clock-grid">
+      <div class="clockbox"><svg id="clock" role="img" aria-label="24-hour clock of timed events in the reporting window"></svg></div>
+      <div id="events" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="sec-block reveal">
+    <p class="kicker">3 · The map</p>
+    <h3 class="sh">Where</h3>
+    <div class="mapbox"><svg id="map" role="img" aria-label="Map of Taiwan and the Strait for the selected day">
+      <defs><marker id="m-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--ally)"/></marker></defs>
+    </svg></div>
+    <p class="note" id="map-note"></p>
+    <div id="ccg-cards" class="ccg-cards"></div>
+  </section>
+
+  <section class="sec-block reveal">
+    <p class="kicker">4 · The week around it</p>
+    <h3 class="sh">Seven days, aircraft per day</h3>
+    <div class="week" id="week"></div>
+  </section>
+
+  <section class="sec-block reveal">
+    <p class="kicker">5 · The year so far</p>
+    <h3 class="sh">One day among many</h3>
+    <div class="yearbox"><svg id="year" role="img" aria-label="PLA aircraft per day in 2026, with the selected day marked"></svg></div>
+    <p class="note" id="year-note"></p>
+  </section>
+
+  <section class="sec-block reveal glossary">
+    <p class="kicker">Words on this page</p>
+    <dl>
+      <dt>PLA</dt><dd>The People's Liberation Army, China's armed forces. The PLA Navy (PLAN) is its naval branch.</dd>
+      <dt>ADIZ</dt><dd>Air defense identification zone: airspace beyond a country's sovereign territory in which it requires aircraft to identify themselves, in the <a href="https://www.everycrsreport.com/reports/R43894.html" target="_blank" rel="noopener">Congressional Research Service's</a> definition. Taiwan's defense ministry reports how many PLA aircraft crossed the Strait median line or entered Taiwan's zone.</dd>
+      <dt>Joint combat readiness patrol</dt><dd>The PLA's own name for activity in which its aircraft operate together with PLA Navy ships around Taiwan; Taiwan's defense ministry reports it as a "so-called" or "alleged" patrol. The ministry announces these separately, with the time the activity began.</dd>
+      <dt>Official ships</dt><dd>Chinese government ships other than navy warships, which the defense ministry counts separately.</dd>
+      <dt>China Coast Guard incursion</dt><dd>China Coast Guard ships, or occasionally other Chinese government ships, entering the restricted waters around Taiwan's outlying islands or operating near Taiwan, as reported by Taiwan's Coast Guard Administration.</dd>
+    </dl>
+  </section>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How this story is built</h2>
+    <p>Nothing on this page is written by hand for a particular day. Pick any date from January 1, 2026 to the last day in TSM's data (<span id="asof">October 1, 2026</span>), and the page assembles the story from three records: the Taiwan Security Monitor's daily count of PLA activity, its China Coast Guard incident tracker, and Taiwan's Ministry of National Defense announcements of joint combat readiness patrols.</p>
+    <p>Most of what is known about a day is a set of totals. Taiwan's defense ministry reports how many aircraft and ships it detected in a 24-hour window ending at 6 a.m., without saying when each one appeared. The page shows those as totals and does not spread them across the clock. Only events with a time in the source go on the clock.</p>
+  </div>
+  <div class="col">
+    <h2>Sources and method</h2>
+    <ul class="src">
+      <li><b>Daily totals:</b> Taiwan Security Monitor PLA Activity Center, compiled from Taiwan Ministry of National Defense daily reports; rows from August 23, 2026 on are MND's own figures. Each report states its window, for example "6 a.m. Sep. 15 (Tue.) to 6 a.m. Sep. 16 (Wed.) (UTC+8)": <a href="https://www.mnd.gov.tw/en/News/PLAAct/87770" target="_blank" rel="noopener">MND report of September 16, 2026</a>; <a href="https://www.mnd.gov.tw/en/news/plaactlist" target="_blank" rel="noopener">all MND daily reports</a>.</li>
+      <li><b>Which window:</b> TSM's row for a date holds MND's report for the 24 hours starting at 6 a.m. that day, issued the next morning. The page states the window for each day.</li>
+      <li><b>Joint combat readiness patrols:</b> the day flag comes from TSM's daily data. Start times, sortie counts and release times come from MND press releases, linked from each clock entry (for example <a href="https://www.mnd.gov.tw/en/News/PressRelease/86809" target="_blank" rel="noopener">June 3, 2026</a>). MND issued the January 23 and January 29, 2026 releases in Chinese only (<a href="https://www.mnd.gov.tw/news/pressrelease/86023" target="_blank" rel="noopener">January 23</a>, <a href="https://www.mnd.gov.tw/news/pressrelease/86042" target="_blank" rel="noopener">January 29</a>), and the September 30 release had no English version when it was checked on October 2 (<a href="https://www.mnd.gov.tw/news/pressrelease/87870" target="_blank" rel="noopener">September 30</a>).</li>
+      <li><b>China Coast Guard:</b> TSM CGA/CCG Incident Tracker (complete version of September 24, 2026), compiled from Taiwan <a href="https://www.cga.gov.tw/" target="_blank" rel="noopener">Coast Guard Administration</a> releases and checked row by row against them on the <a href="../ccg-grayzone/">CCG Gray-Zone Map</a>. Descriptions and hull numbers are as recorded, except that hulls the CGA did release are shown where the earlier public tracker said they were withheld. For three rows (January 14 Dongsha, January 19 and March 20 Kinmen) the clock uses the CGA release's times, because the tracker's timeline has a typo. Map circles show the tracker's location category, not a position.</li>
+      <li><b>Allied transits:</b> TSM Taiwan Strait Transit Tracker (date, ship, country). Routes are not recorded; the arrow is schematic.</li>
+      <li>ADIZ definition: Congressional Research Service, <a href="https://www.everycrsreport.com/reports/R43894.html" target="_blank" rel="noopener">China's Air Defense Identification Zone (ADIZ)</a>, R43894, 2015.</li>
+      <li>Basemap: Natural Earth. Taiwan ADIZ boundary: TSM GIS layer.</li>
+      <li>More: the <a href="../ccg-grayzone/">CCG Gray-Zone Map</a> and <a href="../strait-snapshot/">Strait Snapshot Live</a>.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'A Day in the Strait', sub: 'One real day of gray-zone pressure around Taiwan, told from the data.', category: 'Public explainers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

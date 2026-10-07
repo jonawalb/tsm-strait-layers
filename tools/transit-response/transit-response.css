@@ -1,0 +1,130 @@
+/* Transit Response Explorer. Built on shared/css/tsm.css tokens only. */
+.bar { max-width: 1400px; margin: 14px auto 0; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: stretch; justify-content: space-between; }
+.seg { grid-template-columns: repeat(2, minmax(0, 1fr)); flex: 1 1 320px; min-width: 0; max-width: 720px; }
+.seg button, .metric button { display: flex; flex-direction: column; gap: 1px; }
+.seg button b { font-family: var(--display); font-size: 17px; }
+.seg button span, .metric button span { font-size: 11.5px; color: var(--muted); }
+.acts { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.metric { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.metric button b { font-size: 13px; }
+.choices.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pad { padding: 12px 14px 10px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cardh { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: space-between; align-items: baseline; }
+.legend { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot.us { background: var(--us); } .dot.ally { background: var(--accent); } .dot.off { border: 1.5px solid var(--faint); }
+.legend .sw { width: 14px; height: 10px; display: inline-block; border-radius: 1px; }
+.sw.ex { background: color-mix(in srgb, var(--warn) 28%, transparent); }
+.sw.bar { background: color-mix(in srgb, var(--prc) 70%, transparent); }
+.sw.base { background: var(--chip); border-top: 2px dashed var(--ink); }
+.sw.up { background: var(--accent); } .sw.down { background: var(--c7); }
+.sw.us { background: var(--us); } .sw.ally { background: var(--accent); }
+.legend .jm { font-family: var(--mono); color: var(--prc); }
+.legend .tri { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 9px solid var(--ally); display: inline-block; }
+
+.strip, .chart { width: 100%; height: auto; display: block; }
+.strip .cover { fill: color-mix(in srgb, var(--brand-ink) 7%, transparent); }
+.strip .exmark { fill: color-mix(in srgb, var(--warn) 40%, transparent); }
+.strip .edot { cursor: pointer; stroke-width: 1.5; }
+.strip .edot.off { stroke-width: 1.3; }
+.strip .edot.sel { stroke: var(--ink) !important; stroke-width: 2.5; }
+.strip .edot:hover { stroke: var(--ink); }
+.gridl { stroke: var(--rule); stroke-width: 1; }
+.axis { stroke: var(--muted); stroke-width: 1; }
+.ax { font: var(--axis-font); fill: var(--axis-ink); }
+.ax0 { fill: var(--ink); font-weight: 500; }
+.ax.nodata { fill: var(--faint); font-size: 10px; }
+.sumwin { fill: color-mix(in srgb, var(--blue) 6%, transparent); }
+.sumlab { fill: var(--blue); }
+.exday { fill: color-mix(in srgb, var(--warn) 16%, transparent); }
+.band { fill: var(--chip); }
+.bar { fill: color-mix(in srgb, var(--prc) 62%, transparent); }
+.bar0 { fill: var(--prc); }
+.bar.focus { stroke: var(--ink); stroke-width: 2; }
+.baseline { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.blab { fill: var(--ink); }
+.day0 { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 2 3; }
+.dev.up { fill: var(--accent); } .dev.down { fill: var(--c7); }
+.jmark { font: 600 11px var(--mono); fill: var(--prc); }
+.tmark { fill: var(--ally); }
+.hov { fill: transparent; }
+.hov:hover { fill: color-mix(in srgb, var(--ink) 5%, transparent); }
+.evline { fill: none; stroke-width: 1; opacity: .22; }
+.ciband { opacity: .16; }
+.meanline { fill: none; stroke-width: 2.5; }
+.cibar { stroke-width: 3; stroke-linecap: round; opacity: .55; }
+.sdot { cursor: pointer; stroke: var(--panel); stroke-width: 1.2; opacity: .85; }
+.sdot:hover, .sdot:focus-visible { stroke: var(--ink); stroke-width: 2; opacity: 1; }
+.glab { font: 600 12px var(--body); }
+.chart-wrap { position: relative; }
+.chart-msg { padding: 40px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--rule); border-radius: 4px; }
+.tip { margin: 0; font-size: 12.5px; color: var(--muted); min-height: 2.6em; }
+.tip b { color: var(--ink); }
+.research { max-width: 90ch; padding: 0 2px; }
+
+.evh { display: flex; justify-content: space-between; align-items: center; }
+.stepper { display: flex; gap: 4px; }
+.stepper .btn { padding: 2px 10px; font-size: 16px; }
+.evlist { list-style: none; margin: 0; padding: 0; max-height: 280px; overflow-y: auto; border: 1px solid var(--rule); border-radius: 3px; }
+.evlist li + li { border-top: 1px solid var(--rule); }
+.evlist button { width: 100%; text-align: left; background: transparent; border: 0; padding: 6px 8px; cursor: pointer; display: grid; grid-template-columns: auto 1fr; gap: 0 8px; font-size: 12.5px; }
+.evlist button:hover { background: var(--chip); }
+.evlist button[aria-pressed="true"] { background: var(--blue-soft); box-shadow: inset 3px 0 0 var(--blue); }
+.evlist .d { font-size: 11.5px; }
+.evlist .c { text-align: right; }
+.evlist .s { grid-column: 1 / -1; color: var(--ink); }
+.evlist .why { grid-column: 1 / -1; font-size: 11px; color: var(--faint); }
+.evlist .off .s, .evlist .off .d { color: var(--faint); }
+
+.headline { display: flex; flex-direction: column; gap: 2px; }
+.headline b { font-family: var(--display); font-size: 34px; line-height: 1; }
+.headline span { font-size: 12.5px; color: var(--muted); }
+.notes { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; color: var(--muted); }
+.notes li::before { content: "› "; color: var(--faint); }
+.warn { color: var(--warn); }
+.ships { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; font-size: 13px; }
+.ships li { display: flex; flex-wrap: wrap; gap: 0 6px; align-items: baseline; }
+.ships li span:last-child { flex-basis: 100%; font-size: 11.5px; color: var(--muted); }
+.median { fill: none; stroke: var(--coast); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.route { fill: none; stroke: var(--ally); stroke-width: 2; stroke-dasharray: 7 5; opacity: .75; }
+.ship .t-label { font-weight: 500; }
+
+body[data-view="agg"] .single-only { display: none; }
+body[data-view="single"] .agg-only { display: none; }
+.below .mt { margin-top: 22px; }
+
+.tour { position: fixed; right: 16px; bottom: 16px; z-index: 20; width: min(380px, calc(100% - 32px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 8px 28px rgba(0, 0, 0, .18); display: flex; flex-direction: column; gap: 6px; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13px; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+
+@media (max-width: 600px) {
+  body { padding-inline: 12px; }
+  .seg button span { display: none; }
+  .headline b { font-size: 28px; }
+}
+.shipcard { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 14px; align-items: start; }
+.shipcol { display: flex; flex-direction: column; gap: 8px; }
+@media (max-width: 700px) { .shipcard { grid-template-columns: minmax(0, 1fr); } }
+#map .t-label { font-size: 13px; }
+#map .t-place { font-size: 12px; }
+#map .t-sea { font-size: 14px; }
+@media (max-width: 700px) {
+  .chart-wrap { overflow-x: auto; }
+  .chart { min-width: 640px; }
+  .stripwrap { overflow-x: auto; }
+  .strip { min-width: 640px; }
+  .cardh .legend { font-size: 11.5px; }
+}
+.layout > * { min-width: 0; }
+
+.tip .xlinks { display: inline-flex; margin-left: 4px; }
+.tip .xlink { margin-top: 0; }
+.hov { cursor: pointer; }
+.card .tsm-export { margin-top: 8px; }
+.ships + .xlinks { margin: 8px 0 0; }
+.chart-wrap:has(.chart-msg:not([hidden])) + .tsm-export { display: none; }

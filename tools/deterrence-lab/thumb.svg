@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <!-- region plot -->
+  <rect x="330" y="40" width="280" height="300" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <rect x="350" y="60" width="90" height="70" fill="#a88000" fill-opacity=".35"/>
+  <rect x="350" y="130" width="90" height="190" fill="#e8753a" fill-opacity=".38"/>
+  <rect x="440" y="60" width="150" height="260" fill="#0c8474" fill-opacity=".33"/>
+  <line x1="440" y1="60" x2="440" y2="320" stroke="#14201a" stroke-dasharray="6 5" stroke-width="2"/>
+  <line x1="350" y1="130" x2="440" y2="130" stroke="#14201a" stroke-dasharray="6 5" stroke-width="2"/>
+  <line x1="350" y1="320" x2="590" y2="320" stroke="#14201a" stroke-width="2"/>
+  <line x1="350" y1="60" x2="350" y2="320" stroke="#14201a" stroke-width="2"/>
+  <circle cx="395" cy="250" r="11" fill="#fbfbf8" stroke="#14201a" stroke-width="4"/>
+  <!-- game tree -->
+  <g stroke-linecap="round">
+    <line x1="50" y1="200" x2="130" y2="110" stroke="#e8753a" stroke-width="7"/>
+    <line x1="50" y1="200" x2="130" y2="290" stroke="#e8753a" stroke-width="9"/>
+    <line x1="130" y1="110" x2="220" y2="80" stroke="#d3d6cd" stroke-width="3"/>
+    <line x1="130" y1="110" x2="220" y2="140" stroke="#e8753a" stroke-width="7"/>
+    <line x1="130" y1="290" x2="220" y2="260" stroke="#e8753a" stroke-width="8"/>
+    <line x1="130" y1="290" x2="220" y2="320" stroke="#e8753a" stroke-width="3"/>
+    <line x1="220" y1="140" x2="290" y2="115" stroke="#d3d6cd" stroke-width="3"/>
+    <line x1="220" y1="140" x2="290" y2="170" stroke="#b3261e" stroke-width="6"/>
+    <line x1="220" y1="320" x2="290" y2="295" stroke="#d3d6cd" stroke-width="3"/>
+    <line x1="220" y1="320" x2="290" y2="345" stroke="#e8753a" stroke-width="3"/>
+  </g>
+  <path d="M220 152 C 240 220, 240 250, 220 308" fill="none" stroke="#b3261e" stroke-width="3" stroke-dasharray="7 6"/>
+  <g fill="#fbfbf8" stroke="#14201a" stroke-width="3">
+    <circle cx="50" cy="200" r="14"/><circle cx="130" cy="110" r="14"/><circle cx="130" cy="290" r="14"/>
+    <circle cx="220" cy="140" r="14" stroke="#b3261e"/><circle cx="220" cy="320" r="14" stroke="#b3261e"/>
+  </g>
+  <text x="30" y="380" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#033303">Deterrence Lab</text>
+</svg>

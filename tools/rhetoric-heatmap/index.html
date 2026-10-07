@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PRC Rhetoric Heatmap | Taiwan Security Monitor</title>
+<meta name="description" content="Week-by-week themes in what China's Foreign Ministry, Defense Ministry and Taiwan Affairs Office say about Taiwan, with a source link for every statement.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="rhetoric-heatmap.css">
+</head>
+<body class="loading">
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage" id="stage">
+    <div class="toolbar-row">
+      <div class="choices seg" id="ranges" role="group" aria-label="Time range"></div>
+      <div class="choices seg" id="metric" role="group" aria-label="Measure">
+        <button type="button" data-m="count">Count</button>
+        <button type="button" data-m="share">Share of week</button>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn solid" id="start-tour">Walkthrough</button>
+        <button type="button" class="btn" id="copy-link">Copy link</button>
+      </div>
+    </div>
+    <form class="search" id="phrase-form" role="search">
+      <label for="phrase" class="eyebrow">Phrase search</label>
+      <div class="search-box">
+        <input id="phrase" type="search" autocomplete="off" spellcheck="false" placeholder="Any word or phrase, English or 中文">
+        <button type="button" class="btn" id="clear-phrase" hidden>Clear</button>
+      </div>
+      <p class="examples" id="examples">Try:
+        <button type="button" data-q="play with fire">play with fire</button>
+        <button type="button" data-q="台独">台独</button>
+        <button type="button" data-q="Takaichi">Takaichi</button>
+        <button type="button" data-q="2758">2758</button>
+        <button type="button" data-q="Anti-Secession Law">Anti-Secession Law</button>
+        <button type="button" data-q="compatriots">compatriots</button>
+      </p>
+      <p class="fine" id="phrase-count" aria-live="polite">Loading statements…</p>
+    </form>
+    <div class="hm card">
+      <svg id="hm-labels" class="hm-labels" aria-hidden="true"></svg>
+      <div class="hm-scroll" id="hm-scroll">
+        <svg id="hm-svg" tabindex="0" role="img" aria-label="Heatmap of rhetorical themes by week. Use arrow keys to move the selection; the panel lists the statements for the selected cell."></svg>
+      </div>
+      <div class="tooltip" id="hm-tip" hidden></div>
+      <div class="loading-note">Loading 1,568 statements…</div>
+    </div>
+    <div class="legend">
+      <span class="ramp" aria-hidden="true"></span><span class="num">0</span><span class="num" id="legend-max"></span>
+      <span class="fine" id="legend-note"></span>
+      <span class="key"><i class="k-empty"></i>No Taiwan statements held</span>
+      <span class="key"><i class="k-ev"></i>Exercise</span>
+      <span class="key"><i class="k-seam"></i>Collection change</span>
+      <span class="key"><i class="k-jcrp"></i>Readiness patrol day</span>
+    </div>
+    <div class="card profile" id="profile"></div>
+  </div>
+  <aside class="panel" aria-label="Controls and statements">
+    <div class="sec">
+      <p class="eyebrow">Sources</p>
+      <div id="sources"></div>
+    </div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+  </aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Every column is a week and every row is a theme. A cell counts the Taiwan-related statements that week whose answer matches the theme's keyword rule. Darker means more. White cells mean Taiwan Security Monitor (TSM) holds statements that week but none used the theme (or all of them are Chinese only, which theme rules cannot read); pale grey means TSM holds no Taiwan-related statement that week from the sources you selected. A grey week does not mean no briefing took place: many briefings take no Taiwan question. In September 2026, for example, the Foreign Ministry held 21 regular press conferences, and 9 of them produced a Taiwan-related answer.</p>
+    <p>Click a cell to read the statements behind it in the panel, with the matching words highlighted and a link to the transcript. Arrow keys move the selection once the heatmap has focus. The phrase search redraws the whole grid for statements that contain your phrase, so you can ask how a formula like “play with fire” or 台独 co-occurs with every theme.</p>
+    <p>Grey bands are large PLA exercises. Small ticks under the axis are joint combat readiness patrol days in TSM's shared PLA daily series (131 days, December 2022 to September 2026, from Taiwan Ministry of National Defense releases). Dashed lines are points where TSM's collection changed, so a jump that lines up with a dashed line is more likely to reflect collection than rhetoric. The bottom rows show how many Taiwan-related statements TSM holds from each source per week.</p>
+    <h2 class="mt">Theme rules</h2>
+    <p>A theme matches when its pattern appears in the English text of the spokesperson's answer. The reporter's question is not coded. Patterns are case-insensitive regular expressions; <code>\b</code> marks a word boundary.</p>
+    <div class="tablewrap"><table class="rules"><thead><tr><th>Theme</th><th>Pattern</th><th>What it captures</th></tr></thead><tbody id="rules"></tbody></table></div>
+  </div>
+  <div class="col">
+    <h2>Method and coverage</h2>
+    <ul class="src">
+      <li><b>Corpus.</b> 1,568 Taiwan-related question-and-answer items from PRC spokesperson briefings and releases, 4 July 2022 to 6 October 2026: 739 Foreign Ministry (MFA), 260 Defense Ministry (MND) and 569 Taiwan Affairs Office (TAO). An item is Taiwan-related when the question or answer names Taiwan, cross-Strait affairs, Taiwan's leaders or parties, reunification, or Kinmen, Penghu or Matsu.</li>
+      <li><b>MFA.</b> July 2022 to December 2025 comes from TSM's MFA statement archive, which holds questions touching the U.S., Japan, Taiwan and the Philippines, translated into English by TSM from the Chinese transcript. These translations can contain errors, and the official English transcript sometimes words an answer differently or leaves a Taiwan answer out. A September 2026 fact-check moved one misdated item to its correct day, removed two misdated duplicates and corrected one mistranslated item. A second check corrected mistranslated names in TSM and machine translations: Japan's Prime Minister Sanae Takaichi (rendered “Gao Shi” or “Takashi”), Japanese legislator Seki Hei, KMT chair Cheng Li-wun and AIT Taipei director Raymond Greene. January to April 2026 comes from TSM's per-question capture of every briefing (Taiwan Security Monitor translation, Chinese original linked). May to October 2026 come from the official English transcripts; July to October were collected from fmprc.gov.cn on 28 September 2026 and brought up to 7 October on 7 October 2026 (65 briefings, 21 of them in September; October holds 3 and 6 October, and only 6 October took Taiwan questions). Links go to the official English transcript of the same day.</li>
+      <li><b>MND.</b> Before May 2026 TSM collected one of the Defense Ministry's three spokesperson channels, so earlier months undercount MND output. May to September 2026 cover all three channels (monthly press conference, regular briefings, standalone statements). Most pre-May 2026 MND items were stored without their URL; those link to the Ministry's spokesperson page instead.</li>
+      <li><b>MND items in Chinese only.</b> MND had published no official English transcript for the 16 and 25 June and 4 September briefings when TSM checked eng.mod.gov.cn on 28 September 2026 (4 September re-checked on 30 September and 2 October), and its English site carries only news write-ups of 4 September and of the 20 May statement. Those 12 items are shown in Chinese and labelled “Chinese only”. The official English transcript of the 24 September press conference appeared by 30 September, so its 8 Taiwan-related items now carry the official English. MND's 14 September briefing took no Taiwan question. Theme rules read English, so they count in the coverage rows but not in theme cells or shares. TSM found no separate Chinese full text of MND's 14 August briefing, so its item is English only. Pre-May 2026 MND items without a URL were spot-checked against the Chinese transcripts on mod.gov.cn.</li>
+      <li><b>TAO.</b> TSM holds Taiwan Affairs Office releases from April 2026 only (gwytb.gov.cn), which publishes no English. April uses TSM translations; May and June use machine translation of the Chinese original, which is shown alongside. July to September 2026 were collected from gwytb.gov.cn on 28 September 2026, and the 30 September press conference and releases on 30 September 2026. Of these, the first 40 items collected were machine-translated by Google and the rest, including all 30 September items, by Claude (Anthropic), literally and in full. After duplicates are folded, 32 of the July to September items shown are labelled “Machine translation (Google)”, like May and June, and 252 “Machine translation (Claude)”. No TAO item has an official or human-checked English text. The Chinese original is shown alongside every machine translation.</li>
+      <li><b>Duplicates removed.</b> TAO publishes most press-conference answers twice, in the transcript (新闻发布会) and as a separate spokesperson release (发言人答记者问). TSM keeps the transcript item and links the release as “Also published”; 164 releases were folded in this way (6 in April, 23 in May, 36 in June, 99 in July to September). An item is folded when at least 80% of its wording appears in an answer from the same day's transcript. For MND, 19 items that held the same answer twice on the same day (the official English plus a TSM re-translation) were merged, keeping the official English.</li>
+      <li><b>What is missing.</b> No TAO data before April 2026, nothing after 7 October 2026 (when TSM checked all three ministries' sites on 7 October 2026, MFA had held briefings on 3 and 6 October during the National Day holiday, and MND and TAO had posted no briefing or release dated after 30 September), English for the Chinese-only items above, and Chinese text for most items before 2026. The heatmap measures what TSM collected. Read counts across the dashed lines with care, or use the share view.</li>
+      <li>Keyword rules are blunt. “U.S.” fires on any mention, and a machine translation can word the same Chinese phrase two ways. Always read the quotes.</li>
+    </ul>
+    <h2 class="mt">Exercises marked</h2>
+    <ul class="src" id="events-list"></ul>
+    <h2 class="mt">Sources</h2>
+    <ul class="src">
+      <li>Statements: Taiwan Security Monitor MFA, MND and TAO repositories (July 2026 build), the June–July 2026 intake, and TSM's July–September 2026 collection (28 September 2026, brought up to 30 September on 30 September 2026 and to 7 October on 7 October 2026), compiled from <a href="https://www.fmprc.gov.cn/eng/xw/fyrbt/lxjzh/" target="_blank" rel="noopener">fmprc.gov.cn</a>, <a href="https://www.mfa.gov.cn/web/fyrbt_673021/jzhsl_673025/" target="_blank" rel="noopener">mfa.gov.cn</a>, <a href="http://eng.mod.gov.cn/2025xb/P/D_251802/index.html" target="_blank" rel="noopener">eng.mod.gov.cn</a>, <a href="http://www.mod.gov.cn/gfbw/xwfyr/lxjzh_246940/" target="_blank" rel="noopener">mod.gov.cn</a> (also <a href="http://www.mod.gov.cn/gfbw/xwfyr/yzxwfb/" target="_blank" rel="noopener">regular briefings</a> and <a href="http://www.mod.gov.cn/gfbw/xwfyr/fyrthhdjzw/" target="_blank" rel="noopener">statements</a>) and <a href="https://www.gwytb.gov.cn/xwdt/xwfb/xwfbh/" target="_blank" rel="noopener">gwytb.gov.cn</a> (also <a href="https://www.gwytb.gov.cn/xwdt/xwfb/wyly/" target="_blank" rel="noopener">spokesperson releases</a>).</li>
+      <li>Exercise dates: TSM's verified exercise event list, with the public sources listed above. Readiness patrol days: TSM's shared PLA daily series, from Taiwan Ministry of National Defense releases.</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'PRC Rhetoric Heatmap', sub: 'What Beijing\'s Foreign Ministry, Defense Ministry and Taiwan Affairs Office say about Taiwan, week by week, with a source link for every statement.', category: 'Narrative & rhetoric' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

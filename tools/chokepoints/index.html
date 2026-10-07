@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chokepoint Dashboard | Taiwan Security Monitor</title>
+<meta name="description" content="Close Indo-Pacific maritime chokepoints and see how voyages reroute, with the added distance, days and a notional cost.">
+<meta property="og:title" content="Chokepoint Dashboard | Taiwan Security Monitor">
+<meta property="og:description" content="Close Malacca, Luzon or the Taiwan Strait and watch a tanker reroute. Sourced facts on eight Indo-Pacific chokepoints.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="chokepoints.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="mapbox">
+      <svg id="cp-map" role="img" aria-label="Map of Indo-Pacific sea lanes with chokepoint markers, the current route and animated ships"></svg>
+      <div class="cp-views" role="toolbar" aria-label="Map view">
+        <button type="button" data-view="fit">Fit route</button>
+        <button type="button" data-view="east">East Asia</button>
+        <button type="button" data-view="region">Gulf to Japan</button>
+        <button type="button" data-view="all">Whole map</button>
+        <button type="button" id="cp-copy">Copy link</button>
+      </div>
+      <p class="cp-legend"><span class="k k-route"></span>current route <span class="k k-ghost"></span>all-open route <span class="k k-closed"></span>closed</p>
+      <div class="tooltip" id="cp-tip" hidden></div>
+    </div>
+    <div class="card cp-factcard" id="cp-facts"></div>
+    <p class="fine cp-note">Click a chokepoint marker to close or reopen it. Lanes are hand-drawn and approximate; real ships follow traffic schemes, weather and draft limits the model leaves out.</p>
+  </div>
+  <aside class="panel" id="panel" aria-label="Voyage, chokepoints and results"></aside>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Each voyage follows the shortest path through a network of approximate sea lanes. Close a chokepoint and the path jumps to the next-shortest way around. The gray dashed line keeps the all-open route on the map for comparison, and the tiles in the panel show what the detour adds: nautical miles, days at the speed you set, and a cost for one ship at a daily rate you set.</p>
+    <p>The cost is a framing device. It multiplies extra days by one daily number that stands in for charter, fuel and crew, so it is marked <span class="notional">notional</span>. Real costs depend on ship type, market rates, insurance and how many ships reroute at once. For a sourced order of magnitude, CSIS China Power estimated that a week-long closure of the Strait of Malacca would add about $64.5 million in shipping costs across all affected ships, assuming tankers and bulk carriers over 100,000 deadweight tons divert through Lombok and smaller ships through Sunda.</p>
+    <h2 class="mt">The Taiwan Strait contingency</h2>
+    <p>A blockade, quarantine or invasion of Taiwan would directly touch the Taiwan Strait, the Luzon Strait and Bashi Channel, and the waters east of Taiwan toward Yonaguni. CSIS notes that ships bound for China could reroute through the Miyako Strait, where they would still be exposed. Kaohsiung and Taichung sit on the Strait itself, so for Taiwan's own ports there is no detour. More Taiwan Security Monitor research is at <a href="https://tsm.schar.gmu.edu/" target="_blank" rel="noopener">tsm.schar.gmu.edu</a>.</p>
+    <div id="cp-table"></div>
+  </div>
+  <div class="col">
+    <h2>Method and sources</h2>
+    <ul class="src">
+      <li>Oil flows: U.S. Energy Information Administration, <a href="https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints" target="_blank" rel="noopener">World Oil Transit Chokepoints</a> (updated March 3, 2026). Hormuz and Malacca widths: the <a href="https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/archive/pdf/WOTC_2017.pdf" target="_blank" rel="noopener">2017 edition</a> of the same EIA report.</li>
+      <li>Trade values, reroute order and the Taiwan contingency: Hart, Funaiole, Peng, Verschuur, Lin and Li, <a href="https://www.csis.org/analysis/south-china-sea-trade-chokepoints" target="_blank" rel="noopener">Troubled Straits: Analyzing Trade Chokepoints in the South China Sea</a>, CSIS, July 1, 2026. Week-long Malacca closure cost: CSIS China Power, <a href="https://chinapower.csis.org/much-trade-transits-south-china-sea/" target="_blank" rel="noopener">How Much Trade Transits the South China Sea?</a></li>
+      <li>Widths and depths not given by EIA or CSIS come from the Wikipedia articles on the <a href="https://en.wikipedia.org/wiki/Strait_of_Malacca" target="_blank" rel="noopener">Malacca</a>, <a href="https://en.wikipedia.org/wiki/Sunda_Strait" target="_blank" rel="noopener">Sunda</a>, <a href="https://en.wikipedia.org/wiki/Lombok_Strait" target="_blank" rel="noopener">Lombok</a>, <a href="https://en.wikipedia.org/wiki/Luzon_Strait" target="_blank" rel="noopener">Luzon</a>, <a href="https://en.wikipedia.org/wiki/Taiwan_Strait" target="_blank" rel="noopener">Taiwan</a>, <a href="https://en.wikipedia.org/wiki/Miyako_Strait" target="_blank" rel="noopener">Miyako</a> and <a href="https://en.wikipedia.org/wiki/Korea_Strait" target="_blank" rel="noopener">Korea</a> straits. Japan's 3-mile limit in the Tsushima Strait is checked against the text of its <a href="https://www.un.org/depts/los/LEGISLATIONANDTREATIES/PDFFILES/JPN_1977_Law.pdf" target="_blank" rel="noopener">1977 Law on the Territorial Sea</a> (UN DOALOS). Makassar, Luzon Strait, Bashi and Taiwan–Yonaguni widths were measured for this tool on Natural Earth land and are labeled "measured".</li>
+      <li>Sea lanes: about 110 hand-placed waypoints joined by great-circle segments, checked so that no segment crosses Natural Earth 1:50m land (<code>scripts/lanes.py</code>). Routes are the shortest path through that network (Dijkstra). They are approximate, so the absolute distances are less reliable than the differences between routes.</li>
+      <li>The Strait of Hormuz is shown for context and cannot be closed here. The "extra" toggles (waters east of Taiwan, eastern Indonesian passages) are not among the eight named chokepoints; they exist so the reroutes have somewhere honest to go. With every Indonesian passage closed, ships go around Australia, the worst case CSIS describes.</li>
+      <li>Speed (default 14 knots) and daily ship cost (default $60,000) are <span class="notional">notional</span> inputs you control.</li>
+      <li>Map: Natural Earth 1:50m land (public domain).</li>
+    </ul>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Chokepoint Dashboard', sub: 'Close Indo-Pacific chokepoints and watch shipping reroute, with the added distance, days and a notional cost.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

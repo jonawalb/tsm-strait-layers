@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="40" y="36" width="560" height="300" rx="8" fill="#14201a"/>
+  <rect x="60" y="64" width="230" height="230" rx="4" fill="#1b2b2a"/>
+  <path d="M60 64 L118 64 L112 96 L96 128 L84 170 L60 196 Z" fill="#3a4b40"/>
+  <path d="M206 120 C222 112 232 124 230 146 C228 176 214 210 196 238 C186 228 182 206 184 182 C186 156 192 130 206 120 Z" fill="#4c6152"/>
+  <path d="M120 90 L196 80 L244 80 L244 220 L210 268 L132 268 L132 196 Z" fill="#e8753a" fill-opacity=".14" stroke="#e8753a" stroke-width="3" stroke-dasharray="9 6"/>
+  <g fill="#e8753a">
+    <rect x="318" y="190" width="26" height="70" rx="3"/>
+    <rect x="354" y="140" width="26" height="120" rx="3"/>
+    <rect x="390" y="160" width="26" height="100" rx="3"/>
+    <rect x="426" y="226" width="26" height="34" rx="3"/>
+    <rect x="462" y="210" width="26" height="50" rx="3"/>
+    <rect x="498" y="232" width="26" height="28" rx="3"/>
+    <rect x="534" y="222" width="26" height="38" rx="3"/>
+  </g>
+  <line x1="312" y1="172" x2="568" y2="172" stroke="#e2b53b" stroke-width="3" stroke-dasharray="10 7"/>
+  <text x="318" y="102" font-family="Georgia, serif" font-weight="700" font-size="34" fill="#f2f2ee">Weekly</text>
+  <text x="318" y="138" font-family="Georgia, serif" font-weight="700" font-size="34" fill="#f2f2ee">briefing</text>
+  <circle cx="175" cy="180" r="38" fill="#f2f2ee" fill-opacity=".92"/>
+  <path d="M163 160 L195 180 L163 200 Z" fill="#033303"/>
+  <rect x="40" y="350" width="560" height="10" rx="5" fill="#d6e1e1"/>
+  <rect x="40" y="350" width="236" height="10" rx="5" fill="#e8753a"/>
+  <rect x="150" y="306" width="340" height="18" rx="4" fill="#f2f2ee" fill-opacity=".85"/>
+</svg>
