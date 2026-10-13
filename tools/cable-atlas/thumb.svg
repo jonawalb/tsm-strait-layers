@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <g stroke="#c5d0d0" stroke-width="1"><path d="M0 100H640M0 200H640M0 300H640M160 0V400M320 0V400M480 0V400"/></g>
+  <path d="M60 0L150 0L170 60L130 140L90 210L40 260L0 280L0 0Z" fill="#e9e4d4" stroke="#97a197"/>
+  <path d="M258 128C272 112 290 116 292 136C294 160 284 196 270 214C258 226 248 214 246 196C244 170 248 142 258 128Z" fill="#e9e4d4" stroke="#97a197"/>
+  <path d="M250 300C270 284 300 290 306 312C312 336 296 372 282 400L240 400C236 360 238 318 250 300Z" fill="#e9e4d4" stroke="#97a197"/>
+  <g fill="#e9e4d4" stroke="#97a197"><circle cx="420" cy="70" r="6"/><circle cx="380" cy="100" r="4"/><circle cx="350" cy="118" r="3"/></g>
+  <g fill="none" stroke-width="5" stroke-linecap="round">
+    <path d="M286 140C360 130 470 120 640 96" stroke="#1b4fd4"/>
+    <path d="M290 150C380 170 500 190 640 200" stroke="#1b4fd4"/>
+    <path d="M268 210C300 250 330 280 360 400" stroke="#1b4fd4"/>
+    <path d="M282 132C320 100 360 90 420 70" stroke="#a1487a"/>
+    <path d="M300 310C380 300 500 290 640 270" stroke="#a88000"/>
+    <path d="M250 136C200 140 160 150 120 170" stroke="#b3261e" stroke-dasharray="12 9"/>
+    <path d="M262 214C230 250 200 280 140 330" stroke="#a88000"/>
+  </g>
+  <g fill="#fbfbf8" stroke="#14201a" stroke-width="3"><circle cx="286" cy="138" r="11"/><circle cx="268" cy="212" r="9"/><circle cx="300" cy="306" r="9"/></g>
+  <path d="M460 236L474 250L460 264L446 250Z" fill="#e8753a" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M196 116L210 130L196 144L182 130Z" fill="#e8753a" stroke="#fbfbf8" stroke-width="2"/>
+  <rect x="24" y="336" width="246" height="44" rx="4" fill="#fbfbf8" stroke="#033303" stroke-width="2"/>
+  <text x="38" y="366" font-family="Georgia, serif" font-weight="700" font-size="24" fill="#033303">Cable Atlas</text>
+</svg>

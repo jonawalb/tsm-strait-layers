@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M0 0 L190 0 L175 60 L150 120 L120 170 L95 230 L60 290 L0 330 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M300 92 C318 80 338 86 346 106 C356 138 352 182 338 222 C326 258 304 294 290 300 C276 290 268 262 266 230 C262 186 272 132 300 92 Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <ellipse cx="308" cy="196" rx="132" ry="160" fill="#b3261e" fill-opacity="0.07" stroke="#b3261e" stroke-width="3" stroke-dasharray="14 8"/>
+  <path d="M90 370 L170 280 L230 200 L280 120 L340 30" fill="none" stroke="#0c8474" stroke-width="7" stroke-linecap="round" stroke-dasharray="3 14" opacity="0.5"/>
+  <path d="M260 390 L420 360 L470 260 L470 140 L490 20" fill="none" stroke="#e8753a" stroke-width="8" stroke-linecap="round" stroke-dasharray="10 12"/>
+  <path d="M40 360 L180 330 L262 284" fill="none" stroke="#1b4fd4" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 12" opacity="0.6"/>
+  <path d="M338 120 L520 60 L640 40" fill="none" stroke="#b3261e" stroke-width="4" stroke-dasharray="8 6"/>
+  <path d="M345 160 L560 150 L640 170" fill="none" stroke="#6a4fb5" stroke-width="4"/>
+  <circle cx="266" cy="282" r="13" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="278" cy="170" r="10" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <g transform="translate(500 330)">
+    <rect x="0" y="0" width="118" height="54" rx="6" fill="#fbfbf8" stroke="#14201a" stroke-width="2"/>
+    <rect x="12" y="34" width="94" height="10" rx="3" fill="#e7e9e1"/>
+    <rect x="12" y="34" width="28" height="10" rx="3" fill="#b3261e"/>
+    <text x="12" y="26" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#14201a">LNG 3 d</text>
+  </g>
+</svg>

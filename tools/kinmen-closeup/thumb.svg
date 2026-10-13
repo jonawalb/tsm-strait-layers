@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M0 0H200C230 40 200 90 160 110 120 130 80 120 40 150 20 165 0 170 0 170Z" fill="#e9e4d4" stroke="#97a197"/>
+  <path d="M110 250L250 110 420 60 540 150 520 250 360 240 300 300 170 290Z" fill="rgba(27,79,212,.12)" stroke="#1b4fd4" stroke-width="3"/>
+  <path d="M110 250L250 110 420 60 505 150 470 230 360 225 300 275 170 270Z" fill="rgba(179,38,30,.10)" stroke="#b3261e" stroke-width="3"/>
+  <path d="M300 110C340 90 400 100 430 140 450 170 420 200 380 190 350 185 330 205 300 200 270 196 250 170 262 145 272 125 285 118 300 110Z" fill="#e9e4d4" stroke="#97a197"/>
+  <path d="M205 170c14-8 30-4 32 8 2 12-14 22-28 18-12-3-14-18-4-26z" fill="#e9e4d4" stroke="#97a197"/>
+  <g fill="#b0306e" stroke="#fbfbf8" stroke-width="2">
+    <circle cx="190" cy="232" r="8"/><circle cx="208" cy="244" r="8"/><circle cx="176" cy="248" r="8"/><circle cx="198" cy="260" r="8"/>
+    <circle cx="410" cy="218" r="8"/><circle cx="428" cy="206" r="8"/><circle cx="394" cy="206" r="8"/><circle cx="418" cy="232" r="8"/><circle cx="440" cy="222" r="8"/>
+    <circle cx="300" cy="248" r="8"/><circle cx="318" cy="236" r="8"/>
+  </g>
+  <g fill="#56625b"><rect x="60" y="190" width="10" height="10"/><rect x="85" y="175" width="10" height="10"/><rect x="570" y="300" width="10" height="10"/></g>
+  <text x="600" y="370" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#14201a">Kinmen</text>
+</svg>
