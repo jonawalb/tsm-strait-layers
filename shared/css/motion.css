@@ -1,0 +1,16 @@
+/* Motion tokens for the interactive tools. Use these instead of inline curves and durations.
+   Rules (docs/MOTION_RULES.md): enter with ease-out, exit with ease-in and shorter, move with ease-in-out;
+   linear only for progress and timelines. One hero move at a time; readouts follow it. */
+:root {
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);   /* ease-out-expo: reveals, values arriving */
+  --ease-move:  cubic-bezier(0.76, 0, 0.24, 1);  /* ease-in-out-quart: things travelling across the screen */
+  --ease-exit:  cubic-bezier(0.7, 0, 0.84, 0);   /* ease-in-expo: things leaving */
+  --dur-feedback: 150ms;                         /* hover, press, focus */
+  --dur-move: 400ms;                             /* a value or a panel changing */
+  --dur-hero: 750ms;                             /* the one main change of a turn */
+  --dur-exit: 240ms;
+  --stagger-item: 60ms;                          /* between list items or rows */
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-feedback: 0ms; --dur-move: 0ms; --dur-hero: 0ms; --dur-exit: 0ms; --stagger-item: 0ms; }
+}

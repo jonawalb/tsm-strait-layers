@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <!-- ladder -->
+  <g>
+    <line x1="70" y1="30" x2="70" y2="375" stroke="#14201a" stroke-width="5"/>
+    <line x1="270" y1="30" x2="270" y2="375" stroke="#14201a" stroke-width="5"/>
+    <rect x="80" y="40" width="180" height="22" rx="3" fill="#e7e9e1"/>
+    <rect x="80" y="74" width="180" height="22" rx="3" fill="#e7e9e1"/>
+    <rect x="80" y="108" width="180" height="22" rx="3" fill="#e7e9e1"/>
+    <rect x="80" y="142" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".95" stroke="#14201a" stroke-width="3"/>
+    <rect x="80" y="176" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".8"/>
+    <rect x="80" y="210" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".65"/>
+    <rect x="80" y="244" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".5"/>
+    <rect x="80" y="278" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".38"/>
+    <rect x="80" y="312" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".28"/>
+    <rect x="80" y="346" width="180" height="22" rx="3" fill="#e8753a" fill-opacity=".2"/>
+    <line x1="58" y1="203" x2="282" y2="203" stroke="#b3261e" stroke-width="3" stroke-dasharray="10 6"/>
+    <polyline points="22,357 34,323 46,289 52,221 58,153" fill="none" stroke="#14201a" stroke-width="4"/>
+    <circle cx="58" cy="153" r="7" fill="#14201a"/>
+  </g>
+  <!-- tree -->
+  <g stroke="#c9ccc3" stroke-width="3" fill="none">
+    <path d="M340 210 C375 210 375 120 410 120"/><path d="M340 210 H410"/><path d="M340 210 C375 210 375 300 410 300"/>
+    <path d="M410 120 C445 120 445 90 480 90"/><path d="M410 210 C445 210 445 300 480 300"/><path d="M410 300 C445 300 445 200 480 200"/>
+    <path d="M480 90 C515 90 515 150 550 150"/><path d="M480 200 C515 200 515 260 550 260"/><path d="M480 300 C515 300 515 340 550 340"/>
+    <path d="M550 150 C580 150 580 100 610 100"/><path d="M550 260 C580 260 580 300 610 300"/><path d="M550 340 C580 340 580 360 610 360"/>
+  </g>
+  <path d="M340 210 C375 210 375 120 410 120 C445 120 445 90 480 90 C515 90 515 150 550 150 C580 150 580 100 610 100" fill="none" stroke="#e8753a" stroke-width="7"/>
+  <path d="M340 210 C375 210 375 300 410 300 C445 300 445 200 480 200 C515 200 515 260 550 260 C580 260 580 300 610 300" fill="none" stroke="#1b4fd4" stroke-width="5" stroke-dasharray="12 7"/>
+  <g fill="#fbfbf8" stroke="#7f8a83" stroke-width="3">
+    <circle cx="340" cy="210" r="10" fill="#e8753a" stroke="#e8753a"/>
+    <circle cx="410" cy="120" r="9"/><circle cx="410" cy="210" r="9"/><circle cx="410" cy="300" r="9"/>
+    <circle cx="480" cy="90" r="9"/><circle cx="480" cy="200" r="9"/><circle cx="480" cy="300" r="9"/>
+    <circle cx="550" cy="150" r="9"/><circle cx="550" cy="260" r="9"/><circle cx="550" cy="340" r="9"/>
+  </g>
+  <rect x="600" y="90" width="20" height="20" rx="3" fill="#033303"/>
+  <rect x="600" y="290" width="20" height="20" rx="3" fill="#b3261e"/>
+  <rect x="600" y="350" width="20" height="20" rx="3" fill="#fbfbf8" stroke="#b3261e" stroke-width="3"/>
+  <text x="340" y="52" font-family="Georgia, serif" font-weight="700" font-size="34" fill="#14201a">Kinmen crisis</text>
+</svg>
