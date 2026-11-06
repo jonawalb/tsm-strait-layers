@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="6" fill="#d6e1e1"/>
+  <!-- stylized landmasses: Africa, Europe-Asia, Southeast Asia, Australia -->
+  <path d="M150 150 L205 140 L235 170 L228 215 L205 270 L182 300 L165 262 L150 215 L130 190 Z" fill="#fc9272" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M150 150 L165 105 L205 92 L230 120 L205 140 Z" fill="#fcbba1" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M205 92 L300 70 L420 72 L500 95 L470 120 L420 125 L380 118 L330 120 L290 128 L250 125 L230 120 Z" fill="#cb181d" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M235 170 L255 135 L290 128 L300 160 L282 185 L258 182 Z" fill="#ef3b2c" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M300 160 L290 128 L330 120 L345 150 L330 195 L312 190 Z" fill="#fb6a4a" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M330 120 L380 118 L420 125 L440 150 L415 178 L372 180 L345 150 Z" fill="#4a0006" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M372 180 L415 178 L408 215 L388 232 L372 205 Z" fill="#ef3b2c" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M380 245 L420 240 L455 250 L470 262 L430 266 L395 258 Z" fill="#cb181d" stroke="#fbfbf8" stroke-width="2"/>
+  <path d="M440 290 L500 280 L530 300 L520 335 L470 340 L445 318 Z" fill="#e9e4d4" stroke="#fbfbf8" stroke-width="2"/>
+  <!-- BRI outlines -->
+  <path d="M235 170 L255 135 L290 128 L300 160 L282 185 L258 182 Z M300 160 L290 128 L330 120 L345 150 L330 195 L312 190 Z" fill="none" stroke="#14201a" stroke-width="2.5"/>
+  <!-- project points -->
+  <g fill-opacity=".75" stroke="#fbfbf8" stroke-width="1.5">
+    <circle cx="318" cy="160" r="14" fill="#cf4d12"/>
+    <circle cx="306" cy="176" r="9" fill="#1b4fd4"/>
+    <circle cx="395" cy="205" r="11" fill="#1b4fd4"/>
+    <circle cx="430" cy="256" r="12" fill="#cf4d12"/>
+    <circle cx="190" cy="230" r="13" fill="#1b4fd4"/>
+    <circle cx="205" cy="190" r="8" fill="#0c8474"/>
+    <circle cx="560" cy="265" r="6" fill="#0c8474"/>
+    <circle cx="585" cy="240" r="5" fill="#a88000"/>
+  </g>
+  <rect x="40" y="320" width="150" height="40" rx="4" fill="#fbfbf8"/>
+  <text x="56" y="350" font-family="Georgia, serif" font-weight="700" font-size="28" fill="#14201a">BRIT</text>
+</svg>

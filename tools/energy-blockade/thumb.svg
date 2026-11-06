@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="6" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <!-- tanks -->
+  <g stroke-width="3">
+    <rect x="52" y="60" width="96" height="150" rx="12" fill="#e7e9e1" stroke="#b3261e"/>
+    <rect x="54" y="200" width="92" height="8" fill="#1b4fd4" opacity=".6"/>
+    <rect x="172" y="60" width="96" height="150" rx="12" fill="#e7e9e1" stroke="#d3d6cd"/>
+    <rect x="174" y="118" width="92" height="90" fill="#6b5b3e" opacity=".55"/>
+    <rect x="292" y="60" width="96" height="150" rx="12" fill="#e7e9e1" stroke="#d3d6cd"/>
+    <rect x="294" y="76" width="92" height="132" fill="#e8753a" opacity=".6"/>
+  </g>
+  <text x="100" y="244" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#14201a" text-anchor="middle">LNG</text>
+  <text x="220" y="244" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#14201a" text-anchor="middle">Coal</text>
+  <text x="340" y="244" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#14201a" text-anchor="middle">Oil</text>
+  <!-- clock -->
+  <circle cx="510" cy="135" r="76" fill="#fbfbf8" stroke="#033303" stroke-width="6"/>
+  <path d="M510 135 L510 59 A76 76 0 0 1 580 106 Z" fill="#b3261e" opacity=".85"/>
+  <line x1="510" y1="135" x2="510" y2="78" stroke="#14201a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="510" y1="135" x2="552" y2="152" stroke="#14201a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="510" cy="135" r="7" fill="#e8753a"/>
+  <!-- supply chart -->
+  <g transform="translate(52 272)">
+    <rect width="536" height="80" fill="#e7e9e1"/>
+    <path d="M0 2 H536 V80 H0 Z" fill="#b3261e" opacity=".14"/>
+    <path d="M0 2 H70 L80 44 H200 L210 66 H536 V80 H0 Z" fill="#6b5b3e" opacity=".75"/>
+    <path d="M0 2 H70 L80 44 H0 Z" fill="#1b4fd4" opacity=".75"/>
+    <rect x="0" y="66" width="536" height="14" fill="#0c8474"/>
+    <line x1="0" y1="2" x2="536" y2="2" stroke="#14201a" stroke-width="3" stroke-dasharray="10 7"/>
+  </g>
+</svg>

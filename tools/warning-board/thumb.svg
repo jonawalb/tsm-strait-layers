@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <g fill="none" stroke-width="16" stroke-linecap="butt">
+    <path d="M40 120A60 60 0 0 1 160 120" stroke="#e7e9e1"/><path d="M40 120A60 60 0 0 1 130 68" stroke="#b3261e"/>
+    <path d="M260 120A60 60 0 0 1 380 120" stroke="#e7e9e1"/><path d="M260 120A60 60 0 0 1 280 75" stroke="#e8753a"/>
+    <path d="M480 120A60 60 0 0 1 600 120" stroke="#e7e9e1"/><path d="M480 120A60 60 0 0 1 585 90" stroke="#0c8474"/>
+  </g>
+  <text x="320" y="185" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="34" fill="#14201a">Drill or war?</text>
+  <g>
+    <rect x="40" y="215" width="130" height="36" rx="4" fill="#b3261e"/>
+    <rect x="185" y="215" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="330" y="215" width="130" height="36" rx="4" fill="#e8753a"/>
+    <rect x="475" y="215" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#a86c10" stroke-width="3"/>
+    <rect x="40" y="265" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="185" y="265" width="130" height="36" rx="4" fill="#b0306e"/>
+    <rect x="330" y="265" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#a86c10" stroke-width="3"/>
+    <rect x="475" y="265" width="130" height="36" rx="4" fill="#0c8474"/>
+    <rect x="40" y="315" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="185" y="315" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="330" y="315" width="130" height="36" rx="4" fill="#b3261e"/>
+    <rect x="475" y="315" width="130" height="36" rx="4" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+  </g>
+  <g>
+    <rect x="40" y="366" width="108" height="14" fill="#033303"/><rect x="152" y="366" width="108" height="14" fill="#e7e9e1"/>
+    <rect x="264" y="366" width="108" height="14" fill="#e8753a"/><rect x="376" y="366" width="108" height="14" fill="#e7e9e1"/>
+    <rect x="488" y="366" width="117" height="14" fill="#e7e9e1"/>
+  </g>
+</svg>

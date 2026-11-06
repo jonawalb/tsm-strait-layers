@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M0 0H150L170 60 140 120 180 190 150 260 90 330 60 400H0Z" fill="#e9e4d4" stroke="#97a197" stroke-width="1.5"/>
+  <path d="M332 118C352 104 372 112 376 140 382 180 372 236 352 286 340 312 322 318 312 296 300 262 300 214 306 176 310 146 318 128 332 118Z" fill="#e9e4d4" stroke="#97a197" stroke-width="1.5"/>
+  <g fill="none" stroke-linecap="round" stroke-width="5">
+    <path d="M362 132C430 110 520 70 640 40" stroke="#1b4fd4"/>
+    <path d="M366 144C450 140 540 120 640 118" stroke="#1b4fd4"/>
+    <path d="M372 176C450 200 540 210 640 206" stroke="#1b4fd4"/>
+    <path d="M330 300C360 340 420 370 470 400" stroke="#1b4fd4"/>
+    <path d="M320 302C300 340 260 372 230 400" stroke="#1b4fd4"/>
+    <path d="M340 120C300 100 250 90 200 70" stroke="#b3261e"/>
+    <path d="M310 200C270 210 240 214 214 212" stroke="#0c8474"/>
+    <path d="M326 124C290 70 250 50 214 40" stroke="#0c8474" stroke-dasharray="10 9" opacity=".55"/>
+  </g>
+  <g fill="#fbfbf8" stroke="#14201a" stroke-width="3">
+    <circle cx="362" cy="132" r="8"/><circle cx="372" cy="176" r="8"/><circle cx="330" cy="300" r="8"/><circle cx="310" cy="200" r="8"/>
+  </g>
+  <circle cx="214" cy="40" r="17" fill="none" stroke="#b3261e" stroke-width="4"/>
+  <path d="M254 60l16 16M270 60l-16 16" stroke="#b3261e" stroke-width="5" stroke-linecap="round"/>
+  <text x="616" y="370" text-anchor="end" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#033303">Cut simulator</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="6" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <g font-family="Menlo, monospace" font-size="24" font-weight="700">
+    <rect x="48" y="52" width="260" height="58" rx="4" fill="none" stroke="#d3d6cd"/>
+    <path d="M62 92 L90 86 L118 90 L146 80 L174 84 L202 76 L230 82" fill="none" stroke="#1b4fd4" stroke-width="4" stroke-linejoin="round"/>
+    <text x="246" y="90" fill="#14201a">3¢</text>
+    <rect x="48" y="122" width="260" height="58" rx="4" fill="none" stroke="#d3d6cd"/>
+    <path d="M62 166 L90 150 L118 158 L146 140 L174 146 L202 132 L230 138" fill="none" stroke="#e8753a" stroke-width="4" stroke-linejoin="round"/>
+    <text x="240" y="160" fill="#14201a">27¢</text>
+    <rect x="48" y="192" width="260" height="58" rx="4" fill="none" stroke="#d3d6cd"/>
+    <path d="M62 222 L90 230 L118 226 L146 234 L174 228 L202 236 L230 232" fill="none" stroke="#0c8474" stroke-width="4" stroke-linejoin="round"/>
+    <text x="240" y="230" fill="#14201a">12¢</text>
+  </g>
+  <g transform="translate(350 52)">
+    <rect width="236" height="200" fill="none" stroke="#d3d6cd"/>
+    <line x1="0" y1="200" x2="236" y2="0" stroke="#7a8077" stroke-width="2" stroke-dasharray="7 6"/>
+    <g fill="#c9dccb" stroke="#033303" stroke-width="2.5">
+      <circle cx="14" cy="192" r="15"/><circle cx="50" cy="150" r="9"/><circle cx="94" cy="118" r="8"/>
+      <circle cx="136" cy="82" r="9"/><circle cx="178" cy="44" r="8"/><circle cx="214" cy="20" r="11"/>
+    </g>
+  </g>
+  <text x="48" y="340" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#14201a">Crowd forecasts, scored</text>
+</svg>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Philippines Arms Sales Backlog | Taiwan Security Monitor</title>
+<meta name="description" content="U.S. arms sales to the Philippines in two tiers: the small contracted backlog under a signed Letter of Offer and Acceptance, and the far larger set of sales notified to Congress that Manila never accepted.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=PT+Serif:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="../../shared/css/motion.css">
+<link rel="stylesheet" href="philippines-arms-backlog.css">
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+
+<section class="headline two" aria-label="Backlog summary in two tiers">
+  <div class="counter c">
+    <p class="eyebrow">Contracted backlog · as of <span data-asof>Oct. 13, 2026</span></p>
+    <p class="tier-l">LOA signed, not fully delivered</p>
+    <p class="big"><span class="num" id="big-c">$126M</span></p>
+    <p class="fine" id="sub-c"></p>
+  </div>
+  <div class="counter n">
+    <p class="eyebrow">Notified, not accepted · as of <span data-asof>Oct. 13, 2026</span></p>
+    <p class="tier-l">Notified to Congress, no signed LOA</p>
+    <p class="big"><span class="num" id="big-n">$6.01B</span></p>
+    <p class="fine" id="sub-n"></p>
+  </div>
+  <p class="fine sumline" id="sum-line"></p>
+  <dl class="tiles" id="tiles"></dl>
+</section>
+
+<section class="card explain" aria-labelledby="ex-h">
+  <p class="eyebrow">Read this first</p>
+  <h2 id="ex-h">Why a notification is not a purchase for Manila</h2>
+  <ol>
+    <li>A notification tells Congress that the U.S. is ready to offer a sale. The buyer then has to accept a Letter of Offer and Acceptance (LOA) and pay for it. Until it signs, nothing has been bought.</li>
+    <li>Manila has often declined. In June 2025 the U.S. offered an LOA for 20 F-16s at $4.05 billion; it expired unsigned on June 30, and the State Department now lists the case as withdrawn.</li>
+    <li>Some notifications are options, not orders. The 2020 AH-64E and AH-1Z notices say the Philippines "is considering either" helicopter; it bought Turkey's T129 instead.</li>
+    <li>Notified values are ceilings. The one signed case was notified at <span data-fill="boats-m">$126M</span> and signed for <span data-fill="boats-php">₱3.72 billion</span> after Manila cut the package to fit its budget.</li>
+    <li>Some U.S.-made equipment arrives without any notification: Black Hawks bought government-to-government from Poland, C-130Js bought commercially, and FMS buys never notified to Congress, such as the Coast Guard's King Airs. Those are listed at the bottom of the page.</li>
+    <li>So this tracker shows two figures and does not add them into one backlog. A case moves to the contracted tier only when a source shows a signed LOA.</li>
+  </ol>
+</section>
+
+<section class="monthview" id="monthview" aria-labelledby="mv-h">
+  <div class="mv-top card">
+    <div class="mv-head">
+      <div>
+        <p class="eyebrow" id="mv-h">Month by month · tracker record, from March 2026</p>
+        <div class="mv-nav">
+          <button type="button" class="btn mv-arrow" id="mv-prev"><span aria-hidden="true">←</span></button>
+          <h2 class="mv-month" id="mv-month">August 2026</h2>
+          <button type="button" class="btn mv-arrow" id="mv-next"><span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="mv-pick">
+        <label class="sortl">Jump to <select id="mv-select"></select></label>
+        <div class="mv-strip" id="mv-strip" role="group" aria-label="Monthly tracker records from March 2026; the orange base is the contracted tier, the grey bar the notified-not-accepted tier"></div>
+      </div>
+    </div>
+    <p class="mv-chg" id="mv-chg"></p>
+    <p class="mv-sr" aria-live="polite" id="mv-live"></p>
+  </div>
+  <div class="mv-grid">
+    <figure class="card mv-figcard">
+      <div class="mv-paper mv-figbox">
+        <svg id="mv-fig" role="group" aria-label="Both tiers by weapons category. Each wedge is a button that filters the table."></svg>
+      </div>
+      <figcaption class="fine">U.S. arms sales to the Philippines by tier and weapons category. Green and orange wedges are contracted (orange: deliveries under way); grey wedges are notified but not accepted. The centre gives each tier's total; they are not added together. Select a wedge to list its cases.</figcaption>
+    </figure>
+    <div class="card mv-tablecard">
+      <div class="mv-paper" id="mv-tablebox"></div>
+      <ul class="mv-key" aria-label="Table key">
+        <li><span class="mv-pm" aria-hidden="true"></span><i>Italics: partly delivered</i></li>
+        <li><span class="mv-sw s-add" aria-hidden="true"></span>Notified this month</li>
+        <li><span class="mv-sw s-newp" aria-hidden="true"></span>LOA signed this month (moved tier)</li>
+        <li><span class="mv-sw s-out" aria-hidden="true"></span>Left the backlog this month</li>
+      </ul>
+      <p class="fine">Select a case for its record, milestones and sources.</p>
+    </div>
+  </div>
+  <div class="mv-foot">
+    <div class="mv-src" id="mv-src"></div>
+  </div>
+  <dialog class="mv-dialog" id="mv-card" aria-label="Case record">
+    <div class="mv-dh"><button type="button" class="btn" id="mv-card-tl">Show in timeline</button><button type="button" class="mv-x" aria-label="Close case record">×</button></div>
+    <div class="sec detail" id="mv-card-body"></div>
+  </dialog>
+</section>
+
+<main class="layout">
+  <div class="stage">
+    <div class="card chartcard">
+      <div class="chart-h">
+        <div>
+          <p class="eyebrow">Case timeline</p>
+          <p class="fine" id="gantt-sub"></p>
+        </div>
+        <ul class="legend" aria-label="Timeline legend">
+          <li><i class="lg-nna"></i>Notified, not accepted</li>
+          <li><i class="lg-con"></i>Contracted (LOA signed)</li>
+          <li><i class="lg-deliv"></i>Deliveries under way</li>
+          <li><i class="lg-contract"></i>LOA signed (hollow: date inferred)</li>
+          <li><i class="lg-event"></i>Milestone</li>
+          <li><i class="lg-delay"></i>Setback or delay</li>
+        </ul>
+      </div>
+      <div class="ganttbox" id="ganttbox">
+        <svg id="gantt" role="list" aria-label="U.S. arms sale cases to the Philippines on a timeline, by tier. Select a row for details."></svg>
+        <div class="tooltip" id="tip" hidden></div>
+      </div>
+    </div>
+
+    <div class="card chartcard">
+      <div class="chart-h">
+        <div>
+          <p class="eyebrow" id="total-title">Every notified sale since 2014, by what became of it</p>
+          <p class="fine" id="total-sub"></p>
+        </div>
+        <div class="seg" role="group" aria-label="Second chart view">
+          <button type="button" class="btn" data-view="notified" aria-pressed="true">All notifications</button>
+          <button type="button" class="btn" data-view="months" aria-pressed="false">Tracker months</button>
+        </div>
+      </div>
+      <ul class="t-key" aria-label="Chart key">
+        <li><i class="o-delivered"></i>Delivered</li>
+        <li><i class="o-contracted"></i>Contracted, not fully delivered</li>
+        <li><i class="o-nna"></i>Notified, not accepted</li>
+        <li><i class="o-dead"></i>Dead: lost or superseded</li>
+      </ul>
+      <div class="totalbox" id="totalbox">
+        <svg id="total" role="img" aria-label="U.S. arms sales notified for the Philippines over time, by outcome"></svg>
+        <p class="fine total-read" id="total-read" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="panel" id="panel" aria-label="Filters and case details">
+    <div class="sec">
+      <p class="eyebrow">Tier</p>
+      <div class="choices st" id="status"></div>
+      <p class="eyebrow">System type</p>
+      <div class="cats" id="cats"></div>
+      <div class="row2">
+        <label class="sortl">Sort by
+          <select id="sort">
+            <option value="tier">Tier, then value</option>
+            <option value="age">Longest open</option>
+            <option value="value">Dollar value</option>
+            <option value="new">Most recent</option>
+          </select>
+        </label>
+        <label class="tg" id="gone-wrap"><input type="checkbox" id="gone"><span class="sw"></span><span class="t">Left the backlog<small>Delivered or removed since March 2026</small></span></label>
+      </div>
+      <p class="fine" id="filter-read" aria-live="polite"></p>
+    </div>
+    <div class="sec detail" id="detail" aria-live="polite"></div>
+    <div class="sec actions">
+      <button type="button" class="btn solid" id="tour-btn">Start the walkthrough</button>
+      <button type="button" class="btn" id="copy-link">Copy link to this view</button>
+    </div>
+  </aside>
+</main>
+
+<section class="card excluded" id="excluded" aria-label="Delivered, dead and out-of-scope cases"></section>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read it</h2>
+    <p>Each row is one Foreign Military Sales (FMS) case that the U.S. government has notified to Congress for the Philippines and that is neither delivered nor dead. The bar starts on the notification date and runs to the data date, <span data-asof>Oct. 13, 2026</span>. A dashed outline means the case is notified but not accepted. A solid bar means an LOA is signed, starting on the date a source shows it; a hollow diamond marks a date that is inferred because the LOA date is not public. An orange end marks deliveries under way without a known start date. Ticks are milestones, red ticks setbacks: hover for a preview, and select a row for the full record and its sources.</p>
+    <p>The panel at the top is the tracker's <b>monthly record</b>, starting with March 2026. Its table gives each tier a separate subtotal, and shares are shares of the tier. The records were assembled on Oct. 13, 2026 from dated sources.</p>
+    <p>The second chart has two views. <b>All notifications</b> stacks every Philippine notification since 2014 at its date, coloured by outcome. <b>Tracker months</b> shows the two tiers in each monthly record.</p>
+
+    <h2 class="mt">Method</h2>
+    <p>The universe is every U.S. arms sale to the Philippines notified to Congress under Section 36(b) of the Arms Export Control Act. The Federal Register returns <span data-fill="u-n">11</span> such notices, the first in <span data-fill="u-first">2014</span>. DSCA's archived postings cover 10 of them (the 2026 Bell 505 case was posted by the State Department instead), and the Forum on the Arms Trade notification tracker, which starts in 2017, lists the 9 notified since then. Two records in an earlier scraped list were other countries' sales and are listed below.</p>
+    <p>Tiers follow the evidence of a signed LOA, which DSCA does not publish. The boats case is contracted on Philippine procurement records: a government-to-government FMS buy with a contract price and five funding releases. The 2025 F-16 case is not accepted on the State Department's April 2026 report to Congress, which records its LOA as offered and expired. The TH-73A, Harpoon and AIM-9X cases are not accepted because no LOA, contract action, budget line or delivery was found; that is medium confidence, and the case cards say so. The Bell 505 case is recent.</p>
+    <p>A case stays at its full notified value. A notification does not expire, so an unaccepted case stays in its tier until a source shows it was signed, delivered or dropped. Cases that lost to a competitor or were replaced by a later notification are taken out of both tiers. Categories follow TSM's Taiwan tracker: traditional, asymmetric and munitions. The boats case is filed as asymmetric (small craft, radios and night sights for littoral and riverine forces), a TSM call.</p>
+    <p>Dates: a notification date is the "date report delivered to Congress" printed in the Federal Register notice. Other dates are those the source gives; month-only dates are drawn mid-month. TSM does not forecast LOA or delivery dates.</p>
+
+    <h2 class="mt">Sources</h2>
+    <ul class="srcs">
+      <li><b>Federal Register</b>, <a href="https://www.federalregister.gov/documents/search?conditions%5Bterm%5D=Philippines+%22Arms+Sales+Notification%22" target="_blank" rel="noopener">Arms Sales Notifications naming the Philippines</a>: values, contents, funding source and the date each report reached Congress. Each case card links its notice.</li>
+      <li><b>U.S. Department of State</b>, <a href="https://www.state.gov/wp-content/uploads/2026/04/Report-Pending-Foreign-Military-Sales-Cases-006902-HRC1367749-Accessible-04.23.2026.pdf" target="_blank" rel="noopener">Report to Congress on Pending Foreign Military Sales Cases</a> (April 2026), for the F-16 LOA; <a href="https://www.state.gov/arms-sales-congressional-notifications/" target="_blank" rel="noopener">Arms Sales: Congressional Notifications</a>, which replaced DSCA's postings under Executive Order 14383, for the Bell 505 case.</li>
+      <li><b>Defense Security Cooperation Agency</b>, Philippines notifications read through the <a href="https://web.archive.org/web/20260104093536/https://www.dsca.mil/Press-Media/Major-Arms-Sales/Tag/45735/philippines" target="_blank" rel="noopener">Wayback Machine</a>.</li>
+      <li><b>Philippine procurement records</b> compiled by <a href="https://www.phdefresource.com/2020/08/riverine-operations-equipment.html" target="_blank" rel="noopener">Philippine Defense Resource</a> (boats case: buying route, contract price, funding releases) and the DND's first-semester 2026 procurement report as summarized by <a href="https://www.manilatimes.net/2026/08/03/news/national/dnd-reports-progress-in-afp-modernization-projects/2396607" target="_blank" rel="noopener">The Manila Times</a> on Aug. 3, 2026 (<a href="https://newswav.com/article/dnd-reports-progress-in-afp-modernization-projects-A2608_w7qhMr" target="_blank" rel="noopener">republished</a>); the full report was not seen.</li>
+      <li><b>Press</b>: <a href="https://businessmirror.com.ph/2026/07/21/phl-shopping-for-multi-role-fighter-planes/" target="_blank" rel="noopener">BusinessMirror</a> and <a href="https://www.gmanetwork.com/news/topstories/nation/995499/dnd-gibo-teodoro-sweden-pal-jonson-defense-gripen-jets/story/" target="_blank" rel="noopener">GMA News</a> on the fighter competition; <a href="https://abs-cbn.com/news/05/13/20/philippines-says-us-attack-helicopters-too-expensive-seeks-other-supplier" target="_blank" rel="noopener">ABS-CBN</a> and <a href="https://overtdefense.com/2024/05/23/the-philippine-air-force-receives-the-last-two-t-129-atak-helicopters-from-tai" target="_blank" rel="noopener">Overt Defense</a> on the attack helicopters; <a href="https://www.gmanetwork.com/news/topstories/nation/586213/paf-receives-second-c-130-bought-from-us/story" target="_blank" rel="noopener">GMA News</a> on the C-130Ts; <a href="https://news.lockheedmartin.com/2022-02-22-Philippine-DND-Signs-Contract-for-32-Black-Hawk-Helicopters" target="_blank" rel="noopener">Lockheed Martin</a> on the Black Hawks. Each milestone links its own source in the case card.</li>
+    </ul>
+    <p class="fine">Method credit: the case rules, categories and Figure 1 / Table 1 format follow the Taiwan Security Monitor's Taiwan Arms Sales Backlog tracker, itself built on the <a href="https://www.cato.org/blog/breaking-down-taiwans-arms-backlog-part-1-overview-methodology" target="_blank" rel="noopener">Cato Institute's November 2023 methodology</a> (<a href="https://web.archive.org/web/20231108015622/https://www.cato.org/blog/breaking-down-taiwans-arms-backlog-part-1-overview-methodology" target="_blank" rel="noopener">archived copy</a>). The two-tier split is specific to this tracker.</p>
+
+    <h2 class="mt">What is missing</h2>
+    <ul class="srcs">
+      <li>LOA signature dates. DSCA does not publish them, so the contracted tier's start date for the boats case is inferred from the first funding release.</li>
+      <li>The boats case's delivered share. Deliveries have begun, but no source gives a count.</li>
+      <li>Recent notifications. The Federal Register publishes notices weeks to months after Congress receives them, so a recent case can be missing until it appears on state.gov or in the Register.</li>
+      <li>FMS buys that were never notified to Congress, direct commercial sales and government-to-government buys from third countries are not covered.</li>
+      <li>No monthly Philippine figure was published before this tracker. Its records start in March 2026.</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Philippines Arms Sales Backlog', sub: 'U.S. arms sales to the Philippines in two tiers: contracted, and notified but never accepted.', category: 'Live trackers' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <!-- ADIZ sectors, stylized -->
+  <polygon points="150,300 330,300 330,250 290,200 140,200" fill="#b3261e" opacity=".85"/>
+  <polygon points="140,200 290,200 330,130 250,130" fill="#e8753a" opacity=".55"/>
+  <polygon points="250,130 330,130 400,40 330,40" fill="#e8753a" opacity=".8"/>
+  <polygon points="400,40 470,40 470,130 330,130" fill="#e8753a" opacity=".3"/>
+  <polygon points="360,130 470,130 470,250 380,250" fill="#e8753a" opacity=".45"/>
+  <polygon points="330,250 380,250 470,250 470,290 410,330 330,330" fill="#e8753a" opacity=".3"/>
+  <polygon points="150,300 330,330 410,330 470,290 470,40 400,40 250,130 140,200 z" fill="none" stroke="#14201a" stroke-width="3" stroke-dasharray="10 7"/>
+  <!-- Taiwan -->
+  <path d="M352,118 C372,122 382,150 378,190 C374,230 360,262 344,286 C334,268 322,232 318,200 C314,168 328,128 352,118 z" fill="#e9e4d4" stroke="#14201a" stroke-width="2"/>
+  <!-- timeline brush -->
+  <rect x="40" y="350" width="560" height="30" fill="#fbfbf8" stroke="#14201a" stroke-width="2"/>
+  <g fill="#033303">
+    <rect x="52" y="366" width="8" height="10"/><rect x="72" y="360" width="8" height="16"/><rect x="92" y="368" width="8" height="8"/>
+    <rect x="112" y="356" width="8" height="20"/><rect x="132" y="364" width="8" height="12"/><rect x="152" y="358" width="8" height="18"/>
+    <rect x="172" y="366" width="8" height="10"/><rect x="192" y="354" width="8" height="22"/><rect x="212" y="362" width="8" height="14"/>
+    <rect x="232" y="368" width="8" height="8"/><rect x="252" y="358" width="8" height="18"/><rect x="272" y="364" width="8" height="12"/>
+    <rect x="292" y="356" width="8" height="20"/><rect x="312" y="366" width="8" height="10"/><rect x="332" y="360" width="8" height="16"/>
+    <rect x="352" y="354" width="8" height="22"/><rect x="372" y="362" width="8" height="14"/><rect x="392" y="358" width="8" height="18"/>
+    <rect x="412" y="366" width="8" height="10"/><rect x="432" y="360" width="8" height="16"/><rect x="452" y="364" width="8" height="12"/>
+    <rect x="472" y="356" width="8" height="20"/><rect x="492" y="366" width="8" height="10"/><rect x="512" y="360" width="8" height="16"/>
+    <rect x="532" y="362" width="8" height="14"/><rect x="552" y="358" width="8" height="18"/><rect x="572" y="366" width="8" height="10"/>
+  </g>
+  <rect x="330" y="346" width="120" height="38" fill="#1b4fd4" opacity=".18" stroke="#1b4fd4" stroke-width="3"/>
+  <text x="520" y="90" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#033303">ADIZ</text>
+</svg>

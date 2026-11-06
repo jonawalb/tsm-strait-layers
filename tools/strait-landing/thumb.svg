@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M0 0H150C170 60 140 120 175 180C200 240 150 300 180 400H0Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M470 20C440 70 420 120 400 180C385 230 372 290 380 380L640 400V0H520Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M470 45C448 95 428 135 412 175" fill="none" stroke="#b3261e" stroke-width="9" stroke-linecap="round"/>
+  <g stroke="#b3261e" stroke-width="2.5" stroke-dasharray="8 7" fill="none" opacity=".8">
+    <path d="M175 110L400 140"/><path d="M185 170L398 170"/>
+  </g>
+  <g fill="#b3261e"><circle cx="330" cy="130" r="7"/><circle cx="355" cy="140" r="7"/><circle cx="345" cy="165" r="7"/><circle cx="372" cy="152" r="7"/></g>
+  <g fill="#fbfbf8" stroke="#b3261e" stroke-width="3"><rect x="288" y="150" width="13" height="13"/><rect x="310" y="172" width="13" height="13"/></g>
+  <rect x="40" y="250" width="300" height="120" rx="6" fill="#fbfbf8" stroke="#14201a" stroke-opacity=".15"/>
+  <polyline points="60,350 110,340 160,325 210,300 260,285 320,265" fill="none" stroke="#b3261e" stroke-width="5"/>
+  <polyline points="60,320 110,300 160,280 210,285 260,295 320,300" fill="none" stroke="#0c8474" stroke-width="5"/>
+  <text x="430" y="330" font-family="Georgia, serif" font-weight="700" font-size="34" fill="#14201a">D+3</text>
+</svg>
