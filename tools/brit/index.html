@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../../shared/js/gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Belt and Road Initiative Tracker (BRIT) | Taiwan Security Monitor</title>
+<meta name="description" content="Where Chinese state lending, investment and construction went from 2000 to 2023, country by country, with mapped projects and links to the sources behind each one.">
+<link rel="icon" type="image/png" href="../../shared/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../shared/css/tsm.css">
+<link rel="stylesheet" href="../../shared/css/tsm-site.css">
+<link rel="stylesheet" href="../../shared/css/motion.css">
+<link rel="stylesheet" href="brit.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</head>
+<body>
+<div class="tsm-mast" id="tsm-mast">
+<div class="tsm-mast-in">
+  <a class="tsm-mast-logo" href="https://tsm.schar.gmu.edu/"><img src="../../shared/assets/tsm-logo.png" alt="" width="72" height="72"><span>Taiwan<br>Security<br>Monitor</span></a>
+  <div class="tsm-mast-site"><a href="../../">Taiwan Security Monitor</a><span>Interactive maps, models and wargames</span></div>
+  <a class="tsm-mast-back" href="https://tsm.schar.gmu.edu/"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M11.6 5.6 7.2 10l4.4 4.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Taiwan Security Monitor main site</span></a>
+</div>
+<div class="tsm-mast-nav"><div class="tsm-mast-nav-in" id="tsm-mast-bar">
+  <a class="tsm-mast-home" href="https://tsm.schar.gmu.edu/" aria-label="Taiwan Security Monitor home"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.2 1.5 9.3l1.2 1.4L4 9.6V17.5h4.6v-5h2.8v5H16V9.6l1.3 1.1 1.2-1.4z" fill="currentColor"/></svg></a>
+  <a class="tsm-mast-cur" href="../../">TSM Interactive</a>
+</div></div>
+</div>
+<header id="tsm-head"></header>
+<main class="layout">
+  <div class="stage">
+    <div class="bar">
+      <div class="seg" role="group" aria-label="What the shading measures">
+        <button type="button" class="btn" data-metric="ad" aria-pressed="true">State lending &amp; grants, 2000–21</button>
+        <button type="button" class="btn" data-metric="aei" aria-pressed="false">Investment &amp; construction, 2005–23</button>
+      </div>
+      <div class="seg" role="group" aria-label="Map region">
+        <button type="button" class="btn" data-view="world">World</button>
+        <button type="button" class="btn" data-view="sea">Southeast Asia</button>
+        <button type="button" class="btn" data-view="sas">South Asia</button>
+        <button type="button" class="btn" data-view="pac">Pacific</button>
+        <button type="button" class="btn" data-view="cas">Central Asia</button>
+        <button type="button" class="btn" data-view="afr">Africa</button>
+        <button type="button" class="btn" data-view="lac">Latin America</button>
+        <button type="button" class="btn" data-view="eur">Europe</button>
+      </div>
+    </div>
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="World map shaded by Chinese finance received per country"></svg>
+      <div class="tooltip" id="tip" hidden></div>
+      <div class="toolbar" role="group" aria-label="Map tools">
+        <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" id="bri-only" aria-pressed="false" title="Grey out countries without a BRI memorandum">BRI signatories only</button>
+        <button type="button" id="all-pts" aria-pressed="false" title="Show every mapped AidData project worldwide">All project locations</button>
+      </div>
+      <div class="legend" id="legend"></div>
+      <p class="maphint">Hover for totals · click a country for its dossier · drag to pan · scroll or pinch to zoom · or type a name in Find a country</p>
+    </div>
+    <div class="card" id="search-card">
+      <label class="sel" for="country-search">Find a country
+        <input id="country-search" list="country-list" placeholder="Type a name, e.g. Laos" autocomplete="off">
+      </label>
+      <datalist id="country-list"></datalist>
+    </div>
+  </div>
+  <aside class="panel" id="panel" aria-label="Country dossier"></aside>
+  <p id="brit-status" class="sr-only" role="status"></p>
+</main>
+
+<section class="below">
+  <div class="col">
+    <h2>How to read this</h2>
+    <p>Each country is shaded by how much Chinese money it received under the measure you pick above. China itself is the darkest shade: it is the source of every flow on the map. A dark outline marks a country that has signed a Belt and Road memorandum with Beijing. A dashed outline marks a country that has left the initiative, or whose membership the source lists as uncertain.</p>
+    <p>The two measures count different things, so the map never adds them together. <b>State lending and grants</b> comes from AidData: loans and grants from Chinese government banks, ministries and state-owned firms to low- and middle-income countries, committed 2000 to 2021. <b>Investment and construction</b> comes from AEI's China Global Investment Tracker: deals of $100 million or more by Chinese companies, as equity investment or as construction contracts, in every country including rich ones, 2005 to 2023.</p>
+    <p>Click a country to open its dossier: a summary, the year-by-year pattern, the main sectors and lenders, recent reporting, and its largest projects with links to the sources AidData used to record them. Projects with a known location appear on the map as circles sized by value, and 52 large project sites, marked with dark diamonds, open a reviewed before-and-after satellite view on the map (drag the slider to compare). Clicking any other project circle opens an automatic view of its mapped location, comparing the year before the deal (2016 at the earliest) with 2025. "All project locations" shows every mapped project worldwide.</p>
+    <h2 class="mt">Method and limits</h2>
+    <p><b>Totals.</b> AidData figures use AidData's own aggregation rule: only projects it marks "recommended for aggregates" (this drops umbrella agreements and duplicates), using its adjusted amount where one exists, in constant 2021 dollars. That rule reproduces AidData's published total of $1.34 trillion. <span id="regional-note"></span> AEI figures are nominal dollars and sum investment (Dataset 1) and construction (Dataset 2) for each host country.</p>
+    <p><b>BRI membership.</b> "Signatory" means a country appears on the Green Finance &amp; Development Center's list of countries that signed a BRI memorandum of understanding (May 2025). The list's author notes that some signings cannot be independently confirmed (Austria, DR Congo, Niger and Russia are marked uncertain here) and that some memoranda may have lapsed. Italy left in 2023 and Panama in 2025. Most Chinese finance before 2013, and much of it since, was not labeled BRI at all, so the shading shows Chinese money, and the outline shows formal BRI status.</p>
+    <p><b>Locations.</b> Project points come from AidData's geospatial dataset (GeoGCDF), which traces about 9,400 projects to OpenStreetMap features or administrative areas. Each point sits inside the project's mapped area; for roads, railways and multi-site programs it marks one spot along the footprint, and for projects located only to a province or district it marks that area. Projects without a location are listed in the dossier but not mapped.</p>
+    <p><b>AidData record links.</b> Each project links to its page on AidData's live site, which has been updated since version 3.0: it shows amounts in constant 2023 dollars, and a few records have since been merged or retitled, so a small number of links may not resolve. Figures on this map stay with the published 3.0 release.</p>
+    <p><b>Coverage gaps.</b> AidData stops at 2021 commitments, and AEI's last public release ends in 2023: newer AEI data is available only by request to its author. Neither covers small deals well: AEI records only transactions of $100 million or more (the smallest entry in its spreadsheet is exactly $100 million). Older source links in AidData's records sometimes break; dead links in each country's top projects were checked and point to an archived copy where one exists.</p>
+  </div>
+  <div class="col">
+    <h2>Sources</h2>
+    <ol class="src">
+      <li>Custer, S., A. Dreher, T.-B. Elston, B. Escobar, R. Fedorochko, A. Fuchs, S. Ghose, J. Lin, A. Malik, B. C. Parks, K. Solomon, A. Strange, M. J. Tierney, L. Vlasto, K. Walsh, F. Wang, L. Zaleski and S. Zhang. 2023. <a href="https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0">AidData's Global Chinese Development Finance Dataset, Version 3.0</a>. Williamsburg, VA: AidData at William &amp; Mary. Open Data Commons Attribution License (ODC-By).</li>
+      <li>Goodman, S., S. Zhang, A. Malik, B. C. Parks and J. Hall. 2024. <a href="https://doi.org/10.1038/s41597-024-03341-w">AidData's Geospatial Global Chinese Development Finance Dataset</a>. <i>Scientific Data</i> 11, 529. Data: <a href="https://github.com/aiddata/gcdf-geospatial-data/releases/tag/v3.0.1">GeoGCDF v3.0.1</a> (ODC-By and ODbL).</li>
+      <li>American Enterprise Institute. <a href="https://www.aei.org/china-global-investment-tracker/">China Global Investment Tracker</a>, 2023 Fall release (<a href="https://www.aei.org/wp-content/uploads/2024/03/China-Global-Investment-Tracker-2023-Fall.xlsx">spreadsheet</a>). Used with citation, as AEI permits.</li>
+      <li>Nedopil, C. 2025. <a href="https://greenfdc.org/countries-of-the-belt-and-road-initiative-bri/">Countries of the Belt and Road Initiative</a>. Shanghai: Green Finance &amp; Development Center, FISF Fudan University.</li>
+      <li>Natural Earth. <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/">Admin 0 countries, 1:50m</a>, v5.1.2. Public domain.</li>
+      <li>Satellite views: Copernicus Sentinel-2 Level-2A imagery (European Union, free with credit), via the <a href="https://earth-search.aws.element84.com/v1">Earth Search</a> catalogue, and Landsat 5 and 8 Collection 2 imagery (U.S. Geological Survey, public domain), via the <a href="https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2">Microsoft Planetary Computer</a>. Each pair uses the same window; scene dates and sensors are shown under each image. Locations were checked against an independent open source.</li>
+      <li>Automatic views for every other mapped project: <a href="https://cloudless.eox.at">EOxCloudless</a> yearly cloud-free Sentinel-2 mosaics by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016 to 2025; 2016 layer CC BY 4.0, later layers CC BY-NC-SA 4.0), loaded live from EOX and centred on the project's GeoGCDF location. These are not checked by hand and are labelled as such.</li>
+      <li>Recent reporting (24 Indo-Pacific countries and the 40 largest other recipients of AidData lending): each article is linked where it appears and was opened and checked before inclusion.</li>
+    </ol>
+    <p class="fine mt">Country borders follow Natural Earth and imply no position on disputed territory. Built <span id="built"></span>.</p>
+  </div>
+</section>
+<footer id="tsm-foot"></footer>
+<script type="module">
+  import { mountChrome } from '../../shared/js/chrome.js';
+  mountChrome({ title: 'Belt and Road Initiative Tracker (BRIT)', sub: 'Where Chinese state lending, investment and construction went, country by country, with mapped projects and the sources behind them.', category: 'Indo-Pacific geography' });
+</script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

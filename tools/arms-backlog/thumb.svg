@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="8" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <rect x="396" y="40" width="3" height="320" fill="#14201a" opacity=".5"/>
+  <g>
+    <rect x="60" y="70" width="336" height="18" rx="4" fill="#a88000" opacity=".5"/><circle cx="60" cy="79" r="9" fill="#a88000"/>
+    <path d="M400 79H500" stroke="#56625b" stroke-width="3" stroke-dasharray="8 6"/><circle cx="504" cy="79" r="8" fill="#fbfbf8" stroke="#56625b" stroke-width="3"/>
+    <rect x="130" y="112" width="266" height="18" rx="4" fill="#6a4fb5" opacity=".5"/><circle cx="130" cy="121" r="9" fill="#6a4fb5"/>
+    <rect x="170" y="154" width="226" height="18" rx="4" fill="#0c8474" opacity=".45"/><rect x="300" y="154" width="96" height="18" rx="4" fill="#e8753a"/><circle cx="170" cy="163" r="9" fill="#0c8474"/>
+    <path d="M400 163H560" stroke="#56625b" stroke-width="3" stroke-dasharray="8 6"/><circle cx="564" cy="163" r="8" fill="#fbfbf8" stroke="#56625b" stroke-width="3"/>
+    <rect x="230" y="196" width="166" height="18" rx="4" fill="#0c8474" opacity=".45"/><circle cx="230" cy="205" r="9" fill="#0c8474"/>
+    <rect x="262" y="199" width="12" height="12" transform="rotate(45 268 205)" fill="#14201a"/>
+    <rect x="360" y="238" width="36" height="18" rx="4" fill="#0c8474" opacity=".45"/><circle cx="360" cy="247" r="9" fill="#0c8474"/>
+    <path d="M400 247H590" stroke="#56625b" stroke-width="3" stroke-dasharray="8 6"/>
+  </g>
+  <text x="60" y="340" font-family="Georgia, serif" font-weight="700" font-size="46" fill="#033303">$29.72B</text>
+  <text x="290" y="338" font-family="Arial, sans-serif" font-size="22" fill="#56625b">still to deliver</text>
+</svg>

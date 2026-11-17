@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="32" y="32" width="576" height="176" rx="6" fill="#d6e1e1"/>
+  <path d="M32 32h58c-14 50 12 110-4 176H32z" fill="#e9e4d4"/>
+  <path d="M608 32h-52c14 60-10 120 6 176h46z" fill="#e9e4d4"/>
+  <rect x="150" y="52" width="410" height="30" fill="#0c8474" fill-opacity=".28"/>
+  <rect x="340" y="90" width="220" height="30" fill="#e8753a" fill-opacity=".3"/>
+  <rect x="480" y="128" width="80" height="30" fill="#a88000" fill-opacity=".35"/>
+  <g fill="#b3261e">
+    <path d="M210 66h26l7 6l-7 6h-26z"/><path d="M300 104h26l7 6l-7 6h-26z"/><path d="M250 142h26l7 6l-7 6h-26z"/>
+    <path d="M420 66h26l7 6l-7 6h-26z"/><path d="M160 180h26l7 6l-7 6h-26z"/>
+  </g>
+  <g stroke="#14201a" stroke-width="4" stroke-linecap="round">
+    <path d="M392 96l16 20M408 96l-16 20"/><path d="M500 134l16 20M516 134l-16 20"/><path d="M462 56l16 20M478 56l-16 20"/>
+  </g>
+  <g fill="#0c8474"><path d="M580 60l10 18h-20z"/><path d="M580 100l10 18h-20z"/><path d="M580 140l10 18h-20z"/></g>
+  <g>
+    <rect x="32" y="252" width="140" height="56" fill="#0c8474"/>
+    <rect x="172" y="252" width="150" height="56" fill="#e8753a"/>
+    <rect x="322" y="252" width="70" height="56" fill="#a88000"/>
+    <rect x="392" y="252" width="80" height="56" fill="#1b4fd4"/>
+    <rect x="472" y="252" width="66" height="56" fill="#b0306e"/>
+    <rect x="538" y="252" width="70" height="56" fill="#6b5b3e"/>
+    <rect x="320" y="244" width="5" height="72" rx="2" fill="#14201a"/>
+  </g>
+  <text x="32" y="356" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#033303">NT$145.7bn</text>
+  <text x="608" y="356" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#14201a">where does it go?</text>
+</svg>

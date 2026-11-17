@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="64" rx="6" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <g font-family="Georgia, serif" font-weight="700" font-size="20" fill="#14201a" text-anchor="middle">
+    <rect x="36" y="36" width="56" height="40" rx="4" fill="#fbfbf8" stroke="#d3d6cd"/><text x="64" y="63">Jun</text>
+    <rect x="100" y="36" width="56" height="40" rx="4" fill="#fbfbf8" stroke="#d3d6cd"/><text x="128" y="63">Jul</text>
+    <rect x="164" y="36" width="56" height="40" rx="4" fill="#033303"/><text x="192" y="63" fill="#f2f2ee">Aug</text>
+  </g>
+  <rect x="24" y="104" width="592" height="272" rx="6" fill="#fbfbf8" stroke="#d3d6cd"/>
+  <g fill="#1b4fd4">
+    <rect x="60" y="250" width="14" height="100"/><rect x="100" y="300" width="14" height="50"/><rect x="140" y="170" width="14" height="180"/>
+    <rect x="180" y="270" width="14" height="80"/><rect x="220" y="230" width="14" height="120"/><rect x="260" y="310" width="14" height="40"/>
+    <rect x="300" y="200" width="14" height="150"/><rect x="340" y="280" width="14" height="70"/><rect x="380" y="320" width="14" height="30"/>
+    <rect x="420" y="190" width="14" height="160"/><rect x="460" y="290" width="14" height="60"/><rect x="500" y="330" width="14" height="20"/><rect x="540" y="260" width="14" height="90"/>
+  </g>
+  <g fill="#e8753a">
+    <rect x="74" y="270" width="14" height="80"/><rect x="114" y="316" width="14" height="34"/><rect x="154" y="210" width="14" height="140"/>
+    <rect x="194" y="296" width="14" height="54"/><rect x="234" y="262" width="14" height="88"/><rect x="274" y="326" width="14" height="24"/>
+    <rect x="314" y="232" width="14" height="118"/><rect x="354" y="300" width="14" height="50"/><rect x="394" y="330" width="14" height="20"/>
+    <rect x="434" y="224" width="14" height="126"/><rect x="474" y="310" width="14" height="40"/><rect x="514" y="340" width="14" height="10"/><rect x="554" y="286" width="14" height="64"/>
+  </g>
+  <path d="M154 140l6 13 14 1-11 9 4 14-13-8-13 8 4-14-11-9 14-1z" fill="#a86c10"/>
+  <path d="M434 150l6 13 14 1-11 9 4 14-13-8-13 8 4-14-11-9 14-1z" fill="#a86c10"/>
+  <line x1="44" y1="350" x2="596" y2="350" stroke="#56625b" stroke-width="2"/>
+</svg>

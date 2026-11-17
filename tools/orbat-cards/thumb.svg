@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#d6e1e1"/>
+  <path d="M0 0H260C280 60 300 110 280 170C262 230 230 290 170 400H0Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M332 150C348 160 352 200 340 240C332 262 320 262 316 240C312 200 318 160 332 150Z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <path d="M470 90l18 -8l6 10l-16 8z M430 170l12-4l4 7l-12 4z" fill="#e9e4d4" stroke="#97a197" stroke-width="2"/>
+  <circle cx="230" cy="120" r="11" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="250" cy="200" r="11" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="330" cy="175" r="11" fill="#0c8474" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="480" cy="92" r="11" fill="#b0306e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="345" cy="330" r="11" fill="#a88000" stroke="#fbfbf8" stroke-width="3"/>
+  <g transform="rotate(-6 470 250)">
+    <rect x="380" y="170" width="170" height="210" rx="10" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="380" y="170" width="170" height="12" rx="4" fill="#b3261e"/>
+    <rect x="410" y="215" width="110" height="78" rx="3" fill="none" stroke="#b3261e" stroke-width="5"/>
+    <path d="M410 215l110 78M520 215l-110 78" stroke="#b3261e" stroke-width="5"/>
+    <text x="465" y="342" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#14201a">73rd GA</text>
+  </g>
+  <g transform="rotate(8 150 300)">
+    <rect x="80" y="230" width="150" height="150" rx="10" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+    <rect x="80" y="230" width="150" height="12" rx="4" fill="#b0306e"/>
+    <path d="M110 330l45-55l45 55z" fill="none" stroke="#b0306e" stroke-width="5"/>
+  </g>
+</svg>

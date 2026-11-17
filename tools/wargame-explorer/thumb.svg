@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="28" y="28" width="584" height="344" rx="8" fill="#fbfbf8" stroke="#d6e1e1" stroke-width="2"/>
+  <!-- header row -->
+  <rect x="28" y="28" width="584" height="54" rx="8" fill="#e9e4d4"/>
+  <text x="52" y="64" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#14201a">Assumptions → outcomes</text>
+  <!-- column headings as chips, the Japan column highlighted -->
+  <rect x="244" y="98" width="70" height="22" rx="4" fill="#1b4fd4" fill-opacity=".18" stroke="#1b4fd4" stroke-width="2"/>
+  <rect x="326" y="98" width="70" height="22" rx="4" fill="#e9e4d4"/>
+  <rect x="408" y="98" width="70" height="22" rx="4" fill="#e9e4d4"/>
+  <!-- rows: label block, three assumption cells, outcome bar -->
+  <g>
+    <rect x="52" y="136" width="170" height="16" rx="3" fill="#14201a" fill-opacity=".75"/>
+    <rect x="244" y="132" width="70" height="24" rx="3" fill="#1b4fd4" fill-opacity=".14"/>
+    <rect x="326" y="132" width="70" height="24" rx="3" fill="#e9e4d4"/><rect x="408" y="132" width="70" height="24" rx="3" fill="#e9e4d4"/>
+    <rect x="496" y="136" width="70" height="16" fill="#1b4fd4"/><rect x="567" y="136" width="21" height="16" fill="#e8753a"/>
+  </g>
+  <g>
+    <rect x="52" y="182" width="140" height="16" rx="3" fill="#14201a" fill-opacity=".75"/>
+    <rect x="244" y="178" width="70" height="24" rx="3" fill="#1b4fd4" fill-opacity=".14"/>
+    <rect x="326" y="178" width="70" height="24" rx="3" fill="#e9e4d4" stroke="#e8753a" stroke-width="2"/><rect x="408" y="178" width="70" height="24" rx="3" fill="#e9e4d4"/>
+    <rect x="496" y="182" width="22" height="16" fill="#1b4fd4"/><rect x="519" y="182" width="69" height="16" fill="#e8753a"/>
+  </g>
+  <g>
+    <rect x="52" y="228" width="160" height="16" rx="3" fill="#14201a" fill-opacity=".75"/>
+    <rect x="244" y="224" width="70" height="24" rx="3" fill="#b3261e" fill-opacity=".16" stroke="#b3261e" stroke-width="2"/>
+    <rect x="326" y="224" width="70" height="24" rx="3" fill="#e9e4d4"/><rect x="408" y="224" width="70" height="24" rx="3" fill="#e9e4d4"/>
+    <rect x="496" y="228" width="92" height="16" fill="#b3261e"/>
+  </g>
+  <g>
+    <rect x="52" y="274" width="120" height="16" rx="3" fill="#14201a" fill-opacity=".75"/>
+    <rect x="244" y="270" width="70" height="24" rx="3" fill="#1b4fd4" fill-opacity=".14"/>
+    <rect x="326" y="270" width="70" height="24" rx="3" fill="#e9e4d4"/><rect x="408" y="270" width="70" height="24" rx="3" fill="#e9e4d4" stroke="#e8753a" stroke-width="2"/>
+    <rect x="496" y="274" width="36" height="16" fill="#1b4fd4"/><rect x="533" y="274" width="36" height="16" fill="#e8753a"/><rect x="570" y="274" width="18" height="16" fill="#14201a"/>
+  </g>
+  <!-- page citation chips -->
+  <g fill="none" stroke="#14201a" stroke-width="2">
+    <rect x="52" y="322" width="96" height="28" rx="14"/>
+    <rect x="160" y="322" width="96" height="28" rx="14"/>
+    <rect x="268" y="322" width="96" height="28" rx="14"/>
+  </g>
+  <g font-family="Menlo, monospace" font-size="18" fill="#14201a">
+    <text x="72" y="342">p. 85</text><text x="180" y="342">p. 99</text><text x="286" y="342">p. XI</text>
+  </g>
+  <rect x="28" y="28" width="8" height="344" fill="#033303"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <circle cx="200" cy="200" r="130" fill="none" stroke="#e7e9e1" stroke-width="34"/>
+  <path d="M200 330A130 130 0 0 1 200 70" fill="none" stroke="#d3d6cd" stroke-width="34"/>
+  <circle cx="200" cy="200" r="112" fill="#fbfbf8"/>
+  <path d="M312 245A130 130 0 0 1 270 310" fill="none" stroke="#b0306e" stroke-width="10" stroke-linecap="round" opacity=".5"/>
+  <circle cx="265" cy="88" r="15" fill="#a86c10"/>
+  <circle cx="313" cy="244" r="15" fill="#b0306e"/>
+  <circle cx="297" cy="283" r="15" fill="#b0306e"/>
+  <circle cx="265" cy="313" r="15" fill="#b0306e"/>
+  <line x1="200" y1="52" x2="200" y2="74" stroke="#14201a" stroke-width="4"/>
+  <line x1="200" y1="326" x2="200" y2="348" stroke="#14201a" stroke-width="4"/>
+  <text x="200" y="222" font-family="Georgia, serif" font-weight="700" font-size="64" fill="#14201a" text-anchor="middle">24h</text>
+  <text x="380" y="150" font-family="Georgia, serif" font-weight="700" font-size="92" fill="#1b4fd4">32</text>
+  <text x="380" y="190" font-family="Georgia, serif" font-weight="700" font-size="24" fill="#14201a">aircraft</text>
+  <text x="380" y="290" font-family="Georgia, serif" font-weight="700" font-size="92" fill="#0c8474">10</text>
+  <text x="380" y="330" font-family="Georgia, serif" font-weight="700" font-size="24" fill="#14201a">ships</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="10" fill="#fbfbf8" stroke="#d3d6cd" stroke-width="2"/>
+  <g stroke-linecap="round" fill="none">
+    <path d="M190 150L270 205M190 150L150 240M270 205L150 240M270 205L345 150M345 150L430 210M430 210L505 150M430 210L470 290M270 205L330 285" stroke="#2c6d8a" stroke-width="4" opacity=".6"/>
+    <path d="M190 150L120 110M270 205L250 300" stroke="#14201a" stroke-width="3"/>
+    <path d="M345 150L505 150M150 240L330 285" stroke="#e8753a" stroke-width="3.5" stroke-dasharray="10 7"/>
+  </g>
+  <circle cx="270" cy="205" r="22" fill="#b3261e" stroke="#fbfbf8" stroke-width="4"/>
+  <circle cx="270" cy="205" r="30" fill="none" stroke="#14201a" stroke-width="3"/>
+  <circle cx="190" cy="150" r="16" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="150" cy="240" r="11" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="150" cy="240" r="18" fill="none" stroke="#b3261e" stroke-width="3"/>
+  <circle cx="120" cy="110" r="10" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="250" cy="300" r="10" fill="#b3261e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="330" cy="285" r="11" fill="#0c8474" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="345" cy="150" r="16" fill="#0c8474" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="430" cy="210" r="18" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="505" cy="150" r="13" fill="#b0306e" stroke="#fbfbf8" stroke-width="3"/>
+  <circle cx="470" cy="290" r="13" fill="#033303" stroke="#fbfbf8" stroke-width="3"/>
+  <g transform="translate(60 330)">
+    <rect width="250" height="10" rx="3" fill="#e7e9e1"/><rect x="40" width="120" height="10" rx="3" fill="#b3261e"/>
+    <rect y="-22" width="250" height="10" rx="3" fill="#e7e9e1"/><rect x="140" y="-22" width="110" height="10" rx="3" fill="#b3261e" opacity=".6"/>
+  </g>
+  <text x="590" y="350" text-anchor="end" font-family="Georgia, serif" font-weight="700" font-size="30" fill="#14201a">Who knows whom</text>
+</svg>

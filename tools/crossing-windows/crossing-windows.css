@@ -1,0 +1,108 @@
+/* Crossing Windows: tool styles on top of shared/css/tsm.css. Tokens only. */
+.pad { padding: 14px 16px; }
+.card h2 { font-size: 22px; margin: 2px 0 0; line-height: 1.1; }
+.card h3 { font-family: var(--display); font-size: 15px; font-weight: 600; margin: 10px 0 6px; }
+.card-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 6px 16px; margin-bottom: 8px; }
+.mt { margin-top: 14px; }
+.chartbox { position: relative; }
+.chart { display: block; width: 100%; height: auto; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 6px; }
+.selrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12.5px; }
+.selrow select { font: inherit; font-size: 12.5px; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 4px 6px; max-width: 64%; }
+.selrow select:disabled { opacity: .5; }
+.slider sup { color: var(--muted); font-size: 10px; }
+.choices.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#presets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#presets small { color: var(--muted); font-size: 11px; }
+
+/* keys */
+.key { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.key.small { font-size: 11.5px; }
+.key i { display: inline-block; width: 12px; height: 10px; margin-right: 5px; vertical-align: -1px; border-radius: 2px; }
+.k-bar { background: var(--good); }
+.k-tc { height: 0 !important; border-top: 2px solid var(--red); border-radius: 0 !important; vertical-align: 3px !important; }
+.k-easton { background: var(--accent); opacity: .35; }
+.k-wotr { border: 1px dashed var(--accent); }
+.k-claim { background: var(--accent); }
+.k-wotr2 { background: var(--good); opacity: .55; }
+.k-pt { background: var(--blue); border-radius: 50% !important; }
+.k-stn { width: 0 !important; height: 0 !important; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid var(--c5); border-radius: 0 !important; }
+.k-port { background: var(--c3); }
+.k-ring { border: 1.5px dashed var(--red); border-radius: 50% !important; }
+
+/* heatmap */
+.hm-c { fill: var(--good); }
+.hm-c.zero { fill: var(--chip); }
+.hm-tc { fill: var(--red); pointer-events: none; }
+.hm-sel { fill: none; stroke: var(--accent); stroke-width: 2; pointer-events: none; }
+#heatmap { cursor: pointer; touch-action: manipulation; }
+.claim path { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+
+/* week chart */
+.grid { stroke: var(--rule); stroke-width: 1; }
+.band.easton { fill: var(--accent); fill-opacity: .16; }
+.band.wotr { fill: none; stroke: var(--accent); stroke-dasharray: 4 3; stroke-opacity: .7; }
+.band-l { font: 600 12px var(--body); fill: var(--accent); }
+.bar { fill: var(--good); fill-opacity: .75; }
+.bar.sel { fill: var(--accent); fill-opacity: 1; }
+.tcline { fill: none; stroke: var(--red); stroke-width: 2; pointer-events: none; }
+#weekchart { cursor: pointer; }
+#weekchart:focus-visible { outline-offset: 4px; }
+
+/* drill-down */
+.drill-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 22px; }
+@media (max-width: 1180px) { .drill-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .drill-grid > :first-child { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .drill-grid { grid-template-columns: minmax(0, 1fr); } }
+.drill p { margin: 0 0 6px; }
+.wkstep { display: flex; gap: 6px; }
+.tests { display: flex; flex-direction: column; gap: 6px; }
+.tb { display: grid; grid-template-columns: minmax(0, 1fr) 90px 40px; gap: 8px; align-items: center; font-size: 12.5px; }
+.tb i { height: 10px; background: var(--chip); border-radius: 2px; overflow: hidden; display: block; }
+.tb b { display: block; height: 100%; background: var(--bad); }
+.tb.go b { background: var(--good); }
+.tb.go span { font-weight: 600; }
+.tb em { font-style: normal; text-align: right; }
+.box { display: block; width: 100%; height: auto; }
+.bx { fill: var(--blue-soft); stroke: var(--blue); }
+.bx-w { stroke: var(--blue); stroke-width: 1.5; }
+.bx-m { stroke: var(--blue); stroke-width: 3; }
+.thr { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 2; }
+.thr-l { font: 500 11px var(--mono); fill: var(--accent); }
+.night { fill: var(--blue); }
+.dayline { stroke: var(--rule); }
+.tide { fill: none; stroke: var(--ink); stroke-width: 2.2; }
+.moon-dark { fill: var(--chip); stroke: var(--faint); stroke-width: .8; }
+.moon-lit { fill: var(--c5); }
+.mval { font: 500 11px var(--mono); fill: var(--muted); }
+
+/* claim comparison */
+.claim-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 24px; align-items: start; margin-top: 8px; }
+@media (max-width: 800px) { .claim-grid { grid-template-columns: minmax(0, 1fr); } }
+.mbar { fill: var(--faint); fill-opacity: .45; }
+.mbar.wotr { fill: var(--good); fill-opacity: .55; }
+.mbar.claim { fill: var(--accent); fill-opacity: 1; }
+.claim-text p { margin: 0 0 10px; }
+
+/* locator */
+.locator svg { touch-action: manipulation; }
+.pt circle { fill: var(--blue); fill-opacity: .35; stroke: var(--blue); stroke-width: 1.5; }
+.pt.on circle { fill-opacity: 1; stroke-width: 2.5; }
+.pt text { fill: var(--ink); }
+.stn path { fill: var(--c5); fill-opacity: .4; stroke: var(--c5); }
+.stn.on path { fill-opacity: 1; }
+.port rect { fill: var(--c3); fill-opacity: .35; stroke: var(--c3); }
+.port.on rect { fill-opacity: 1; }
+.pt, .stn, .port { cursor: pointer; }
+.tc-ring { fill: var(--red-soft); stroke: var(--red); stroke-dasharray: 5 4; stroke-width: 1.2; pointer-events: none; }
+
+/* walkthrough */
+.tour { position: fixed; right: 16px; bottom: 16px; z-index: 40; width: min(380px, calc(100vw - 32px)); background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 4px; padding: 12px 14px; box-shadow: 0 8px 28px rgba(0, 0, 0, .22); display: flex; flex-direction: column; gap: 6px; }
+.tour[hidden] { display: none; }
+.tour-h { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.tour .x { background: none; border: 0; font-size: 20px; line-height: 1; cursor: pointer; color: var(--muted); padding: 0 4px; }
+.tour h3 { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.15; }
+.tour p { margin: 0; font-size: 13px; }
+.tour-nav { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+@media (max-width: 520px) { .tour { right: 8px; left: 8px; bottom: 8px; width: auto; } }
+@media (max-width: 520px) { .drill .tablewrap th, .drill .tablewrap td { padding: 6px 5px; font-size: 11.5px; } .card-h { align-items: flex-start; } }
+@media (max-width: 700px) { .chartbox.scroll { overflow-x: auto; } .chartbox.scroll > svg { min-width: 680px; } }

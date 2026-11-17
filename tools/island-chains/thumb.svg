@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#f2f2ee"/>
+  <rect x="24" y="24" width="592" height="352" rx="6" fill="#d6e1e1"/>
+  <path d="M24 40 L200 40 L230 110 L200 170 L150 230 L100 250 L24 250Z" fill="#e9e4d4"/>
+  <path d="M24 60 L180 60 L200 120 L170 175 L120 220 L24 220Z" fill="#b3261e" fill-opacity=".12"/>
+  <path d="M250 70 L300 40 L330 60 L290 110 L262 120Z" fill="#e9e4d4"/>
+  <path d="M212 190 l8 -14 l5 18 l-8 12z" fill="#0c8474"/>
+  <path d="M215 250 L240 245 L250 300 L225 320 L210 290Z" fill="#e9e4d4"/>
+  <circle cx="262" cy="160" r="120" fill="#b3261e" fill-opacity=".08" stroke="#b3261e" stroke-width="2"/>
+  <circle cx="262" cy="160" r="70" fill="none" stroke="#b0306e" stroke-width="2"/>
+  <path d="M320 40 L290 110 L262 160 L222 188 L220 210 L232 250 L225 330" fill="none" stroke="#4c6b2f" stroke-width="4" stroke-dasharray="12 8" stroke-linecap="round"/>
+  <path d="M400 40 L420 130 L450 220 L440 260 L380 330" fill="none" stroke="#4c6b2f" stroke-width="4" stroke-dasharray="4 8" stroke-linecap="round"/>
+  <circle cx="262" cy="160" r="9" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <rect x="236" y="176" width="12" height="12" fill="#a1487a"/>
+  <path d="M232 238 l8 -8 l8 8 l-8 8z" fill="#a88000"/>
+  <circle cx="440" cy="262" r="8" fill="#1b4fd4" stroke="#fbfbf8" stroke-width="3"/>
+  <path d="M130 120 l9 -15 l9 15z" fill="#b3261e"/>
+  <text x="470" y="352" font-family="Georgia, serif" font-weight="700" font-size="26" fill="#4c6b2f">Chains</text>
+</svg>
